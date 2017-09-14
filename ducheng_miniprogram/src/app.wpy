@@ -1,0 +1,163 @@
+<style>
+.container {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  font-family: "Microsoft YaHei", sans-serif;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-flow: column nowrap;
+  overflow: hidden;
+
+  box-sizing: border-box;
+
+  background-color: #f8f8f8;
+}
+</style>
+
+<script>
+import wepy from 'wepy';
+import 'wepy-async-function';
+
+// import * as rsa from './utils/rsa/rsa';
+// import Base64 from './utils/base64';
+
+export default class extends wepy.app {
+  config = {
+    pages: [
+      'pages/index',
+      'pages/customer/customer',
+      'pages/customer/customer_center',
+      'pages/customer/customer_bill',
+      'pages/customer/customer_bill_all',
+      'pages/manager/manager',
+      'pages/manager/manager_setting',
+      'pages/manager/manager_switch',
+      'pages/manager/manager_manage',
+      'pages/manager/manager_modify',
+      'pages/manager/manager_select',
+      'pages/manager/manager_bill',
+      'pages/cashier/cashier',
+      'pages/cashier/cashier_code',
+      'pages/cashier/cashier_center',
+      'pages/cashier/cashier_bill',
+      'pages/result',
+      'pages/msg'
+    ],
+    window: {
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#fff',
+      navigationBarTitleText: 'WeChat',
+      navigationBarTextStyle: 'black',
+    },
+    networkTimeout: {
+      request: 10000,
+      downloadFile: 10000
+    }
+  }
+
+  globalData = {
+    user: null,
+    token: null,
+    secret: null,
+    expires_in: null,
+    time_step: null,
+    key: null
+  }
+
+  constructor() {
+    super();
+    this.use('requestfix');
+
+  }
+
+  clearLoginStat() {
+
+    let ctx = this;
+
+    ctx.globalData.user = null;
+    ctx.globalData.token = null;
+    ctx.globalData.secret = null;
+    ctx.globalData.expires_in = null;
+    ctx.globalData.time_step = null;
+
+    wx.removeStorageSync('user');
+    wx.removeStorageSync('token');
+    wx.removeStorageSync('secret');
+    wx.removeStorageSync('expires_in');
+    wx.removeStorageSync('time_step');
+
+  }
+
+
+  onLaunch() {
+
+    // this.globalData = {
+    //   "user": {
+    //     "last_transaction_time": "1970-01-01 08:00:00",
+    //     "birthday": null,
+    //     "last_topup_time": "1970-01-01 08:00:00",
+    //     "balance": "0.00",
+    //     "created_at": "2017-08-22 09:48:30",
+    //     "updated_at": "2017-09-01 15:28:39",
+    //     "id": 11,
+    //     "username": "manager001",
+    //     "user_type": 1,
+    //     "nickname": "manager01",
+    //     "account_status": 0,
+    //     "override_discount": false,
+    //     "account_type": 1,
+    //     "department_remark": null,
+    //     "gender": null,
+    //     "identity_number": null,
+    //     "email_address": null,
+    //     "phone_number": null,
+    //     "topup_options": null,
+    //     "remark": null,
+    //     "branch_id": null,
+    //     "company_id": null,
+    //     "company": null,
+    //     "branch": null
+    //   },
+    //   "token": "manager001:e12b6090b1a3a2950cbdccf43c65fd203fd09a5856208e997248b83c9b93c9b2",
+    //   "secret": "MzM2MzAzNTMwMzEzMTMxMzUzMDM0MzYzODM1MzAzOTMxMzQzMjMxMw==",
+    //   "expires_in": 1505289891421,
+    //   "time_step": 15
+    // }
+
+    //   var key;
+
+    //   key = new rsa.RSAKeyPair(
+    //     // Public exponent extracted from private_key.pem using
+    //     // openssl rsa -inform PEM -text -noout < private_key.pem
+    //     // Or extracted from public key PEM file using
+    //     // openssl rsa -pubin -inform PEM -text -noout < public_key.pem
+    //     "186a1",
+
+    //     // Dummy decryption exponent -- actual value only kept on server.
+    //     "10001",
+
+    //     // Modulus extracted from private key PEM file using
+    //     // openssl rsa -inform PEM -modulus -noout < private_key.pem
+    //     // Or extracted from public key PEM file using
+    //     // openssl rsa -pubin -inform PEM -modulus -noout < public_key.pem
+    //     "CEB0CF121FE5D1F5CBEB413C3540320A9CFA36BCFBA7E19BD0044BA2A3755BD21F74CAA4B6D81F22502BA97422EED4E28C21176B69B4B6026311D7A7B3058ADF",
+
+    //     // Key size in bits.
+    //     512
+    //   );
+
+
+    //   var ciphertext = rsa.encryptedString(key, 'OKHeiHeiHei',
+    //     rsa.RSAAPP.PKCS1Padding, rsa.RSAAPP.RawEncoding);
+
+    //   console.log(Base64.btoa(ciphertext));
+
+  }
+
+}
+</script>

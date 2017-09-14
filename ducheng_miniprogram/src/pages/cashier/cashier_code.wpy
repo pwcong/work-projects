@@ -1,0 +1,272 @@
+<style lang="scss">
+.main {
+
+    flex: 1;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    padding: 0 30rpx;
+
+    position: relative;
+
+    .tips {
+        margin: 220rpx 0 60rpx 0;
+        text-align: center;
+        width: 100%;
+        font-size: 17px;
+    }
+
+    .code {
+        text-align: center;
+        height: 160rpx;
+        line-height: 160rpx;
+        background-color: white;
+        font-size: 22px;
+
+        font-weight: bold;
+        border-radius: 8rpx;
+        box-shadow: 0 0 1px #aaa;
+        margin-bottom: 120rpx;
+        width: 100%;
+
+
+        text:nth-child(4n) {
+            margin-right: 16rpx;
+        }
+    }
+
+
+
+    .btn {
+        height: 94rpx;
+        text-align: center;
+        background-color: #d30a0a;
+        border-radius: 8rpx;
+        line-height: 94rpx;
+        color: white;
+        font-size: 18px;
+        width: 100%;
+    }
+
+    .keys {
+
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+
+
+        display: flex;
+        flex-flow: row wrap;
+
+        box-sizing: border-box;
+    }
+
+    .key {
+        min-width: 240rpx;
+        height: 110rpx;
+        text-align: center;
+        line-height: 110rpx;
+        box-sizing: border-box;
+        flex: 1;
+        background-color: white;
+
+        transition: background-color 0.1s;
+
+        &:active {
+            background-color: #e1e1e1;
+        }
+
+        image {
+            width: 60rpx;
+            height: 40rpx;
+        }
+    }
+
+    .key-border {
+        border: 1px solid #c2bfbf;
+    }
+
+    .key-border-top {
+        border-top: 1px solid #c2bfbf;
+    }
+    .key-border-bottom {
+        border-bottom: 1px solid #c2bfbf;
+    }
+    .key-border-left {
+        border-left: 1px solid #c2bfbf;
+    }
+    .key-border-right {
+        border-right: 1px solid #c2bfbf;
+    }
+
+    .key-2 {
+        background-color: #e1e1e1;
+    }
+}
+</style>
+<template>
+    <view class="container">
+        <view class="main">
+            <view class="tips">
+                请正确输入识别码
+            </view>
+
+            <view class="code">
+
+                <repeat for="{{code}}" key="code">
+                    <text>{{item}}</text>
+                </repeat>
+
+            </view>
+
+            <view class="btn" @tap="handleCheckButtonClick('ok')">
+                确定
+            </view>
+
+            <view class="keys">
+
+                <repeat for="{{keys}}" key="index">
+                    <view class="key {{item.class}}" @tap="handleKeyButtonClick({{index}})">
+                        <image wx:if="{{item.icon}}" mode="aspectFit" src="{{item.icon}}"></image>
+                        {{item.value}}
+                    </view>
+                </repeat>
+
+            </view>
+
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+import TradeUtils from '../../utils/trade/trade';
+
+import * as tradeApi from '../../network/api/trade';
+
+export default class CashierCode extends wepy.page {
+
+    config = {
+        navigationBarTitleText: '收款',
+        disableScroll: true
+    }
+    components = {
+
+    }
+
+    data = {
+        amount: '',
+        verify_code: '',
+        code: '',
+        keys: [
+            { value: '1', flag: 1, class: "key-border-bottom" },
+            { value: '2', flag: 1, class: "key-border-right key-border-bottom key-border-left" },
+            { value: '3', flag: 1, class: "key-border-bottom" },
+            { value: '4', flag: 1, class: "key-border-bottom" },
+            { value: '5', flag: 1, class: "key-border-right key-border-bottom key-border-left" },
+            { value: '6', flag: 1, class: "key-border-bottom" },
+            { value: '7', flag: 1, class: "key-border-bottom" },
+            { value: '8', flag: 1, class: "key-border-right key-border-bottom key-border-left" },
+            { value: '9', flag: 1, class: "key-border-bottom" },
+            { value: '', flag: 0, class: "key-2" },
+            { value: '0', flag: 1, class: "key-border-right key-border-left" },
+            { value: '', flag: -1, class: "key-2", icon: '../../assets/imgs/keyboard_delete.png' },
+
+        ]
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+
+        handleCheckButtonClick() {
+
+            let ctx = this;
+
+            if (!ctx.code || ctx.code.length != 18) {
+                wepy.showModal({
+                    title: '提示',
+                    content: '请输入正确的识别码',
+                    showCancel: false
+                });
+
+                return;
+            }
+
+            // 调用收款接口
+            ctx.checkout(
+                ctx.$parent.globalData.token,
+                TradeUtils.formatAmount(ctx.amount),
+                ctx.code,
+                ctx.verify_code,
+                '');
+                
+
+        },
+        handleKeyButtonClick(index) {
+
+            let ctx = this;
+            let key = ctx.keys[index];
+
+            switch (key.flag) {
+                case 1:
+                    if(ctx.code.length < 18){
+                        ctx.code += key.value;
+                    }
+                    break;
+                case -1:
+                    ctx.code = ctx.code.slice(0, ctx.code.length - 1);
+                    break;
+                default:
+                    break;
+            }
+
+        }
+    }
+
+    async checkout(token, amount, customer_code, verify_code, remark) {
+
+        let res = null;
+
+        wepy.showLoading({
+            title: '收款中',
+            mask: true
+        });
+
+        try {
+            res = await tradeApi.checkout(token, amount, customer_code, verify_code, remark);
+        } catch (e) {
+            wepy.navigateTo({
+                url: `../result?msg=收款失败&content=${e}&type=warn`
+            });
+
+            return;
+        } finally {
+            wepy.hideLoading();
+        }
+
+        wepy.navigateTo({
+            url: `../result?msg=成功收款&content=￥${res.order.amount}`
+        });
+
+    }
+
+    events = {
+
+    }
+
+    onLoad() {
+
+        let ctx = this;
+
+        for (let key in ctx.$wxpage.options) {
+            ctx[key] = ctx.$wxpage.options[key];
+        }
+
+    }
+}
+</script>

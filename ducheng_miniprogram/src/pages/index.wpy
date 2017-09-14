@@ -1,0 +1,303 @@
+<style lang="scss">
+.bg {
+
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+.main {
+
+  flex: 1;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  position: relative;
+
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+
+  padding: 0 40rpx;
+
+
+
+
+  .form-login {
+
+    margin-top: 194rpx;
+
+    width: 100%;
+    background-color: white;
+
+    box-sizing: border-box;
+    padding: 76rpx 40rpx 94rpx 40rpx;
+
+    border-radius: 8rpx;
+
+    .section {
+      width: 100%;
+
+      image {
+        width: 40rpx;
+        height: 40rpx;
+
+        margin-right: 22rpx;
+      }
+    }
+
+    .section-logo {
+      text-align: center;
+    }
+
+    .section-username,
+    .section-password {
+      height: 90rpx;
+
+      display: flex;
+      align-items: center;
+      flex-flow: row nowrap;
+      box-shadow: inset 0 -1px 0 0 rgba(224, 224, 224, 0.50);
+
+      box-sizing: border-box;
+
+
+      input {
+        flex: 1;
+        font-size: 16px;
+      }
+    }
+
+    .section-submit {
+      height: 96rpx;
+      margin-top: 60rpx;
+      background-color: #d30a0a;
+      color: white;
+      text-align: center;
+      line-height: 96rpx;
+      font-size: 20px;
+
+      border-radius: 8rpx;
+
+      transition: background-color 0.1s;
+
+      &:active {
+        background-color: #c20909;
+      }
+    }
+  }
+}
+</style>
+<template>
+  <view class="container">
+    <image class="bg" src="{{bgUrl}}" />
+    <view class="main">
+
+      <view class="form-login" bindsubmit="formSubmit">
+
+        <view class="section section-logo">
+          <image style="width: 424rpx; height: 156rpx;" src="{{logoUrl}}"></image>
+        </view>
+        <view class="section section-username" style="margin: 64rpx 0 40rpx 0;">
+          <image src="{{peopleIconUrl}}" />
+          <input confirm-type="next" placeholder="请输入账号" @input="handleUsernameInput" />
+        </view>
+        <view class="section section-password">
+          <image src="{{lockIconUrl}}" />
+          <input bindconfirm="handleInputSubmit" confirm-type="go" placeholder="请输入密码" password="true" @input="handlePasswordInput" />
+
+        </view>
+        <view class="section section-submit" @tap="handleSubmitButtonClick">登陆</view>
+
+      </view>
+
+    </view>
+  </view>
+</template>
+
+<script>
+
+import wepy from 'wepy';
+
+import TimeUtils from '../utils/time';
+
+import * as urls from '../consts/urls';
+
+import * as authApi from '../network/api/auth';
+
+export default class Index extends wepy.page {
+  config = {
+    navigationBarTitleText: '都城快餐',
+    disableScroll: true
+  }
+
+  components = {
+
+  }
+
+  data = {
+    username: "",
+    password: "",
+    bgUrl: '../assets/imgs/bg_index.jpg',
+    logoUrl: '../assets/imgs/login_logo.png',
+    peopleIconUrl: '../assets/imgs/icon_people_grey.png',
+    lockIconUrl: '../assets/imgs/icon_lock_grey.png'
+
+  }
+
+  computed = {
+  }
+
+  methods = {
+
+    handleSubmitButtonClick(e) {
+      this.toLogin();
+    },
+    handleInputSubmit(e) {
+      this.toLogin();
+    },
+    handleUsernameInput(e) {
+
+      this.username = e.detail.value;
+    },
+    handlePasswordInput(e) {
+      this.password = e.detail.value;
+    }
+  }
+
+  events = {
+
+  }
+
+  async toLogin() {
+    let ctx = this;
+
+    // 如果用户名密码为空，弹出提示框
+    if (!ctx.username || !ctx.password) {
+
+      wepy.showModal({
+        title: '提示',
+        content: '请输入用户名和密码',
+        showCancel: false
+      });
+
+      return;
+
+    }
+
+    wepy.showLoading({
+      title: '登陆中',
+      mask: true
+    });
+
+    // 用户登陆
+    let res = null;
+    try {
+      res = await authApi.login(ctx.username, ctx.password);
+    } catch (err) {
+      wepy.showModal({
+        title: '登陆失败',
+        content: err,
+        showCancel: false
+      });
+      return;
+    } finally {
+      wepy.hideLoading();
+    }
+
+
+    ctx.$parent.globalData.user = res.user;
+    ctx.$parent.globalData.token = res.token;
+    ctx.$parent.globalData.secret = res.secret;
+    ctx.$parent.globalData.expires_in = res.expires_in;
+    ctx.$parent.globalData.time_step = res.time_step;
+
+    wepy.setStorageSync('user', JSON.stringify(res.user));
+    wepy.setStorageSync('token', res.token);
+    wepy.setStorageSync('secret', res.secret);
+    wepy.setStorageSync('expires_in', res.expires_in);
+    wepy.setStorageSync('time_step', res.time_step);
+
+    ctx.$apply();
+
+    // 登陆成功，判断用户类型进行路由跳转
+    ctx.handleRoutes(res.user.user_type);
+
+  }
+
+  handleRoutes(user_type) {
+
+    switch (user_type) {
+      case 4:
+        wepy.redirectTo({
+          url: 'customer/customer'
+        });
+        break;
+      case 2:
+        wepy.redirectTo({
+          url: 'cashier/cashier'
+        });
+        break;
+      case 1:
+        wepy.redirectTo({
+          url: 'manager/manager'
+        });
+        break;
+      default: break;
+
+    }
+
+  }
+
+  async checkLoginState() {
+
+    let ctx = this;
+
+    try {
+
+      let user = JSON.parse(wepy.getStorageSync('user'));
+      let token = wepy.getStorageSync('token');
+      let secret = wepy.getStorageSync('secret');
+      let expires_in = parseInt(wepy.getStorageSync('expires_in'));
+      let time_step = parseInt(wepy.getStorageSync('time_step'));
+
+      if (!user || !token || !secret || !expires_in || !time_step) {
+        return;
+      }
+
+      // 校验是否过期
+      let isExpired = TimeUtils.timeSpace(parseInt(expires_in)) < 3600000;
+      if (isExpired) {
+        return;
+      }
+
+      // 校验token
+      await authApi.status(token);
+
+      ctx.$parent.globalData.user = user;
+      ctx.$parent.globalData.token = token;
+      ctx.$parent.globalData.secret = secret;
+      ctx.$parent.globalData.expires_in = expires_in;
+      ctx.$parent.globalData.time_step = time_step;
+
+      ctx.handleRoutes(user.user_type);
+      
+    } catch (err) {
+
+    } finally { }
+
+  }
+
+
+  onLoad() {
+
+    let ctx = this;
+
+    ctx.checkLoginState();
+
+
+  }
+}
+</script>

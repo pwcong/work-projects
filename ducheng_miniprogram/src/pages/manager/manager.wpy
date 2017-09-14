@@ -1,0 +1,410 @@
+<style lang="scss">
+.toolbar {
+    height: 120rpx;
+    width: 100%;
+    background-color: white;
+
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 34rpx;
+    box-sizing: border-box;
+
+    position: relative;
+
+    .actor {
+
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+
+        font-size: 17px;
+        color: #4a4a4a;
+
+        image{
+            margin-right: 16rpx;
+            width: 40rpx;
+            height: 40rpx;
+        }
+    }
+
+    .action {
+
+        position: absolute;
+        right: 30rpx;
+        top: 0;
+
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        font-size: 14px;
+        color: #9B9B9B;
+        letter-spacing: 0;
+    }
+}
+
+.main {
+
+    flex: 1;
+    box-sizing: border-box;
+    overflow: auto;
+
+    position: relative;
+
+    padding: 60rpx 30rpx;
+
+    .section {
+        width: 100%;
+        background-color: white;
+        box-sizing: border-box;
+    }
+
+    .shopname {
+        height: 120rpx;
+        line-height: 120rpx;
+        text-align: center;
+        border-bottom: 1px solid #e5e5e5;
+        font-size: 18px;
+    }
+
+    .details {
+        box-sizing: border-box;
+        margin-bottom: 80rpx;
+
+        .item {
+            width: 100%;
+            background-color: white;
+
+            &:not(:last-child) {
+                border-bottom: 1px solid #e5e5e5;
+            }
+
+            &:nth-child(1) {
+
+                text-align: center;
+                height: 120rpx;
+                color: black;
+                line-height: 120rpx;
+                font-size: 18px;
+            }
+
+            &:nth-child(2) {
+
+                text-align: center;
+                height: 300rpx;
+
+                view:nth-child(1) {
+
+                    font-size: 14px;
+                    color: #4a4a4a;
+                    margin: 30rpx 0 20rpx 0;
+                }
+
+                view:nth-child(2) {
+                    color: #1AAD19;
+                    font-size: 44px;
+                }
+            }
+
+            &:nth-child(3) {
+                height: 106rpx;
+
+                display: flex;
+                flex-flow: row wrap;
+                align-items: center;
+
+                .col {
+                    flex: 1;
+
+                    display: flex;
+                    flex-flow: row nowrap;
+                    align-items: center;
+                    
+
+                    font-size: 14px;
+
+                    box-sizing: border-box;
+
+                    padding: 0 40rpx;
+
+                    &:not(:last-child) {
+                        border-right: 1px solid #e5e5e5;
+                    }
+
+                    text {
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+    }
+
+    .btn {
+
+        height: 100rpx;
+        text-align: center;
+        font-size: 22px;
+        border-radius: 8rpx;
+        line-height: 100rpx;
+        border: 1px solid #e64340;
+    }
+    .btn-1 {
+
+        color: white;
+        background-color: #e64340;
+    }
+
+    .btn-2 {
+
+        background-color: white;
+        color: #e64340;
+    }
+
+    .tips {
+        color: #4e4e4e;
+        font-size: 16px;
+        text-align: center;
+        padding: 60rpx 40rpx;
+        border-radius: 8rpx;
+
+        icon {
+            margin-bottom: 60rpx;
+        }
+    }
+}
+</style>
+<template>
+    <view class="container">
+        <view class="toolbar">
+            <view class="actor" @tap="handleSettingButtonClick">
+                <image src="{{peopleIconUrl}}"/>
+                管理员
+            </view>
+            <view class="action" @tap="handleSwitchButtonClick">切换分店 ></view>
+        </view>
+
+        <view class="main">
+
+            <view wx:if="{{branchStat && branch}}" class="section details">
+
+                <view class="item shopname">
+                    {{branch.name}}
+                </view>
+
+                <view class="item">
+                    <view>今日实收</view>
+                    <view class="info">{{money}}</view>
+                </view>
+
+                <view class="item">
+                    <view class="col">
+                        订单数量
+                        <text style="color: #fa9d3b; margin-left: 50rpx;">{{branchStat.times}}</text>
+                    </view>
+                    <view class="col">
+                        退款次数
+                        <text style="color: #e64340; margin-left: 50rpx;">{{branchStat.refund_times}}</text>
+                    </view>
+                </view>
+
+            </view>
+
+            <view wx:if="{{branch}}" class="section btn btn-1" style="margin-bottom: 40rpx;" @tap="handleBillButtonClick">账单</view>
+            <view wx:if="{{branch}}" class="section btn btn-2" @tap="handleManageButtonClick">收银员管理</view>
+
+            <view class="section tips" wx:if="{{!branch}}">
+                <icon type="info" size="70" />
+                <view>请点击右上角切换分店</view>
+            </view>
+
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+import EventBus from '../../eventbus/eventbus';
+
+import TimeUtils from '../../utils/time';
+import StringUtils from '../../utils/string';
+
+import * as authApi from '../../network/api/auth';
+import * as statApi from '../../network/api/stat';
+
+export default class Manager extends wepy.page {
+
+    config = {
+        navigationBarTitleText: '运营管理',
+        disableScroll: true
+    }
+    components = {
+    }
+
+    data = {
+
+        branchStat: null,
+        money: null,
+        branch: null,
+
+        renewTimer: null,
+
+        peopleIconUrl: '../../assets/imgs/icon_people_fill.png'
+
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+        handleSwitchButtonClick(e) {
+            wepy.navigateTo({
+                url: 'manager_switch'
+            });
+        },
+        handleBillButtonClick(e) {
+
+            let ctx =  this;
+            wepy.navigateTo({
+                url: `manager_bill?branch_id=${ctx.branch.id}&branch_name=${ctx.branch.name}`
+            });
+
+        },
+        handleManageButtonClick(e) {
+
+            let ctx = this;
+
+            wepy.navigateTo({
+                url: `manager_manage?branch_id=${ctx.branch.id}&branch_name=${ctx.branch.name}`
+            });
+
+        },
+        handleSettingButtonClick(e) {
+            wepy.navigateTo({
+                url: 'manager_setting'
+            });
+
+        },
+    }
+
+    events = {
+
+    }
+
+    async renew() {
+
+        let ctx = this;
+
+        if (ctx.renewTimer) {
+            clearTimeout(ctx.renewTimer);
+            ctx.renewTimer = null;
+            ctx.$apply();
+        }
+
+        let res = null;
+
+        try {
+            res = await authApi.renew(ctx.$parent.globalData.token);
+        } catch (err) {
+            wepy.showModal({
+                title: '更新失败',
+                content: err,
+                showCancel: false
+            });
+            return;
+        } finally {
+        }
+
+        ctx.$parent.globalData.token = res.token;
+        ctx.$parent.globalData.expires_in = res.expires_in;
+        ctx.$parent.globalData.secret = res.secret;
+        ctx.$parent.globalData.time_step = res.time_step;
+
+        ctx.renewTimer = setTimeout(() => {
+
+            ctx.renew();
+
+        }, TimeUtils.timeSpace(res.expires_in));
+
+        ctx.$apply();
+
+    }
+
+    initRenewTimer() {
+
+        let ctx = this;
+
+        ctx.renewTimer = setTimeout(() => {
+            ctx.renew();
+        }, TimeUtils.timeSpace(ctx.$parent.globalData.expires_in));
+    }
+
+    loadBranch(branch) {
+
+        let ctx = this;
+
+        ctx.branch = branch;
+
+    }
+
+    async loadBranchStat(branch_id){
+
+        let ctx = this;
+
+        let res = null;
+
+        wepy.showLoading({
+            title: '获取中',
+            mask: true
+        });
+
+        try{
+            res = await statApi.branchTodayStat(ctx.$parent.globalData.token, branch_id);
+
+        }catch(err){
+            wepy.showModal({
+                title: '获取失败',
+                content: err,
+                showCancel: false
+            });
+        }finally{
+            wepy.hideLoading();
+        }
+
+        ctx.branchStat = res.stat;
+        ctx.money = StringUtils.formatPrice(parseFloat(res.stat.total) - parseFloat(res.stat.total_refunded), 2);
+        ctx.$apply();
+
+    }
+
+    onShow(){
+
+        let ctx = this;
+
+        if(ctx.branch && ctx.branch.id){
+
+            ctx.loadBranchStat(ctx.branch.id);
+
+        }
+
+    }
+
+    onLoad() {
+
+        let ctx = this;
+
+        ctx.initRenewTimer();
+
+        EventBus.subscribe('manager-loadbranch', (branch) => {
+            ctx.loadBranch(branch);
+        });
+
+    }
+}
+</script>

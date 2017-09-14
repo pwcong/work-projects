@@ -1,0 +1,353 @@
+<style lang="scss">
+.toolbar {
+
+    position: relative;
+
+    height: 120rpx;
+    width: 100%;
+
+    box-sizing: border-box;
+    padding: 20rpx 30rpx;
+
+    background-color: white;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
+
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+
+    .section {
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        font-size: 14px;
+    }
+
+    .action {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 100rpx;
+
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+
+        justify-content: center;
+
+        image {
+            width: 56rpx;
+            height: 56rpx;
+        }
+    }
+}
+
+.main {
+
+    height: calc(100%);
+    box-sizing: border-box;
+    overflow: auto;
+
+    position: relative;
+
+    .records {
+        width: 100%;
+
+        background-color: white;
+        box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.11);
+
+        padding: 0 30rpx;
+        box-sizing: border-box;
+
+        .record {
+            height: 100rpx;
+            display: flex;
+            align-items: center;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+
+            font-size: 20px;
+
+            &:not(:last-child) {
+
+                border-bottom: 1px solid #e5e5e5;
+            }
+
+            .record-money {
+                color: #d30a0a;
+            }
+        }
+    }
+}
+</style>
+<template>
+    <view class="container">
+        <view class="toolbar">
+            <view class="section" style="font-size: 14px;">
+                {{record.date}}
+            </view>
+
+            <view class="section" style="color: #a4a4a4; font-size: 13px;">
+                本日收费：{{record.counts}}次
+                <text style="margin: 0 34rpx;"></text>总额：{{record.money}}元
+
+            </view>
+
+            <picker bindchange="handleCalendarChange" mode="multiSelector" range="{{range}}" range-key="key">
+                <view class="action" @tap="handleCalendarButtonClick">
+                    <image src="{{calendarIconUrl}}" />
+                </view>
+            </picker>
+
+        </view>
+        <scroll-view class="main" scroll-y="true" bindscrolltolower="handleLoadMore" enable-back-to-top="true" scroll-with-animation="true">
+            <view style="height: 30rpx;"></view>
+            <view class="records">
+
+                <repeat for="{{array}}">
+
+                    <view class="record">
+                        <view class="record-time">
+                            {{item.displayHour}} : {{item.displayMinute}}
+                        </view>
+                        <view class="record-money">{{item.money}}</view>
+                    </view>
+
+                </repeat>
+
+                <view class="record" style="height: 80rpx; justify-content: center; font-size: 15px; color: #9b9b9b;">
+
+                    <view wx:if="{{loadingMore}}">加载中...</view>
+                    <view wx:else>
+                        <text wx:if="{{hasMore}}">上拉加载更多</text>
+                        <text wx:else>没有了~</text>
+
+                    </view>
+
+                </view>
+
+            </view>
+        </scroll-view>
+    </view>
+</template>
+
+<script>
+
+import wepy from 'wepy';
+
+import StringUtils from '../../utils/string';
+import DataUtils from '../../utils/date';
+
+import * as statApi from '../../network/api/stat';
+
+import * as consts from '../../consts/index';
+
+const PAGE_LIMIT = 20;
+
+export default class CashierBill extends wepy.page {
+
+    config = {
+        navigationBarTitleText: '收款记录',
+        enablePullDownRefresh: true,
+        backgroundTextStyle: 'dark'
+    }
+    components = {
+
+    }
+
+    data = {
+
+        loadingMore: false,
+        hasMore: false,
+        currentPage: 1,
+
+        range: [
+            [{ key: '开始' }],
+            consts.HOURS,
+            consts.MINUTES,
+            [{ key: '结束' }],
+            consts.HOURS,
+            consts.MINUTES
+        ],
+
+        array: [],
+
+        calendarIconUrl: '../../assets/imgs/icon_calendar.png',
+
+        record: {
+            date: '----年--月--日',
+            counts: '0',
+            money: '0.00',
+            details: [
+            ]
+        }
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+        handleCalendarButtonClick(e) {
+
+        },
+        handleCalendarChange(e) {
+
+            let ctx = this;
+
+            let value = e.detail.value;
+
+            let startHour = ctx.range[1][value[1]].value;
+            let startMinute = ctx.range[2][value[2]].value;
+
+            let endHour = ctx.range[4][value[4]].value;
+            let endMinute = ctx.range[5][value[5]].value;
+
+            let min = startHour * 100 + startMinute;
+            let max = endHour * 100 + endMinute;
+
+            ctx.array = ctx.record.details.filter(item => {
+
+                let t = item.hour * 100 + item.minute;
+
+                return t >= min && t <= max;
+
+            })
+
+        },
+        handleLoadMore(e) {
+
+            let ctx = this;
+
+            if (!ctx.loadingMore && ctx.hasMore) {
+                ctx.loadingMore = true;
+                ctx.$apply();
+                ctx.loadRecords(ctx.record.year, ctx.record.month);
+            }
+
+
+        }
+    }
+
+    events = {
+
+    }
+
+    onPullDownRefresh() {
+
+        let ctx = this;
+
+        ctx.currentPage = 1;
+        ctx.record.details = [];
+
+        ctx.loadStat();
+        ctx.loadRecords();
+
+    }
+
+    async loadRecords() {
+
+        let ctx = this;
+
+        let res = null;
+
+        try {
+
+            res = await statApi.cashierSelfTodayOrder(
+                ctx.$parent.globalData.token,
+                ctx.currentPage,
+                PAGE_LIMIT);
+
+        } catch (err) {
+
+            wepy.showModal({
+                title: '获取失败',
+                content: err,
+                showCancel: false
+            });
+
+            return;
+        } finally {
+            wepy.stopPullDownRefresh();
+            ctx.loadingMore = false;
+            ctx.$apply();
+        }
+
+
+        let temp = res.orders.filter(item => !item.has_refunded);
+
+        ctx.record.details = [
+            ...ctx.record.details,
+            ...temp.map(item => {
+
+                let dt = new Date(item.created_at.replace(/\-/g, '/'));
+
+                return {
+                    hour: dt.getHours(),
+                    minute: dt.getMinutes(),
+                    displayHour: DataUtils.format(dt.getHours()),
+                    displayMinute: DataUtils.format(dt.getMinutes()),
+                    money: item.amount
+                };
+
+            })
+        ];
+
+        ctx.$apply();
+
+
+        ctx.array = ctx.record.details.filter(() => true);
+
+        if (temp.length === PAGE_LIMIT) {
+            ctx.currentPage += 1;
+            ctx.hasMore = true;
+        } else {
+            ctx.hasMore = false;
+        }
+
+        ctx.$apply();
+
+    }
+
+    async loadStat() {
+
+        let ctx = this;
+
+        let res = null;
+
+        try {
+            res = await statApi.cashierSelfTodayStat(ctx.$parent.globalData.token);
+
+        } catch (err) {
+
+            wepy.showModal({
+                title: '获取失败',
+                content: err,
+                showCancel: false
+            });
+
+            return;
+        } finally {
+
+        }
+
+        ctx.record.money = StringUtils.formatPrice(parseFloat(res.stat.total) + parseFloat(res.stat.total_refunded), 2);
+        ctx.record.counts = res.stat.times;
+        ctx.record.date = DataUtils.today();
+
+        ctx.$apply();
+
+    }
+
+    onLoad() {
+
+        let ctx = this;
+
+        ctx.loadStat();
+        ctx.loadRecords();
+
+    }
+}
+</script>

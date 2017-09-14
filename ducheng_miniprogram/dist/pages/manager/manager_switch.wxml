@@ -1,0 +1,20 @@
+
+    <view class="container">
+        <view class="toolbar">
+            <view class="wrap {{searchInputFocused ? 'active' : ''}}" style="{{searchInputFocused ? 'background-color: white;' : ''}}">
+                <image src="{{searchInputFocused ? searchIconUrl : searchGreyIconUrl}}"/>
+                <input placeholder="请输入分店名" bindfocus="handleSearchInputFocus" bindblur="handleSearchInputBlur" confirm-type="search" bindinput="handleSearchInputChange"/>
+            </view>
+        </view>
+        <view class="main">
+
+            <view class="shops">
+                <view class="tips">全部分店</view>
+                <view class="wrap">
+                    <block wx:for="{{branches}}" wx:for-index="index" wx:for-item="item" wx:key="key">
+                        <view class="item" bindtap="handleBranchSelect" data-wepy-params-a="{{item}}">{{item.name}}</view>
+                    </block>
+                </view>
+            </view>
+        </view>
+    </view>

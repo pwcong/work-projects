@@ -1,0 +1,25 @@
+
+  <view class="container">
+    <image class="bg" src="{{bgUrl}}"/>
+    <view class="main">
+
+      <view class="form-login" bindsubmit="formSubmit">
+
+        <view class="section section-logo">
+          <image style="width: 424rpx; height: 156rpx;" src="{{logoUrl}}"/>
+        </view>
+        <view class="section section-username" style="margin: 64rpx 0 40rpx 0;">
+          <image src="{{peopleIconUrl}}"/>
+          <input confirm-type="next" placeholder="请输入账号" bindinput="handleUsernameInput"/>
+        </view>
+        <view class="section section-password">
+          <image src="{{lockIconUrl}}"/>
+          <input bindconfirm="handleInputSubmit" confirm-type="go" placeholder="请输入密码" password="true" bindinput="handlePasswordInput"/>
+
+        </view>
+        <view class="section section-submit" bindtap="handleSubmitButtonClick">登陆</view>
+
+      </view>
+
+    </view>
+  </view>

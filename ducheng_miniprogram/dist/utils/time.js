@@ -1,0 +1,1 @@
+"use strict";function timeSpace(e){return e-Date.parse(new Date)}Object.defineProperty(exports,"__esModule",{value:!0}),exports.default={timeSpace:timeSpace};

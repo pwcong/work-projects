@@ -1,0 +1,434 @@
+<style lang="scss">
+.toolbar {
+    height: 150rpx;
+    width: 100%;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
+
+    background-color: white;
+
+    position: relative;
+
+    box-sizing: border-box;
+    padding-left: 34rpx;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+
+    .user-name {
+        font-size: 17px;
+        margin-bottom: 6rpx;
+
+        image{
+            position: relative;
+            bottom: -12rpx;
+            width: 38rpx;
+            height: 38rpx;
+        }
+    }
+
+    .user-company {
+        padding-left: 50rpx;
+        font-size: 11px;
+    }
+
+    .action {
+        position: absolute;
+        top: 50%;
+        right: 28rpx;
+        transform: translateY(-50%);
+        width: 122rpx;
+        height: 60rpx;
+        text-align: center;
+        line-height: 60rpx;
+        font-size: 14px;
+        color: #09BB07;
+        border: 1px solid #09BB07;
+        border-radius: 8rpx;
+
+        transition: background-color 0.1s, color 0.1s;
+
+        &:active {
+            background-color: #09BB07;
+            color: white;
+        }
+    }
+}
+
+.main {
+
+    flex: 1;
+    box-sizing: border-box;
+    overflow: auto;
+
+    position: relative;
+
+    padding: 60rpx 30rpx;
+
+    .section {
+        width: 100%;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: row wrap;
+        box-sizing: border-box;
+    }
+
+    .balance {
+
+
+        padding: 20rpx 0;
+        height: 200rpx;
+        border-bottom: 1px solid #e5e5e5;
+
+        view {
+            width: 100%;
+            text-align: center;
+        }
+
+        view:nth-child(1) {
+            font-size: 14px;
+            color: #4a4a4a;
+        }
+        view:nth-child(2) {
+            font-size: 36px;
+            color: #d30a0a;
+        }
+    }
+
+
+    .qrcode {
+        padding: 68rpx;
+    }
+
+
+    .qrcode-num {
+        width: 100%;
+        font-size: 18px;
+        margin-top: 40rpx;
+        text-align: center;
+        columns: #353535;
+    }
+}
+</style>
+<template>
+    <view class="container">
+        <view class="toolbar">
+            <view @tap="handleCenterButtonClick" class="user-name">
+                <image src="{{peopleIconUrl}}"/>
+                {{user.nickName}}
+            </view>
+            <view @tap="handleCenterButtonClick" class="user-company">{{user.company}}</view>
+            <view class="action" @tap="handleBillButtonClick">账单</view>
+        </view>
+
+        <view class="main">
+            <view class="section balance">
+                <view>当前余额</view>
+                <view>￥{{user.balance}}</view>
+            </view>
+
+            <view class="section qrcode">
+                <canvas canvas-id="qrcode" style="width: 192px; height: 192px;" />
+                <view class="qrcode-num">{{user.payCode}}</view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+import TradeCrypto from '../../utils/trade/trade-crypto';
+
+import QRCode from '../../utils/qrcode';
+import TimeUtils from '../../utils/time';
+
+import EventBus from '../../eventbus/eventbus';
+
+import * as authApi from '../../network/api/auth';
+import * as userApi from '../../network/api/user';
+import * as tradeApi from '../../network/api/trade';
+
+export default class Customer extends wepy.page {
+
+    config = {
+        navigationBarTitleText: '个人会员',
+        disableScroll: true
+    }
+    
+    components = {
+
+    }
+
+    data = {
+        peopleIconUrl: '../../assets/imgs/icon_people_fill.png',
+        moneyIconUrl: '../../assets/imgs/icon_home.png',
+
+        canvasContext: null,
+
+        user: {
+            nickName: "",
+            company: "",
+            balance: '0.00',
+            payCode: '',
+            verifyCodes: []
+        },
+        renewTimer: null,
+        verifyTimer: null,
+        qrcodeTimer: null
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+        handleBillButtonClick(e) {
+            wepy.navigateTo({
+                url: 'customer_bill'
+            });
+        },
+        handleCenterButtonClick(e) {
+
+            wepy.navigateTo({
+                url: 'customer_center'
+            });
+        }
+    }
+
+    events = {
+
+    }
+
+    async verify(verifyCode) {
+
+        let ctx = this;
+
+        let res = null;
+
+        try {
+            res = await tradeApi.notification(ctx.$parent.globalData.token, verifyCode);
+        } catch (err) {
+            return;
+        } finally {
+        }
+
+
+        if (res.has_order) {
+
+            let verifyCodeIndex = ctx.user.verifyCodes.indexOf(verifyCode);
+
+            if(verifyCodeIndex > -1){
+                ctx.user.verifyCodes.splice(verifyCodeIndex, 1);
+                ctx.$apply();
+            }
+
+            // 支付成功刷新支付码
+            ctx.initCode();
+            ctx.reloadUserInfo();
+            wepy.navigateTo({
+                url: `../result?msg=成功付款&content=￥${res.order.amount}`
+            });
+        }
+
+    }
+
+    initVerifyTimer() {
+
+        let ctx = this;
+
+        if (ctx.verifyTimer) {
+            clearInterval(ctx.verifyTimer);
+            ctx.verifyTimer = null;
+        }
+
+        ctx.verifyTimer = setInterval(() => {
+
+            ctx.user.verifyCodes.forEach(verifyCode => {
+                ctx.verify(verifyCode);
+            });
+
+        }, 1000);
+
+        ctx.$apply();
+
+    }
+
+    async renew() {
+
+        let ctx = this;
+
+        if (ctx.renewTimer) {
+            clearTimeout(ctx.renewTimer);
+            ctx.renewTimer = null;
+            ctx.$apply();
+        }
+
+        let res = null;
+
+        try {
+            res = await authApi.renew(ctx.$parent.globalData.token);
+        } catch (err) {
+            wepy.showModal({
+                title: '更新失败',
+                content: err,
+                showCancel: false
+            });
+            return;
+        } finally {
+            wepy.stopPullDownRefresh();
+        }
+
+        ctx.$parent.globalData.token = res.token;
+        ctx.$parent.globalData.expires_in = res.expires_in;
+        ctx.$parent.globalData.secret = res.secret;
+        ctx.$parent.globalData.time_step = res.time_step;
+
+        ctx.renewTimer = setTimeout(() => {
+
+            ctx.renew();
+
+        }, TimeUtils.timeSpace(res.expires_in));
+        ctx.$apply();
+        ctx.initCode();
+
+    }
+
+    initRenewTimer() {
+
+        let ctx = this;
+
+        ctx.renewTimer = setTimeout(() => {
+            ctx.renew();
+        }, TimeUtils.timeSpace(ctx.$parent.globalData.expires_in));
+    }
+
+    initQRCodeTimer(){
+        
+        let ctx = this;
+
+        ctx.qrcodeTimer = setInterval(() => {
+            ctx.initCode();
+        }, ctx.$parent.globalData.time_step * 1000);
+
+    }
+
+    initCode() {
+
+        let ctx = this;
+        let globalData = ctx.$parent.globalData;
+
+        let secret = globalData.secret;
+        let timeStep = globalData.time_step;
+
+        let t = new TradeCrypto(secret, timeStep);
+
+        // 用顾客 ID 生成支付码
+        let userId = globalData.user.id;
+
+        let res = t.generatePayCode(userId);
+
+        let qrcode = new QRCode(ctx.canvasContext, {
+            width: 192,
+            height: 192
+        });
+
+        qrcode.makeCode(res.payCode);
+
+        ctx.user.payCode = res.payCode;
+
+        // ctx.user.verifyCodes.push(res.verifyCode);
+        ctx.user.verifyCodes.push(res.payCode);
+
+        if(ctx.user.verifyCodes.length > 2){
+            ctx.user.verifyCodes.shift();
+        }
+
+        ctx.$apply();
+
+    }
+
+    async reloadUserInfo(){
+
+        let ctx = this;
+
+        let res = null;
+
+        try{
+
+            res = await userApi.getInfo(ctx.$parent.globalData.token);
+
+        }catch(err){
+
+            wepy.showModal({
+                title: '获取失败',
+                content: err,
+                showCancel: false
+            });
+
+            return;
+        }finally{}
+
+        ctx.$parent.globalData.user = res.user;
+        ctx.loadUserInfo();
+
+    }
+
+    loadUserInfo() {
+
+        let ctx = this;
+
+        let globalData = ctx.$parent.globalData;
+
+        if (globalData.user) {
+            ctx.user.nickName = globalData.user.nickname;
+            ctx.user.balance = globalData.user.balance;
+
+            if (globalData.user.company) {
+                ctx.user.company = globalData.user.company.remark;
+            }
+        }
+
+        ctx.$apply();
+
+    }
+
+    onHide() {
+        let ctx = this;
+        if (ctx.verifyTimer) {
+            clearInterval(ctx.verifyTimer);
+            ctx.verifyTimer = null;
+        }
+
+        if(ctx.qrcodeTimer){
+            clearInterval(ctx.qrcodeTimer);
+            ctx.qrcodeTimer = null;
+        }
+    }
+
+    onShow() {
+        this.initVerifyTimer();
+        this.initQRCodeTimer();
+    }
+
+    onLoad() {
+
+        let ctx = this
+
+        ctx.canvasContext = wepy.createCanvasContext('qrcode');
+
+        ctx.loadUserInfo();
+        ctx.initRenewTimer();
+        ctx.initCode();
+
+        EventBus.subscribe('customer-loaduserinfo', () => {
+            ctx.loadUserInfo();
+        });
+
+
+    }
+
+}
+</script>

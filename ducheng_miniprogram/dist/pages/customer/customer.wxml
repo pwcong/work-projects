@@ -1,0 +1,23 @@
+
+    <view class="container">
+        <view class="toolbar">
+            <view bindtap="handleCenterButtonClick" class="user-name">
+                <image src="{{peopleIconUrl}}"/>
+                {{user.nickName}}
+            </view>
+            <view bindtap="handleCenterButtonClick" class="user-company">{{user.company}}</view>
+            <view class="action" bindtap="handleBillButtonClick">账单</view>
+        </view>
+
+        <view class="main">
+            <view class="section balance">
+                <view>当前余额</view>
+                <view>￥{{user.balance}}</view>
+            </view>
+
+            <view class="section qrcode">
+                <canvas canvas-id="qrcode" style="width: 192px; height: 192px;"/>
+                <view class="qrcode-num">{{user.payCode}}</view>
+            </view>
+        </view>
+    </view>

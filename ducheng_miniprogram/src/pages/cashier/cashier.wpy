@@ -1,0 +1,463 @@
+<style lang="scss">
+$toolbarHeight: 120rpx;
+
+.toolbar {
+    height: $toolbarHeight;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
+    width: 100%;
+
+    background-color: white;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+
+    box-sizing: border-box;
+    padding: 0 30rpx;
+
+    .userinfo {
+        height: 100%;
+        line-height: $toolbarHeight;
+        box-sizing: border-box;
+        color: #4a4a4a;
+        font-size: 18px;
+        text {
+            color: #09bb07;
+        }
+        
+        image{
+            position: relative;
+            bottom: -4rpx;
+            width: 38rpx;
+            height: 38rpx;
+        }
+    }
+
+    .action {
+        width: 120rpx;
+        height: 60rpx;
+        line-height: 60rpx;
+        text-align: center;
+        border: 2rpx solid #09bb07;
+        border-radius: 8rpx;
+        font-size: 14px;
+        color: #09bb07;
+
+        transition: color 0.1s, background-color 0.1s;
+
+        &:active {
+            color: white;
+            background-color: #09bb07;
+        }
+    }
+}
+
+.main {
+
+
+    flex: 1;
+    box-sizing: border-box;
+    overflow: auto;
+
+    padding: 60rpx 30rpx;
+
+    .main-wrap {
+        background-color: white;
+        margin-bottom: 60rpx;
+        .shop-name {
+            text-align: center;
+            padding: 32rpx 0 38rpx 0;
+            border-bottom: 1px solid #e5e5e5;
+
+            font-size: 18px;
+        }
+
+        .shop-action-price {
+            box-sizing: border-box;
+            padding: 40rpx;
+
+            color: #9b9b9b;
+
+            font-size: 18px;
+
+            .shop-action-price-wrap {
+                height: 160rpx;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                border-bottom: 1px solid #e5e5e5;
+
+
+                text {
+                    font-size: 44px;
+                    color: black;
+                }
+
+                input {
+                    height: 120rpx;
+                    font-size: 44px;
+                    font-weight: bold;
+                    color: black;
+
+                    box-sizing: border-box;
+                }
+            }
+        }
+    }
+
+    .shop-action-scan {
+
+        width: 100%;
+        height: 128rpx;
+        line-height: 130rpx;
+        background-color: #d30a0a;
+        border-radius: 8rpx;
+        text-align: center;
+
+        color: white;
+        font-size: 24px;
+
+        transition: background-color 0.1s;
+
+        &:active {
+            background-color: #a20909;
+        }
+    }
+
+    .shop-action-scan-code {
+
+        margin-top: 36rpx;
+        text-align: center;
+        font-size: 14px;
+        color: #9a9a9a;
+
+        text {
+            margin-left: 14rpx;
+        }
+    }
+
+    .shop-details {
+        margin-top: 200rpx;
+        text-align: center;
+        color: #186ba0;
+
+        font-size: 13px;
+
+        text {
+            margin: 0 18rpx;
+        }
+    }
+}
+</style>
+<template>
+    <view class="container">
+        <view class="toolbar">
+
+            <view class="userinfo" @tap="handleUserInfoButtonClick">
+                <image src="{{peopleIconUrl}}"/>
+                {{userInfo.nickName}}
+            </view>
+
+            <view class="action" @tap="handleBillButtonClick">对账</view>
+
+        </view>
+
+        <view class="main">
+            <view class="main-wrap">
+
+                <view class="shop-name">{{shop.name}}</view>
+
+                <view class="shop-action-price">
+                    <view>请输入收款金额</view>
+                    <view class="shop-action-price-wrap">
+                        <text>￥</text>
+                        <input type="digit" @input="handleAmountChange" />
+                    </view>
+                </view>
+
+            </view>
+
+            <view class="shop-action-scan" @tap="handleScanButtonClick">扫码收款</view>
+
+            <view class="shop-action-scan-code" @tap="handleScanCodeButtonClick">
+                手动输入识别号 >
+                <text class="fa fa-angle-right"></text>
+            </view>
+
+            <view class="shop-details">
+                今日收费：{{shop.counts}}次<text>|</text>总额：{{shop.money}}元
+            </view>
+
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+import EventBus from '../../eventbus/eventbus';
+import TradeCrypto from '../../utils/trade/trade-crypto';
+
+import StringUtils from '../../utils/string';
+import TimeUtils from '../../utils/time';
+import TradeUtils from '../../utils/trade/trade';
+
+import * as statApi from '../../network/api/stat';
+import * as authApi from '../../network/api/auth';
+import * as tradeApi from '../../network/api/trade';
+
+export default class Cashier extends wepy.page {
+
+    config = {
+        navigationBarTitleText: '收银员',
+        disableScroll: true
+    }
+    
+
+    components = {
+
+    }
+
+    data = {
+        peopleIconUrl: '../../assets/imgs/icon_people_fill.png',
+
+        userInfo: {
+            nickName: '-'
+        },
+
+        amount: '',
+
+        shop: {
+
+            name: '-',
+            counts: '-',
+            money: '-'
+
+
+        },
+
+        renewTimer: null
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+        handleScanButtonClick(e) {
+
+            let ctx = this;
+
+            if (!ctx.amount || !TradeUtils.checkAmount(ctx.amount)) {
+                wepy.showModal({
+                    title: '提示',
+                    content: '请输入正确的金额',
+                    showCancel: false
+                });
+
+                return;
+            }
+
+            wepy.scanCode({
+                onlyFromCamera: true,
+                success: (res) => {
+
+                    let globalData = ctx.$parent.globalData;
+
+                    // 调用收款接口
+                    ctx.checkout(
+                        globalData.token,
+                        TradeUtils.formatAmount(ctx.amount),
+                        res.result,
+                        ctx.generateVerifyCode(globalData.secret, globalData.time_step, TradeUtils.formatAmount(ctx.amount)),
+                        '');
+
+                }
+            });
+
+        },
+        handleScanCodeButtonClick(e) {
+
+            let ctx = this;
+
+            if (!ctx.amount || !TradeUtils.checkAmount(ctx.amount)) {
+                wepy.showModal({
+                    title: '提示',
+                    content: '请输入正确的金额',
+                    showCancel: false
+                });
+
+                return;
+            }
+
+            let globalData = ctx.$parent.globalData;
+            let verifyCode = ctx.generateVerifyCode(globalData.secret, globalData.time_step, TradeUtils.formatAmount(ctx.amount));
+
+            wepy.navigateTo({
+                url: `cashier_code?amount=${ctx.amount}&verify_code=${verifyCode}`
+            });
+
+        },
+        handleUserInfoButtonClick(e) {
+            wepy.navigateTo({
+                url: 'cashier_center'
+            });
+
+        },
+        handleBillButtonClick(e) {
+            wepy.navigateTo({
+                url: 'cashier_bill'
+            });
+
+        },
+        handleAmountChange(e) {
+
+            this.amount = e.detail.value;
+            
+
+        }
+    }
+
+    events = {
+
+    }
+
+    generateVerifyCode(secret, timeStep, amount) {
+
+        let t = new TradeCrypto(secret, timeStep);
+
+        return t.generateCashierCode(amount);
+
+
+    }
+
+    async checkout(token, amount, customer_code, verify_code, remark) {
+
+        let res = null;
+
+        wepy.showLoading({
+            title: '收款中',
+            mask: true
+        });
+
+        try {
+            res = await tradeApi.checkout(token, amount, customer_code, verify_code, remark);
+        } catch (e) {
+            wepy.navigateTo({
+                url: `../result?msg=收款失败&content=${e}&type=warn`
+            });
+
+            return;
+        } finally {
+            wepy.hideLoading();
+        }
+
+        wepy.navigateTo({
+            url: `../result?msg=成功收款&content=￥${res.order.amount}`
+        });
+
+    }
+
+    async renew() {
+
+        let ctx = this;
+
+        if (ctx.renewTimer) {
+            clearTimeout(ctx.renewTimer);
+            ctx.renewTimer = null;
+            ctx.$apply();
+        }
+
+        let res = null;
+
+        try {
+            res = await authApi.renew(ctx.$parent.globalData.token);
+        } catch (err) {
+            wepy.showModal({
+                title: '更新失败',
+                content: err,
+                showCancel: false
+            });
+            return;
+        } finally {
+        }
+
+        ctx.$parent.globalData.token = res.token;
+        ctx.$parent.globalData.expires_in = res.expires_in;
+        ctx.$parent.globalData.secret = res.secret;
+        ctx.$parent.globalData.time_step = res.time_step;
+
+        ctx.renewTimer = setTimeout(() => {
+
+            ctx.renew();
+
+        }, TimeUtils.timeSpace(res.expires_in));
+
+        ctx.$apply();
+
+    }
+
+    initRenewTimer() {
+
+        let ctx = this;
+
+        ctx.renewTimer = setTimeout(() => {
+            ctx.renew();
+        }, TimeUtils.timeSpace(ctx.$parent.globalData.expires_in));
+    }
+
+    loadStat(){
+
+        let ctx = this;
+
+        statApi.cashierSelfTodayStat(ctx.$parent.globalData.token)
+            .then(res => {
+
+                ctx.shop.money = StringUtils.formatPrice(parseFloat(res.stat.total), 2);
+                ctx.shop.counts = res.stat.times;
+
+                ctx.$apply();
+
+            }).catch(err => {
+
+            });
+
+
+    }
+
+    loadUserInfo() {
+
+        let ctx = this;
+
+        let globalData = ctx.$parent.globalData;
+
+        if (globalData.user) {
+            ctx.userInfo.nickName = globalData.user.nickname;
+
+            if (globalData.user.branch) {
+                ctx.shop.name = globalData.user.branch.name;
+            }
+        }
+
+        ctx.$apply();
+
+    }
+
+    onShow(){
+        let ctx = this;
+        ctx.loadStat();
+    }
+
+    onLoad() {
+        let ctx = this;
+        
+        ctx.loadUserInfo();
+        ctx.initRenewTimer();
+        EventBus.subscribe('cashier-loaduserinfo', () => {
+            ctx.loadUserInfo();
+        });
+
+    }
+}
+</script>
