@@ -12,6 +12,11 @@
         align-items: center;
         box-sizing: border-box;
         border-radius: 3px;
+
+        transition: box-shadow 0.2s;
+        &:hover {
+            box-shadow: 0 2px 12px 0 rgba(182, 179, 179, 0.44);
+        }
         .col,
         .row {
             display: flex;
@@ -46,6 +51,8 @@
             height: 1.6rem;
             padding: 0 0.6667rem;
             justify-content: space-between;
+            text-decoration: none;
+            transition: background-color 0.2s, box-shadow 0.2s;
             #avatar {
                 width: 1.12rem;
                 height: 1.12rem;
@@ -65,11 +72,17 @@
                 width: 0.5rem;
                 transform: rotate(-90deg);
             }
+            &:hover {
+                box-shadow: 0 2px 12px 0 rgba(182, 179, 179, 0.44);
+            }
+            &:active {
+                background-color: #F06292;
+            }
         }
         &.timer {
             flex-flow: row wrap;
-            box-shadow: 0 2px 12px 0 rgba(182, 179, 179, 0.44);
             padding: 0.2667rem 0.4rem;
+            transition: box-shadow 0.2s;
             .clock {
                 padding: 1.1rem 0;
                 font-size: 28px;
@@ -96,10 +109,11 @@
                     margin: 0 0.96rem;
                 }
             }
+
         }
         &.manual {
             flex-flow: row wrap;
-            box-shadow: 0 2px 12px 0 rgba(182, 179, 179, 0.44);
+            transition: box-shadow 0.2s;
             padding: 0.2667rem 0.4rem;
             .selector {
                 height: 5.2rem;
@@ -122,6 +136,9 @@
                     background: #F06292;
                     border-radius: 3px;
                 }
+            }
+            &:hover {
+                box-shadow: 0 2px 12px 0 rgba(182, 179, 179, 0.44);
             }
         }
         &.hide {

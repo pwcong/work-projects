@@ -61,6 +61,7 @@ gulp.task('libs', function () {
 ///////////////////////////////////////////////
 gulp.task('build', ['sass-prod', 'js-prod', 'libs-prod'], function () {
     gulp.src('app/*.html').pipe(gulp.dest('dist'));
+    gulp.src('app/imgs/**/*').pipe(gulp.dest('dist/imgs'));
 });
 
 gulp.task('sass-prod', function () {
