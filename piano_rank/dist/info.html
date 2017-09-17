@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>个人信息</title>
+
+    <script src="libs/jquery.min.js"></script>
+
+    <script src="js/utils.js"></script>
+    <script src="js/global.js"></script>
+
+    <link rel="stylesheet" href="libs/lib-flexible/flexible.css">
+    <script src="libs/lib-flexible/flexible.js"></script>
+
+    <link rel="stylesheet" href="libs/weui/weui.min.css">
+    <script src="libs/weui/weui.min.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/info.css">
+
+    <script src="libs/jweixin-1.2.1.js"></script>
+    <script src="js/info.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="main">
+
+            <!-- <form class="section" action="#" method="post" enctype="multipart/form-data"> -->
+            <div class="section">
+
+                <label class="row avatar">
+                    头像
+                    <div class="input-img">
+                        <img class="hide" src="" alt="avatar" id="avatar">
+                        <!-- <input name="avatar" type="file" id="inputAvatar"> -->
+                    </div>
+                </label>
+                <label class="row nickname">
+                    昵称
+                    <input type="text" placeholder="请输入昵称" name="nickname" id="inputNickname">
+                </label>
+                <label class="row sex">
+                    性别
+                    <div class="input-radio">
+
+                        <label>
+                            <input type="radio" name="sex" value="1">
+                            <span></span>
+                            男
+                        </label>
+                        <label>
+                            <input type="radio" name="sex" value="2">
+                            <span></span>
+                            女
+                        </label>
+
+                    </div>
+                </label>
+
+                <div class="row submit">
+
+                    <!-- <button type="submit">确定</button> -->
+                    <button type="button" id="btnSubmit">确定</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <img src="imgs/logo.png" alt="logo">
+        </div>
+
+    </div>
+</body>
+
+</html>

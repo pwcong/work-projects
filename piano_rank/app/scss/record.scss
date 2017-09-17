@@ -1,0 +1,120 @@
+.main {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: 0.48rem 0.6667rem 1.7867rem 0.6667rem;
+    .section {
+        background: #FFFFFF;
+        border-radius: 3px;
+        transition: box-shadow 0.2s;
+        &:hover {
+            box-shadow: 0 2px 12px 0 rgba(182, 179, 179, 0.44);
+        }
+        .row {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            width: 100%;
+            box-sizing: border-box;
+            .col {
+                flex: 1;
+                text-align: center;
+            }
+            .divider {
+                width: 1px;
+                height: 0.6933rem;
+                background-color: #F06292;
+            }
+        }
+        &.details {
+            margin-bottom: 0.2933rem;
+            padding: 0.32rem 0;
+            .info {
+                margin-bottom: 0.6933rem;
+                padding: 0 0.6667rem;
+                font-size: 16px;
+                color: #4A4A4A;
+                letter-spacing: -0.13px;
+                #avatar {
+                    width: 1.12rem;
+                    height: 1.12rem;
+                    border-radius: 50%;
+                    margin-right: 0.5067rem;
+                }
+                #name {
+                    margin-right: 0.1867rem;
+                }
+            }
+            .practice {
+                span {
+                    font-size: 21px;
+                    color: #F06292;
+                    letter-spacing: 0.28px;
+                }
+                p {
+                    font-size: 12px;
+                    color: #4A4A4A;
+                    letter-spacing: 0.16px;
+                }
+            }
+        }
+        &.my-calendar {
+            #calendar {
+                .calendar-views  {
+                    li.now{
+                        color: white;
+                        background-color: #4CC5FF;
+                    }
+                    
+                    i.dot{
+                        background-color: #4CC5FF;
+                        
+                    }
+                    
+                    li.selected{
+                        color: #4CC5FF;
+                        background-color: transparent;
+                    }
+                }
+                .calendar-hd {
+                    position: relative;
+                    text-align: center;
+                    background: #F06292;
+                    border-radius: 3px 3px 0 0;
+                    color: white;
+                }
+                .calendar-hd a {
+                    float: none;
+                    z-index: 999;
+                    position: relative;
+                    color: white;
+                    font-size: 16px;
+                    color: #FFFFFF;
+                    letter-spacing: 0.21px;
+                }
+                .calendar-hd a span.m {
+                    color: white;
+                }
+                .calendar-arrow {
+                    height: 100%;
+                    width: 100%;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    float: none;
+                    display: flex;
+                    flex-flow: row nowrap;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+                .calendar-arrow span {
+                    margin: 0 25px;
+                    color: white;
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+}
