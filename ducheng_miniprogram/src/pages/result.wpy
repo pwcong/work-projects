@@ -78,7 +78,11 @@
                         <icon type="{{type}}" size="70" />
                     </view>
                     <view class="result-msg {{type == 'success' ? 'result-msg-success' : 'result-msg-warn'}}">{{msg}}</view>
-                    <view class="result-content" style="font-size: {{type == 'success' ? '32px' : '18px'}}">{{content}}</view>
+                    <view 
+                        class="result-content" 
+                        style="font-size: {{fontsize ? fontsize + 'px' : (type == 'success' ? '32px' : '18px')}};{{color ? 'color: ' + color : ''}}">
+                        {{content}}
+                    </view>
                 </view>
 
             </view>
@@ -108,8 +112,10 @@ export default class Result extends wepy.page {
         bgUrl: urls.BG_RESULT,
         msg: '',
         delta: 1,
-        type: "success",
-        content: ""
+        type: 'success',
+        content: '',
+        color: '',
+        fontsize: ''
     }
 
     computed = {

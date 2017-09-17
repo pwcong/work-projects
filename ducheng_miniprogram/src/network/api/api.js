@@ -183,6 +183,19 @@ export default {
         token
       })
 
+    },
+    giveaway: {
+
+      url: () => API_BASE + '/trade/giveaway/',
+      method: 'POST',
+      data: (username, amount) => ({
+        username,
+        amount
+      }),
+      header: token => Object.assign({}, HEADER, {
+        token
+      })
+
     }
   },
   branch: {

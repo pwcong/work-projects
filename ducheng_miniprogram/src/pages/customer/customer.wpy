@@ -19,7 +19,7 @@
         font-size: 17px;
         margin-bottom: 6rpx;
 
-        image{
+        image {
             position: relative;
             bottom: -12rpx;
             width: 38rpx;
@@ -99,7 +99,7 @@
 
 
     .qrcode {
-        padding: 68rpx;
+        padding: 40rpx;
     }
 
 
@@ -110,14 +110,21 @@
         text-align: center;
         columns: #353535;
     }
+
+    .action {
+        margin-top: 40rpx;
+        background-color: transparent;
+        font-size: 14px;
+        color: #61749B;
+        letter-spacing: 0.69px;
+    }
 }
 </style>
 <template>
     <view class="container">
         <view class="toolbar">
             <view @tap="handleCenterButtonClick" class="user-name">
-                <image src="{{peopleIconUrl}}"/>
-                {{user.nickName}}
+                <image src="{{peopleIconUrl}}" /> {{user.nickName}}
             </view>
             <view @tap="handleCenterButtonClick" class="user-company">{{user.company}}</view>
             <view class="action" @tap="handleBillButtonClick">账单</view>
@@ -133,7 +140,13 @@
                 <canvas canvas-id="qrcode" style="width: 192px; height: 192px;" />
                 <view class="qrcode-num">{{user.payCode}}</view>
             </view>
+
+            <view class="section action">
+                <text @tap="handleGiveButtonClick">转赠</text>
+            </view>
+
         </view>
+
     </view>
 </template>
 
@@ -157,7 +170,7 @@ export default class Customer extends wepy.page {
         navigationBarTitleText: '个人会员',
         disableScroll: true
     }
-    
+
     components = {
 
     }
@@ -171,7 +184,7 @@ export default class Customer extends wepy.page {
         user: {
             nickName: "",
             company: "",
-            balance: '0.00',
+            balance: '-',
             payCode: '',
             verifyCodes: []
         },
@@ -195,6 +208,13 @@ export default class Customer extends wepy.page {
             wepy.navigateTo({
                 url: 'customer_center'
             });
+        },
+        handleGiveButtonClick(e) {
+
+            wepy.navigateTo({
+                url: 'customer_give'
+            });
+
         }
     }
 
@@ -220,7 +240,7 @@ export default class Customer extends wepy.page {
 
             let verifyCodeIndex = ctx.user.verifyCodes.indexOf(verifyCode);
 
-            if(verifyCodeIndex > -1){
+            if (verifyCodeIndex > -1) {
                 ctx.user.verifyCodes.splice(verifyCodeIndex, 1);
                 ctx.$apply();
             }
@@ -305,8 +325,8 @@ export default class Customer extends wepy.page {
         }, TimeUtils.timeSpace(ctx.$parent.globalData.expires_in));
     }
 
-    initQRCodeTimer(){
-        
+    initQRCodeTimer() {
+
         let ctx = this;
 
         ctx.qrcodeTimer = setInterval(() => {
@@ -342,7 +362,7 @@ export default class Customer extends wepy.page {
         // ctx.user.verifyCodes.push(res.verifyCode);
         ctx.user.verifyCodes.push(res.payCode);
 
-        if(ctx.user.verifyCodes.length > 2){
+        if (ctx.user.verifyCodes.length > 2) {
             ctx.user.verifyCodes.shift();
         }
 
@@ -350,17 +370,17 @@ export default class Customer extends wepy.page {
 
     }
 
-    async reloadUserInfo(){
+    async reloadUserInfo() {
 
         let ctx = this;
 
         let res = null;
 
-        try{
+        try {
 
             res = await userApi.getInfo(ctx.$parent.globalData.token);
 
-        }catch(err){
+        } catch (err) {
 
             wepy.showModal({
                 title: '获取失败',
@@ -369,7 +389,7 @@ export default class Customer extends wepy.page {
             });
 
             return;
-        }finally{}
+        } finally { }
 
         ctx.$parent.globalData.user = res.user;
         ctx.loadUserInfo();
@@ -402,13 +422,15 @@ export default class Customer extends wepy.page {
             ctx.verifyTimer = null;
         }
 
-        if(ctx.qrcodeTimer){
+        if (ctx.qrcodeTimer) {
             clearInterval(ctx.qrcodeTimer);
             ctx.qrcodeTimer = null;
         }
     }
 
     onShow() {
+        
+        this.reloadUserInfo();
         this.initVerifyTimer();
         this.initQRCodeTimer();
     }
@@ -419,7 +441,6 @@ export default class Customer extends wepy.page {
 
         ctx.canvasContext = wepy.createCanvasContext('qrcode');
 
-        ctx.loadUserInfo();
         ctx.initRenewTimer();
         ctx.initCode();
 

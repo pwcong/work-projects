@@ -31,6 +31,7 @@ export default class extends wepy.app {
     pages: [
       'pages/index',
       'pages/customer/customer',
+      'pages/customer/customer_give',
       'pages/customer/customer_center',
       'pages/customer/customer_bill',
       'pages/customer/customer_bill_all',
@@ -98,35 +99,42 @@ export default class extends wepy.app {
 
     // this.globalData = {
     //   "user": {
-    //     "last_transaction_time": "1970-01-01 08:00:00",
-    //     "birthday": null,
-    //     "last_topup_time": "1970-01-01 08:00:00",
-    //     "balance": "0.00",
-    //     "created_at": "2017-08-22 09:48:30",
-    //     "updated_at": "2017-09-01 15:28:39",
-    //     "id": 11,
-    //     "username": "manager001",
-    //     "user_type": 1,
-    //     "nickname": "manager01",
+    //     "last_transaction_time": "2017-09-14 10:42:25",
+    //     "birthday": "2017-08-25",
+    //     "last_topup_time": "2017-09-11 12:01:00",
+    //     "balance": "515.66",
+    //     "created_at": "2017-08-22 09:44:39",
+    //     "updated_at": "2017-09-17 11:03:36",
+    //     "id": 5,
+    //     "username": "gzyunyi01",
+    //     "user_type": 4,
+    //     "nickname": "gzyy",
     //     "account_status": 0,
-    //     "override_discount": false,
+    //     "override_discount": true,
+    //     "override_payment_behavior": true,
     //     "account_type": 1,
     //     "department_remark": null,
-    //     "gender": null,
+    //     "payment_behavior": 2,
+    //     "gender": 1,
     //     "identity_number": null,
-    //     "email_address": null,
+    //     "email_address": "gzyy@qq.com",
     //     "phone_number": null,
     //     "topup_options": null,
     //     "remark": null,
+    //     "purchased": true,
+    //     "topuped": false,
     //     "branch_id": null,
-    //     "company_id": null,
-    //     "company": null,
+    //     "company_id": 1,
+    //     "company": {
+    //       "name": "广州云翊",
+    //       "remark": "广州云翊信息科技有限公司"
+    //     },
     //     "branch": null
     //   },
-    //   "token": "manager001:e12b6090b1a3a2950cbdccf43c65fd203fd09a5856208e997248b83c9b93c9b2",
-    //   "secret": "MzM2MzAzNTMwMzEzMTMxMzUzMDM0MzYzODM1MzAzOTMxMzQzMjMxMw==",
-    //   "expires_in": 1505289891421,
-    //   "time_step": 15
+    //   "token": "gzyunyi01:307e3fc771a64c6c5747d387a5f5938cf0da99ed5c1e38d9d24910fd4530f981",
+    //   "secret": "MjM0MzQzMjMwMzUzMTM1MzAzNTM2MzUzMTMyMzUzMDM2MzYzMzM=",
+    //   "expires_in": 1506256050663,
+    //   "time_step": 30
     // }
 
     //   var key;

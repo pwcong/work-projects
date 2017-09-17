@@ -22,3 +22,14 @@ export function notification(token, verify_code) {
   );
 
 }
+
+export function giveaway(token, username, amount) {
+
+  return request(
+    api.trade.giveaway.url(),
+    api.trade.giveaway.method,
+    api.trade.giveaway.data(username, amount),
+    api.trade.giveaway.header(token)
+  );
+
+}

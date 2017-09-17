@@ -7,7 +7,9 @@
                         <icon type="{{type}}" size="70"/>
                     </view>
                     <view class="result-msg {{type == 'success' ? 'result-msg-success' : 'result-msg-warn'}}">{{msg}}</view>
-                    <view class="result-content" style="font-size: {{type == 'success' ? '32px' : '18px'}}">{{content}}</view>
+                    <view class="result-content" style="font-size: {{fontsize ? fontsize + 'px' : (type == 'success' ? '32px' : '18px')}};{{color ? 'color: ' + color : ''}}">
+                        {{content}}
+                    </view>
                 </view>
 
             </view>

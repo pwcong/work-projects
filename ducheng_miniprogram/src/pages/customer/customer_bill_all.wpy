@@ -272,13 +272,12 @@ export default class CustomerBillAll extends wepy.page {
             ctx.$apply();
 
         }
-        
 
         ctx.record.details = [
             ...ctx.record.details,
             ...res.orders.map(order => {
 
-                let t = order.type == '充值' || order.type == '退款' || order.type == '团餐客户拨款';
+                let t = order.type == '充值' || order.type == '退款' || order.type == '团餐客户拨款' || order.type == '受赠';
 
                 return {
                     datetime: order.created_at.substring(5, 16),
