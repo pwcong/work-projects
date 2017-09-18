@@ -1,84 +1,75 @@
 ;
 (function () {
 
-    var API_BASE = 'http://www.ppfix.cn/piano_rank';
+    function MyTimer(initHours, initMinutes, initSeconds, onTicker, onStart, onStop, onRestart) {
 
-    var API = {
+        this.timer = null;
+        this.hours = initHours || 0;
+        this.minutes = initMinutes || 0;
+        this.seconds = initSeconds || 0;
 
-        auth: {
-            url: function () {
-                return API_BASE + '/api/wx/authUrl?redirectUri=' + window.location.href;
-            },
-            method: 'GET'
-        },
-        userInfo: {
-            url: function () {
-                return API_BASE + '/api/user/info';
-            },
-            method: 'GET',
-            headers: function () {
-                return {
-                    sessionId: window.localStorage.sessionId
-                }
-            }
-        },
-        modifyUserInfo: {
-            url: function (nickname, gender) {
+        this.onTicker = onTicker || function () {};
+        this.onStart = onStart || function () {};
+        this.onStop = onStop || function () {};
+        this.onRestart = onRestart || function () {};
 
-                nickname = nickname || '';
-                gender = gender || '';
+    }
 
-                return API_BASE + '/api/user/update?nickname=' + nickname + '&gender=' + gender;
-            },
-            method: 'GET',
-            headers: function () {
-                return {
-                    sessionId: window.localStorage.sessionId
-                }
-            }
-        },
-        uploadRecord: {
-            url: function (record, beginTime, endTime) {
 
-                record = record || 0;
-                beginTime = beginTime || '';
-                endTime = endTime || '';
+    MyTimer.prototype.start = function () {
 
-                // return API_BASE + '/api/user/record/upload?record=' + record + '&beginTime=' + beginTime + '&endTime=' + endTime;
-                return API_BASE + '/api/user/record/upload?record=' + record;
-            },
-            method: 'GET',
-            headers: function () {
-                return {
-                    sessionId: window.localStorage.sessionId
-                }
-            }
-        },
-        dayRanking: {
-            url: function () {
-                return API_BASE + '/api/rank/day';
-            },
-            method: 'GET',
-            headers: function () {
-                return {
-                    sessionId: window.localStorage.sessionId
-                }
-            }
-        },
-        allRecords: {
-            url: function (year) {
+        var ctx = this;
 
-                year = year || '';
+        ctx.onStart(this.hours, this, minutes, this.seconds);
 
-                return API_BASE + '/api/user/record/all?year=' + year;
-            },
-            method: 'GET',
-            headers: function () {
-                return {
-                    sessionId: window.localStorage.sessionId
-                }
-            }
+        if (ctx.timer) {
+            clearInterval(ctx.timer);
+            ctx.timer = null;
         }
+
+        ctx.timer = setInterval(function () {
+
+
+            ctx.seconds++;
+
+            if (ctx.seconds >= 60) {
+                ctx.seconds = 0;
+                ctx.minutes++;
+            }
+
+            if (ctx.minutes >= 60) {
+                ctx.minutes = 0;
+                ctx.hours++;
+            }
+
+            if (ctx.hours >= 24) {
+                ctx.hours = 0;
+            }
+
+            ctx.onTicker(ctx.hours, ctx.minutes, ctx.seconds);
+
+        }, 1000);
+
+    }
+
+    MyTimer.prototype.stop = function () {
+
+        this.onStop(this.hours, this.minutes, this.seconds);
+
+        if (this.timer) {
+            clearInterval(this.timer);
+            this.timer = null;
+        }
+
+    }
+
+    MyTimer.prototype.restart = function () {
+
+        this.onRestart(this.hours, this.minutes, this.seconds);
+
+        this.hours = 0;
+        this.minutes = 0;
+        this.seconds = 0;
 
 
     }
@@ -99,37 +90,33 @@
         return window.localStorage.sessionId ? true : false;
     }
 
-    // 调用授权接口获取sessionId
-    function getSessionId() {
-
-        $.ajax({
-            url: API.auth.url(),
-            method: API.auth.method,
-            success: function (data) {
-                window.location.href = data;
-            },
-            error: function (err) {
-                console.log(err);
-            },
-            complete: function (data) {
-
-            }
-        })
-
-    }
 
     function init() {
 
         initSessionId();
 
         if (!checkSessionId()) {
-            getSessionId();
+
+            // 调用授权接口获取sessionId
+            API.getSessionId(
+
+                function (data) {
+                    window.location.href = data;
+                },
+                function (err) {
+                    console.log(err);
+                },
+                function (data) {
+
+                }
+            );
         }
 
     }
 
     init();
 
-    window.API = API;
+    window.MyTimer = MyTimer;
+
 
 })();

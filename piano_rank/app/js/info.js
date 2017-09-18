@@ -1,11 +1,13 @@
-function initUserInfo() {
+// 初始化信息
+$(document).ready(function () {
 
-    $.ajax({
+    if (!window.localStorage.sessionId) {
+        return;
+    }
 
-        url: API.userInfo.url(),
-        method: API.userInfo.method,
-        headers: API.userInfo.headers(),
-        success: function (data) {
+    API.getUserInfo(
+        window.localStorage.sessionId,
+        function (data) {
 
             if (data.code != 'SUCCESS' || !data.result) {
                 return;
@@ -17,27 +19,53 @@ function initUserInfo() {
 
             $('input[name="sex"').removeAttr('checked');
             $('input[name="sex"][value="' + data.result.gender + '"').attr('checked', 'checked');
-        },
-        error: function (err) {
 
         },
-        complete: function (data) {
+        function (err) {
+
+        },
+        function (data) {
 
         }
+    );
 
+});
 
-    });
-
-}
-
-// 初始化信息
+// 校验计时器状态
 $(document).ready(function () {
 
-    if (!window.localStorage.sessionId) {
-        return;
+    if (window.localStorage.sessionId && window.localStorage.timerFlag == 'true') {
+
+        var hours = parseInt(window.localStorage.hours || 0);
+        var minutes = parseInt(window.localStorage.minutes || 0);
+        var seconds = parseInt(window.localStorage.seconds || 0);
+
+        setInterval(function () {
+
+            seconds++;
+
+            if (seconds >= 60) {
+                seconds = 0;
+                minutes++;
+            }
+
+            if (minutes >= 60) {
+                minutes = 0;
+                hours++;
+            }
+
+            if (hours >= 24) {
+                hours = 0;
+            }
+
+            window.localStorage.hours = hours;
+            window.localStorage.minutes = minutes;
+            window.localStorage.seconds = seconds;
+
+        }, 1000);
+
     }
 
-    initUserInfo();
 
 });
 
@@ -109,32 +137,37 @@ $(document).ready(function () {
         var sex = $('input[name|="sex"]:checked').val();
         var nickname = $('#inputNickname').val();
 
+        if (!window.localStorage.sessionId) {
+            return;
+        }
 
-        $.ajax({
-
-            url: API.modifyUserInfo.url(nickname, sex),
-            method: API.modifyUserInfo.method,
-            headers: API.modifyUserInfo.headers(),
-            success: function (data) {
+        API.modifyUserInfo(
+            window.localStorage.sessionId,
+            nickname,
+            sex,
+            function (data) {
 
                 if (data.code != 'SUCCESS') {
                     return;
                 }
 
                 weui.toast('修改成功', 1500);
-                
+
             },
-            error: function (err) {   
+            function (err) {
                 weui.toast('修改失败', 1500);
             },
-            complete: function (data) {
+            function (data) {
 
             }
 
-
-        });
+        );
 
     });
 
+
+    $('#btnBack').click(function () {
+        window.history.back();
+    });
 
 });

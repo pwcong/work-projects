@@ -17,44 +17,14 @@
 
 // });
 
-function initUserInfo() {
+function uploadRecord(sessionId, record, startTime, endTime) {
 
-    $.ajax({
-
-        url: API.userInfo.url(),
-        method: API.userInfo.method,
-        headers: API.userInfo.headers(),
-        success: function (data) {
-
-            if (data.code != 'SUCCESS' || !data.result) {
-                return;
-            }
-
-            $('#avatar').attr('src', data.result.avater || 'imgs/avatar.png');
-            $('#avatar').removeClass('hide');
-            $('#name').html(data.result.nickname);
-            $('#sex').addClass(data.result.gender == 1 ? 'icon-male' : (data.result.gender == 2 ? 'icon-female' : ''));
-
-        },
-        error: function (err) {
-
-        },
-        complete: function (data) {
-
-        }
-
-
-    });
-
-}
-
-function uploadRecord(record, startTime, endTime) {
-
-    $.ajax({
-        url: API.uploadRecord.url(record, startTime, endTime),
-        method: API.uploadRecord.method,
-        headers: API.uploadRecord.headers(),
-        success: function (data) {
+    API.uploadRecord(
+        sessionId,
+        record,
+        startTime,
+        endTime,
+        function (data) {
 
             if (data.code != 'SUCCESS') {
                 weui.alert(data.message, {
@@ -67,17 +37,17 @@ function uploadRecord(record, startTime, endTime) {
 
             }
         },
-        error: function (err) {
+        function (err) {
 
             weui.alert('记录上传失败', {
                 className: 'dialog'
             });
         },
-        complete: function (data) {
+        function (data) {
 
         }
 
-    });
+    )
 
 }
 
@@ -88,7 +58,27 @@ $(document).ready(function () {
         return;
     }
 
-    initUserInfo();
+    API.getUserInfo(
+        window.localStorage.sessionId,
+        function (data) {
+
+            if (data.code != 'SUCCESS' || !data.result) {
+                return;
+            }
+
+            $('#avatar').attr('src', data.result.avater || 'imgs/avatar.png');
+            $('#avatar').removeClass('hide');
+            $('#name').html(data.result.nickname);
+            $('#sex').addClass(data.result.gender == 1 ? 'icon-male' : (data.result.gender == 2 ? 'icon-female' : ''));
+
+        },
+        function (err) {
+
+        },
+        function (data) {
+
+        }
+    );
 
 
 });
@@ -118,11 +108,11 @@ $(document).ready(function () {
 
                     var res = result[0].value * 60 + result[2].value;
 
-                    if (res < 1) {
+                    if (res < 1 || !window.localStorage.sessionId) {
                         return;
                     }
 
-                    uploadRecord(res);
+                    uploadRecord(window.localStorage.sessionId, res);
 
                 },
             });
@@ -133,125 +123,214 @@ $(document).ready(function () {
 // 计时器逻辑
 $(document).ready(function () {
 
-    var flag = false;
-    var timer = null;
+    var timerFlag = false;
 
-    var hours = 0,
-        minutes = 0,
-        seconds = 0,
-        startTime = moment().format('YYYY-MM-DD hh:mm:ss'),
-        endTime = moment().format('YYYY-MM-DD hh:mm:ss');
+    var initHours = 0;
+    var initMinutes = 0;
+    var initSeconds = 0;
 
+    if (window.localStorage.timerFlag == 'true') {
 
+        initHours = parseInt(window.localStorage.hours || 0);
+        initMinutes = parseInt(window.localStorage.minutes || 0);
+        initSeconds = parseInt(window.localStorage.seconds || 0);
 
-    function clearTimer(uploadData) {
-
-        uploadData = uploadData ? uploadData : false;
-
-        if (timer) {
-            clearInterval(timer);
-            timer = null;
-
-            if (uploadData) {
-
-                var res = hours * 60 + minutes + parseInt(seconds / 60);
-                endTime = moment().format('YYYY-MM-DD hh:mm:ss');
-
-                if (res < 1) {
-                    return;
-                }
-
-                weui.confirm('是否确定上传记录？', function () {
-
-                    uploadRecord(res, startTime, endTime);
-
-                }, function () {
-                    console.log('取消');
-                }, {
-                    className: 'confirm'
-                });
-
-            }
-
-        }
-
-        hours = 0;
-        minutes = 0;
-        seconds = 0;
+        $('#hours').html(utils.formatTime(initHours));
+        $('#minutes').html(utils.formatTime(initMinutes));
+        $('#seconds').html(utils.formatTime(initSeconds));
 
     }
 
-    function startTimer() {
+    var myTimer = new MyTimer(
+        initHours, initMinutes, initSeconds,
+        function (hours, minutes, seconds) {
 
-        clearTimer();
-
-        startTime = moment().format('YYYY-MM-DD hh:mm:ss');
-
-        timer = setInterval(function () {
-
-            seconds += 1;
-
-            if (seconds >= 60) {
-                seconds = 0;
-                minutes++;
-            }
-
-            if (minutes >= 60) {
-                minutes = 0;
-                hours++;
-            }
-
-            if (hours >= 24) {
-                hours = 0;
-            }
+            window.localStorage.hours = hours;
+            window.localStorage.minutes = minutes;
+            window.localStorage.seconds = seconds;
 
             $('#hours').html(utils.formatTime(hours));
             $('#minutes').html(utils.formatTime(minutes));
             $('#seconds').html(utils.formatTime(seconds));
 
-        }, 1000);
-    }
+        },
+        function (hours, minutes, seconds) {},
+        function (hours, minutes, seconds) {
 
+            var res = hours * 60 + minutes + parseInt(seconds / 60);
 
-    $('#btnSwitch').click(function () {
+            if (res < 1 || !window.localStorage.sessionId) {
+                return;
+            }
 
-        if (!flag) {
+            weui.confirm('是否确定上传记录？', function () {
+                uploadRecord(window.localStorage.sessionId, res, null, null);
+            }, function () {
+                console.log('取消上传记录');
+            }, {
+                className: 'confirm'
+            });
 
-            $(this).addClass('active');
-            flag = true;
-
-            startTimer();
-
-
-        } else {
-
-            $(this).removeClass('active');
-            flag = false;
-
-
+        },
+        function (hours, minutes, seconds) {
             $('#hours').html('00');
             $('#minutes').html('00');
             $('#seconds').html('00');
-
-            clearTimer(true);
-
         }
+    )
+
+    if (window.localStorage.timerFlag == 'true') {
+
+        timerFlag = true;
+        $('#btnSwitch').addClass('active');
+        myTimer.start();
+    }
+
+    $('#btnSwitch').click(function () {
+
+        if (!timerFlag) {
+            $(this).addClass('active');
+            timerFlag = true;
+            myTimer.start();
+        } else {
+            $(this).removeClass('active');
+            timerFlag = false;
+            myTimer.stop();
+        }
+
+        window.localStorage.timerFlag = timerFlag;
 
     });
 
+
+
     $('#btnRestart').click(function () {
-        $('#hours').html('00');
-        $('#minutes').html('00');
-        $('#seconds').html('00');
-
-        hours = 0;
-        minutes = 0;
-        seconds = 0;
-
-        flag = true;
-        $('#btnSwitch').addClass('active');
-        startTimer();
-
+        myTimer.restart();
     });
 
 });
+
+// $(document).ready(function () {
+
+//     var flag = false;
+//     var timer = null;
+
+//     var hours = 0,
+//         minutes = 0,
+//         seconds = 0,
+//         startTime = moment().format('YYYY-MM-DD hh:mm:ss'),
+//         endTime = moment().format('YYYY-MM-DD hh:mm:ss');
+
+
+
+//     function clearTimer(uploadData) {
+
+//         uploadData = uploadData ? uploadData : false;
+
+//         if (timer) {
+//             clearInterval(timer);
+//             timer = null;
+
+//             if (uploadData) {
+
+//                 var res = hours * 60 + minutes + parseInt(seconds / 60);
+//                 endTime = moment().format('YYYY-MM-DD hh:mm:ss');
+
+//                 if (res < 1 || !window.localStorage.sessionId) {
+//                     return;
+//                 }
+
+//                 weui.confirm('是否确定上传记录？', function () {
+
+//                     uploadRecord(window.localStorage.sessionId, res, startTime, endTime);
+
+//                 }, function () {
+//                     console.log('取消');
+//                 }, {
+//                     className: 'confirm'
+//                 });
+
+//             }
+
+//         }
+
+//         hours = 0;
+//         minutes = 0;
+//         seconds = 0;
+
+//     }
+
+//     function startTimer() {
+
+//         clearTimer();
+
+//         startTime = moment().format('YYYY-MM-DD hh:mm:ss');
+
+//         timer = setInterval(function () {
+
+//             seconds += 1;
+
+//             if (seconds >= 60) {
+//                 seconds = 0;
+//                 minutes++;
+//             }
+
+//             if (minutes >= 60) {
+//                 minutes = 0;
+//                 hours++;
+//             }
+
+//             if (hours >= 24) {
+//                 hours = 0;
+//             }
+
+//             $('#hours').html(utils.formatTime(hours));
+//             $('#minutes').html(utils.formatTime(minutes));
+//             $('#seconds').html(utils.formatTime(seconds));
+
+//         }, 1000);
+//     }
+
+
+//     $('#btnSwitch').click(function () {
+
+//         if (!flag) {
+
+//             $(this).addClass('active');
+//             flag = true;
+
+//             startTimer();
+
+
+//         } else {
+
+//             $(this).removeClass('active');
+//             flag = false;
+
+
+//             $('#hours').html('00');
+//             $('#minutes').html('00');
+//             $('#seconds').html('00');
+
+//             clearTimer(true);
+
+//         }
+
+//     });
+
+//     $('#btnRestart').click(function () {
+//         $('#hours').html('00');
+//         $('#minutes').html('00');
+//         $('#seconds').html('00');
+
+//         hours = 0;
+//         minutes = 0;
+//         seconds = 0;
+
+//         flag = true;
+//         $('#btnSwitch').addClass('active');
+//         startTimer();
+
+//     });
+
+// });

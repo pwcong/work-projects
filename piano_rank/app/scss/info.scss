@@ -38,6 +38,7 @@
                 }
             }
             &.submit {
+                flex-flow: row wrap;
                 margin-top: 2.1867rem;
                 button {
                     background: #F06292;
@@ -50,6 +51,11 @@
                     font-size: 20px;
                     color: #FFFFFF;
                     letter-spacing: -1.07px;
+
+                    &#btnBack{
+                        margin-top: 0.4rem;
+                        background-color: #ccc;
+                    }
                 }
             }
             .input-img {

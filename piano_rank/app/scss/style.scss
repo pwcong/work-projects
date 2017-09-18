@@ -76,6 +76,10 @@ body {
     #weui-picker-confirm {
         color: #F06292;
     }
+
+    .weui-picker__item{
+        font-size: 18px;
+    }
 }
 
 .confirm {
@@ -96,9 +100,10 @@ body {
     }
 }
 
-.hide{
+.hide {
     display: none;
 }
+
 
 .icon {
     display: inline-block;
@@ -134,6 +139,10 @@ body {
 
 .icon-start {
     background-image: url(../imgs/icon_start.png);
+}
+
+.icon-stop {
+    background-image: url(../imgs/icon_stop.png);
 }
 
 .icon-restart {

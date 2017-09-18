@@ -1,11 +1,13 @@
-function initUserInfo() {
+// 初始化信息
+$(document).ready(function () {
 
-    $.ajax({
+    if (!window.localStorage.sessionId) {
+        return;
+    }
 
-        url: API.userInfo.url(),
-        method: API.userInfo.method,
-        headers: API.userInfo.headers(),
-        success: function (data) {
+    API.getUserInfo(
+        window.localStorage.sessionId,
+        function (data) {
 
             if (data.code != 'SUCCESS' || !data.result) {
                 return;
@@ -17,26 +19,18 @@ function initUserInfo() {
             $('#sex').addClass(data.result.gender == 1 ? 'icon-male' : (data.result.gender == 2 ? 'icon-female' : ''));
 
         },
-        error: function (err) {
+        function (err) {
 
         },
-        complete: function (data) {
+        function (data) {
 
         }
+    );
 
-
-    });
-
-}
-
-function initRecords(year) {
-
-    $.ajax({
-
-        url: API.allRecords.url(year),
-        method: API.allRecords.method,
-        headers: API.allRecords.headers(),
-        success: function (data) {
+    API.getAllRecords(
+        window.localStorage.sessionId,
+        null,
+        function (data) {
 
             if (data.code != 'SUCCESS' || !data.result) {
                 return;
@@ -53,28 +47,51 @@ function initRecords(year) {
             $('#practiceTime').html(record);
 
         },
-        error: function (err) {
+        function (err) {
 
         },
-        complete: function (data) {
+        function (data) {
 
         }
+    );
 
+});
 
-    });
-
-
-}
-
-// 初始化信息
+// 校验计时器状态
 $(document).ready(function () {
 
-    if (!window.localStorage.sessionId) {
-        return;
+    if (window.localStorage.sessionId && window.localStorage.timerFlag == 'true') {
+
+        var hours = parseInt(window.localStorage.hours || 0);
+        var minutes = parseInt(window.localStorage.minutes || 0);
+        var seconds = parseInt(window.localStorage.seconds || 0);
+
+        setInterval(function () {
+
+            seconds++;
+
+            if (seconds >= 60) {
+                seconds = 0;
+                minutes++;
+            }
+
+            if (minutes >= 60) {
+                minutes = 0;
+                hours++;
+            }
+
+            if (hours >= 24) {
+                hours = 0;
+            }
+
+            window.localStorage.hours = hours;
+            window.localStorage.minutes = minutes;
+            window.localStorage.seconds = seconds;
+
+        }, 1000);
+
     }
 
-    initUserInfo();
-    initRecords();
 
 });
 

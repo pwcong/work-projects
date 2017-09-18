@@ -62,18 +62,25 @@
         }
         &.my-calendar {
             #calendar {
-                .calendar-views  {
-                    li.now{
+                &.calendar-d .view-month,
+                &.calendar-m .view-date {
+                    transition: transform 0s;
+                    -webkit-transition: transform 0s;
+                }
+                &.calendar-d .view-date,
+                &.calendar-m .view-month {
+                    transition: transform 0s;
+                    -webkit-transition: transform 0s;
+                }
+                .calendar-views {
+                    li.now {
                         color: white;
                         background-color: #4CC5FF;
                     }
-                    
-                    i.dot{
+                    i.dot {
                         background-color: #4CC5FF;
-                        
                     }
-                    
-                    li.selected{
+                    li.selected {
                         color: #4CC5FF;
                         background-color: transparent;
                     }
