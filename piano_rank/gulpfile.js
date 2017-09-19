@@ -75,11 +75,15 @@ gulp.task('js-prod', function (cb) {
     pump(
         [
             gulp.src('app/js/**/*.js'),
+            sourcemaps.init(),
             uglify(),
+            sourcemaps.write('.'),
             gulp.dest('dist/js')
         ],
         cb
     );
 
+    // return gulp.src('app/js/**/*.js')
+    //     .pipe(gulp.dest('dist/js'));
 
 });

@@ -403,7 +403,8 @@ export default class Customer extends wepy.page {
         let globalData = ctx.$parent.globalData;
 
         if (globalData.user) {
-            ctx.user.nickName = globalData.user.nickname;
+
+            ctx.user.nickName = globalData.user.nickname || globalData.user.username;
             ctx.user.balance = globalData.user.balance;
 
             if (globalData.user.company) {
@@ -429,7 +430,7 @@ export default class Customer extends wepy.page {
     }
 
     onShow() {
-        
+
         this.reloadUserInfo();
         this.initVerifyTimer();
         this.initQRCodeTimer();

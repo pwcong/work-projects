@@ -8,8 +8,7 @@
     "build": "npm run clean & gulp build",
     "dev": "npm run clean & gulp dev"
   },
-  "keywords": [
-  ],
+  "keywords": [],
   "author": "Pwcong <pwcong@foxmail.com>",
   "license": "ISC",
   "devDependencies": {

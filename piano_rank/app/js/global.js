@@ -1,12 +1,10 @@
 ;
 (function () {
 
-    function MyTimer(initHours, initMinutes, initSeconds, onTicker, onStart, onStop, onRestart) {
+    function MyTimer(onTicker, onStart, onStop, onRestart) {
 
         this.timer = null;
-        this.hours = initHours || 0;
-        this.minutes = initMinutes || 0;
-        this.seconds = initSeconds || 0;
+
 
         this.onTicker = onTicker || function () {};
         this.onStart = onStart || function () {};
@@ -16,11 +14,10 @@
     }
 
 
-    MyTimer.prototype.start = function () {
+    MyTimer.prototype.start = function (startTime) {
 
         var ctx = this;
-
-        ctx.onStart(this.hours, this, minutes, this.seconds);
+        ctx.startTime = startTime || Date.parse(new Date());
 
         if (ctx.timer) {
             clearInterval(ctx.timer);
@@ -29,47 +26,30 @@
 
         ctx.timer = setInterval(function () {
 
-
-            ctx.seconds++;
-
-            if (ctx.seconds >= 60) {
-                ctx.seconds = 0;
-                ctx.minutes++;
-            }
-
-            if (ctx.minutes >= 60) {
-                ctx.minutes = 0;
-                ctx.hours++;
-            }
-
-            if (ctx.hours >= 24) {
-                ctx.hours = 0;
-            }
-
-            ctx.onTicker(ctx.hours, ctx.minutes, ctx.seconds);
+            ctx.onTicker(ctx.startTime);
 
         }, 1000);
+
+        ctx.onStart(this.startTime);
 
     }
 
     MyTimer.prototype.stop = function () {
 
-        this.onStop(this.hours, this.minutes, this.seconds);
 
         if (this.timer) {
             clearInterval(this.timer);
             this.timer = null;
         }
 
+        this.onStop(this.startTime);
     }
 
     MyTimer.prototype.restart = function () {
 
-        this.onRestart(this.hours, this.minutes, this.seconds);
+        this.startTime = Date.parse(new Date());
 
-        this.hours = 0;
-        this.minutes = 0;
-        this.seconds = 0;
+        this.onRestart(this.startTime);
 
 
     }
@@ -90,27 +70,64 @@
         return window.localStorage.sessionId ? true : false;
     }
 
-
     function init() {
 
         initSessionId();
 
         if (!checkSessionId()) {
 
+            // window.location.href = 'http://localhost:3000/index.html';
+            window.location.href = 'http://www.ppfix.cn/activity/piano_rank/index.html';
+
             // 调用授权接口获取sessionId
-            API.getSessionId(
+            // API.getSessionId(
+            //     // 'http://www.ppfix.cn/activity/piano_rank/enter.html',
+            //     window.location.href,
+            //     function (data) {
+            //         window.location.href = data;
+            //     },
+            //     function (err) {
+            //         console.log(err);
+            //     },
+            //     function (data) {
 
-                function (data) {
-                    window.location.href = data;
-                },
-                function (err) {
-                    console.log(err);
-                },
-                function (data) {
+            //     }
+            // );
+        } else if ($('meta[js-sdk="true"]').length > 0) {
 
-                }
-            );
+            // API.getSign(
+            //     function (data) {
+
+            //         if (!data.code == 'SUCCESS' || !data.result) {
+            //             return;
+            //         }
+
+            //         var result = data.result;
+
+            //         wx.config({
+            //             debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            //             appId: result.appId, // 必填，公众号的唯一标识
+            //             timestamp: result.timestamp, // 必填，生成签名的时间戳
+            //             nonceStr: result.nonceStr, // 必填，生成签名的随机串
+            //             signature: result.signature, // 必填，签名，见附录1
+            //             jsApiList: [
+            //                 'onMenuShareAppMessage',
+            //                 'onMenuShareTimeline',
+            //                 // 'onMenuShareQQ',
+            //                 // 'onMenuShareWeibo',
+            //                 // 'onMenuShareQZone'
+            //             ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+            //         });
+            //     },
+            //     function (err) {
+            //         console.log(err);
+            //     },
+            //     function (data) {
+
+            //     }
+            // );
         }
+
 
     }
 

@@ -17,7 +17,8 @@ $(document).ready(function () {
             $('#avatar').removeClass('hide');
             $('#name').html(data.result.nickname);
             $('#sex').addClass(data.result.gender == 1 ? 'icon-male' : (data.result.gender == 2 ? 'icon-female' : ''));
-
+            $('#practiceTime').html(data.result.record);
+            $('#duration').html(data.result.insistDay);
         },
         function (err) {
 
@@ -27,73 +28,46 @@ $(document).ready(function () {
         }
     );
 
-    API.getAllRecords(
-        window.localStorage.sessionId,
-        null,
-        function (data) {
-
-            if (data.code != 'SUCCESS' || !data.result) {
-                return;
-            }
-
-            var record = 0;
-
-            data.result.forEach(function (item, index) {
-
-                record += item.record;
-
-            });
-
-            $('#practiceTime').html(record);
-
-        },
-        function (err) {
-
-        },
-        function (data) {
-
-        }
-    );
 
 });
 
 // 校验计时器状态
-$(document).ready(function () {
+// $(document).ready(function () {
 
-    if (window.localStorage.sessionId && window.localStorage.timerFlag == 'true') {
+//     if (window.localStorage.sessionId && window.localStorage.timerFlag == 'true') {
 
-        var hours = parseInt(window.localStorage.hours || 0);
-        var minutes = parseInt(window.localStorage.minutes || 0);
-        var seconds = parseInt(window.localStorage.seconds || 0);
+//         var hours = parseInt(window.localStorage.hours || 0);
+//         var minutes = parseInt(window.localStorage.minutes || 0);
+//         var seconds = parseInt(window.localStorage.seconds || 0);
 
-        setInterval(function () {
+//         setInterval(function () {
 
-            seconds++;
+//             seconds++;
 
-            if (seconds >= 60) {
-                seconds = 0;
-                minutes++;
-            }
+//             if (seconds >= 60) {
+//                 seconds = 0;
+//                 minutes++;
+//             }
 
-            if (minutes >= 60) {
-                minutes = 0;
-                hours++;
-            }
+//             if (minutes >= 60) {
+//                 minutes = 0;
+//                 hours++;
+//             }
 
-            if (hours >= 24) {
-                hours = 0;
-            }
+//             if (hours >= 24) {
+//                 hours = 0;
+//             }
 
-            window.localStorage.hours = hours;
-            window.localStorage.minutes = minutes;
-            window.localStorage.seconds = seconds;
+//             window.localStorage.hours = hours;
+//             window.localStorage.minutes = minutes;
+//             window.localStorage.seconds = seconds;
 
-        }, 1000);
+//         }, 1000);
 
-    }
+//     }
 
 
-});
+// });
 
 $(document).ready(function () {
 

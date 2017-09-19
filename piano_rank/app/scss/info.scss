@@ -29,8 +29,20 @@
                 height: 2.4rem;
             }
             &.nickname,
+            &.age,
+            &.class,
+            &.pwd,
             &.sex {
                 height: 1.4667rem;
+
+                select{
+                    width: 5rem;
+                    height: 0.8rem;
+                    border: none;
+                    text-align: right;
+                    border-bottom: 1px solid #ddd;
+                }
+
                 input {
                     max-width: 5rem;
                     border: none;
@@ -39,7 +51,7 @@
             }
             &.submit {
                 flex-flow: row wrap;
-                margin-top: 2.1867rem;
+                margin-top: 0.8rem;
                 button {
                     background: #F06292;
                     border-radius: 3px;

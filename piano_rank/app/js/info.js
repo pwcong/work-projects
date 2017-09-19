@@ -5,7 +5,7 @@ $(document).ready(function () {
         return;
     }
 
-    API.getUserInfo(
+    API.getClass(
         window.localStorage.sessionId,
         function (data) {
 
@@ -13,12 +13,43 @@ $(document).ready(function () {
                 return;
             }
 
-            $('#avatar').attr('src', data.result.avater || 'imgs/avatar.png');
-            $('#avatar').removeClass('hide');
-            $('#inputNickname').val(data.result.nickname);
+            data.result.forEach(function (item, index) {
 
-            $('input[name="sex"').removeAttr('checked');
-            $('input[name="sex"][value="' + data.result.gender + '"').attr('checked', 'checked');
+                var selectOption = document.createElement('option');
+
+                selectOption.setAttribute('value', item.id);
+                selectOption.innerHTML = item.name;
+
+                $('#selectClass').append(selectOption);
+
+            });
+
+            API.getUserInfo(
+                window.localStorage.sessionId,
+                function (data) {
+
+                    if (data.code != 'SUCCESS' || !data.result) {
+                        return;
+                    }
+
+                    $('#avatar').attr('src', data.result.avater || 'imgs/avatar.png');
+                    $('#avatar').removeClass('hide');
+                    $('#inputNickname').val(data.result.nickname);
+                    $('#inputAge').val(data.result.age);
+                    $('#selectClass').val(data.result.classId || '');
+
+                    $('input[name="sex"').removeAttr('checked');
+                    $('input[name="sex"][value="' + data.result.gender + '"').attr('checked', 'checked');
+
+                },
+                function (err) {
+
+                },
+                function (data) {
+
+                }
+            );
+
 
         },
         function (err) {
@@ -26,48 +57,52 @@ $(document).ready(function () {
         },
         function (data) {
 
+
         }
+
+
     );
+
 
 });
 
 // 校验计时器状态
-$(document).ready(function () {
+// $(document).ready(function () {
 
-    if (window.localStorage.sessionId && window.localStorage.timerFlag == 'true') {
+//     if (window.localStorage.sessionId && window.localStorage.timerFlag == 'true') {
 
-        var hours = parseInt(window.localStorage.hours || 0);
-        var minutes = parseInt(window.localStorage.minutes || 0);
-        var seconds = parseInt(window.localStorage.seconds || 0);
+//         var hours = parseInt(window.localStorage.hours || 0);
+//         var minutes = parseInt(window.localStorage.minutes || 0);
+//         var seconds = parseInt(window.localStorage.seconds || 0);
 
-        setInterval(function () {
+//         setInterval(function () {
 
-            seconds++;
+//             seconds++;
 
-            if (seconds >= 60) {
-                seconds = 0;
-                minutes++;
-            }
+//             if (seconds >= 60) {
+//                 seconds = 0;
+//                 minutes++;
+//             }
 
-            if (minutes >= 60) {
-                minutes = 0;
-                hours++;
-            }
+//             if (minutes >= 60) {
+//                 minutes = 0;
+//                 hours++;
+//             }
 
-            if (hours >= 24) {
-                hours = 0;
-            }
+//             if (hours >= 24) {
+//                 hours = 0;
+//             }
 
-            window.localStorage.hours = hours;
-            window.localStorage.minutes = minutes;
-            window.localStorage.seconds = seconds;
+//             window.localStorage.hours = hours;
+//             window.localStorage.minutes = minutes;
+//             window.localStorage.seconds = seconds;
 
-        }, 1000);
+//         }, 1000);
 
-    }
+//     }
 
 
-});
+// });
 
 
 // 修改头像
@@ -92,10 +127,43 @@ $(document).ready(function () {
 
     $('#btnSubmit').click(function () {
 
-        if (!$('#inputNickname').val()) {
+        var ctx = $(this);
+
+        var nickName = $('#inputNickname').val();
+        var sex = $('input[name|="sex"]:checked').val();
+        var age = $('#inputAge').val();
+        var selectClass = $('#selectClass').val();
+
+        if (!nickName) {
             weui.alert('请输入昵称', {
                 className: 'dialog'
             });
+            return;
+        }
+
+        if (!sex) {
+            weui.alert('请选择性别', {
+                className: 'dialog'
+            });
+            return;
+        }
+
+        if (!age) {
+            weui.alert('请输入年龄', {
+                className: 'dialog'
+            });
+            return;
+        }
+
+        if (!selectClass) {
+            weui.alert('请选择班级', {
+                className: 'dialog'
+            });
+            return;
+        }
+
+
+        if (!window.localStorage.sessionId) {
             return;
         }
 
@@ -134,17 +202,15 @@ $(document).ready(function () {
         //     }
         // });
 
-        var sex = $('input[name|="sex"]:checked').val();
-        var nickname = $('#inputNickname').val();
-
-        if (!window.localStorage.sessionId) {
-            return;
-        }
+        ctx.attr('disabled', 'disabled');
+        ctx.html('提交中');
 
         API.modifyUserInfo(
             window.localStorage.sessionId,
-            nickname,
+            nickName,
             sex,
+            age,
+            selectClass,
             function (data) {
 
                 if (data.code != 'SUCCESS') {
@@ -158,7 +224,8 @@ $(document).ready(function () {
                 weui.toast('修改失败', 1500);
             },
             function (data) {
-
+                ctx.removeAttr('disabled', 'disabled');
+                ctx.html('确定');
             }
 
         );

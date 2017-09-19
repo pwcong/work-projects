@@ -433,7 +433,7 @@ export default class Cashier extends wepy.page {
         let globalData = ctx.$parent.globalData;
 
         if (globalData.user) {
-            ctx.userInfo.nickName = globalData.user.nickname;
+            ctx.userInfo.nickName = globalData.user.nickname || globalData.user.username;
 
             if (globalData.user.branch) {
                 ctx.shop.name = globalData.user.branch.name;

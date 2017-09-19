@@ -183,7 +183,7 @@
         <view class="toolbar">
             <view class="actor" @tap="handleSettingButtonClick">
                 <image src="{{peopleIconUrl}}"/>
-                管理员
+                {{nickname}}
             </view>
             <view class="action" @tap="handleSwitchButtonClick">切换分店 ></view>
         </view>
@@ -247,7 +247,7 @@ export default class Manager extends wepy.page {
     }
 
     data = {
-
+        nickname: '',
         branchStat: null,
         money: null,
         branch: null,
@@ -398,6 +398,8 @@ export default class Manager extends wepy.page {
     onLoad() {
 
         let ctx = this;
+
+        ctx.nickname = ctx.$parent.globalData.user.nickname || ctx.$parent.globalData.user.username;
 
         ctx.initRenewTimer();
 

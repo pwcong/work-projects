@@ -3,7 +3,7 @@
         <view class="toolbar">
             <view class="actor" bindtap="handleSettingButtonClick">
                 <image src="{{peopleIconUrl}}"/>
-                管理员
+                {{nickname}}
             </view>
             <view class="action" bindtap="handleSwitchButtonClick">切换分店 ></view>
         </view>

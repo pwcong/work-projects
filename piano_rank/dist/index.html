@@ -1,23 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>百日练琴</title>
-    
-    <script src="libs/jweixin-1.2.1.js"></script>
-    
-    <script src="libs/jquery.min.js"></script>
-    <script src="libs/moment.min.js"></script>
+    <title>晓雯音乐</title>
 
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+
+    <script src="libs/jquery.min.js"></script>
 
     <script src="js/api.js"></script>
-    <script src="js/consts.js"></script>
     <script src="js/utils.js"></script>
-    <script src="js/global.js"></script>
-    
+
     <link rel="stylesheet" href="libs/lib-flexible/flexible.css">
     <script src="libs/lib-flexible/flexible.js"></script>
 
@@ -25,84 +21,44 @@
     <script src="libs/weui/weui.min.js"></script>
 
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/info.css">
 
+    <script src="libs/jweixin-1.2.1.js"></script>
     <script src="js/index.js"></script>
+
 </head>
 
 <body>
-
     <div class="container">
 
         <div class="main">
 
-            <a class="section info" href="info.html">
-                <div class="col">
-                    <img class="hide" id="avatar" src="" alt="avatar">
-                    <span id="name">-</span>
-                    <span id="sex" class="icon"></span>
-                </div>
-                <div class="col">
-                    <span id="arrow" class="icon icon-arrow"></span>
-                </div>
+            <!-- <form class="section" action="#" method="post" enctype="multipart/form-data"> -->
+            <div class="row" style="text-align: center; margin: 0.6rem 0;">
+                <img src="imgs/logo.png" alt="logo" style="height: 2rem;">
+            </div>
 
-            </a>
+            <div class="section" style="padding-top: 0.8rem;">
 
-            <div class="section timer" id="timer">
 
-                <div class="row clock">
-                    <div class="clock-wrap">
-                        <div id="clock">
-                            <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row action">
-                    <span class="icon"></span>
-                    <span class="icon icon-switch" id="btnSwitch"></span>
-                    <span class="icon icon-restart" id="btnRestart"></span>
-                    
-                </div>
-                <div class="row switch">
+                <label class="row pwd">
 
-                    <span>上一次的练习时间为<span class="last-record" id="lastRecord">-</span>分钟</span>
-                    <button type="button" id="btnSwitchManual">手动输入</button>
+                    密码
+                    <input type="password" placeholder="请输入密码" id="inputPassword">
+
+                </label>
+
+                <div class="row submit">
+                    <!-- <button type="submit">确定</button> -->
+                    <button type="button" id="btnSubmit">登陆</button>
 
                 </div>
 
             </div>
 
-            <div class="section manual hide" id="manual">
-
-                <div class="row selector"></div>
-                <div class="row duration">
-
-                    练习时间：<span id="practiceTime">0</span>分钟
-
-                </div>
-                <div class="row action">
-
-                    <button type="button">确定</button>
-
-                </div>
-                <div class="row switch">
-                    <span>上一次的练习时间为<span class="last-record">28</span>分钟</span>
-                    <button type="button" id="btnSwitchTimer">计时记录</button>
-                </div>
-
-            </div>
-
-
-        </div>
-
-        <div class="tabbar">
-            <a href="#" class="active">我要练琴</a>
-            <a href="record.html">我的记录</a>
-            <a href="ranking.html">排行榜</a>
         </div>
 
     </div>
-
 </body>
 
 </html>

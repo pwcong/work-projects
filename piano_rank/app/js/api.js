@@ -6,8 +6,14 @@
     var API = {
 
         auth: {
+            url: function (targetUrl) {
+                return API_BASE + '/api/wx/authUrl?redirectUri=' + targetUrl;
+            },
+            method: 'GET'
+        },
+        sign: {
             url: function () {
-                return API_BASE + '/api/wx/authUrl?redirectUri=' + window.location.href;
+                return API_BASE + '/api/wx/jsapiSign?url=' + window.location.href;
             },
             method: 'GET'
         },
@@ -23,12 +29,14 @@
             }
         },
         modifyUserInfo: {
-            url: function (nickname, gender) {
+            url: function (nickname, gender, age, grade) {
 
                 nickname = nickname || '';
                 gender = gender || '';
+                age = age || 0;
+                grade = grade || '';
 
-                return API_BASE + '/api/user/update?nickname=' + nickname + '&gender=' + gender;
+                return API_BASE + '/api/user/update?nickname=' + nickname + '&gender=' + gender + '&age=' + age + '&classId=' + grade;
             },
             method: 'GET',
             headers: function (sessionId) {
@@ -54,9 +62,9 @@
                 }
             }
         },
-        dayRanking: {
+        dayRecords: {
             url: function () {
-                return API_BASE + '/api/rank/day';
+                return API_BASE + '/api/user/record/day';
             },
             method: 'GET',
             headers: function (sessionId) {
@@ -78,15 +86,78 @@
                     sessionId: sessionId
                 }
             }
-        }
+        },
+        allRecordsRank: {
+            url: function (pageNo, pageSize) {
+
+                pageNo = pageNo || 1;
+                pageSize = pageSize || 100;
+
+                return API_BASE + '/api/rank/orderByRecord?pageNo=' + pageNo + '&pageSize=' + pageSize;
+            },
+            method: 'GET',
+            headers: function (sessionId) {
+                return {
+                    sessionId: sessionId
+                }
+            }
+        },
+        allDaysRank: {
+            url: function (pageNo, pageSize) {
+
+                pageNo = pageNo || 1;
+                pageSize = pageSize || 100;
+
+                return API_BASE + '/api/rank/orderByDay?pageNo=' + pageNo + '&pageSize=' + pageSize;
+            },
+            method: 'GET',
+            headers: function (sessionId) {
+                return {
+                    sessionId: sessionId
+                }
+            }
+        },
+        getClass: {
+            url: function (pageNo, pageSize) {
+
+                pageNo = pageNo || 1;
+                pageSize = pageSize || 100;
+
+                return API_BASE + '/api/user/getClass?pageNo=' + pageNo + '&pageSize=' + pageSize;
+            },
+            method: 'GET',
+            headers: function (sessionId) {
+                return {
+                    sessionId: sessionId
+                }
+            }
+        },
 
     }
 
-    function getSessionId(onSuccess, onError, onComplete) {
+
+    function getSessionId(url, onSuccess, onError, onComplete) {
 
         $.ajax({
-            url: API.auth.url(),
+            url: API.auth.url(url),
             method: API.auth.method,
+            success: function (data) {
+                onSuccess && onSuccess(data);
+            },
+            error: function (err) {
+                onError && onError(err);
+            },
+            complete: function (data) {
+                onComplete && onComplete();
+            }
+        });
+    }
+
+    function getSign(onSuccess, onError, onComplete) {
+
+        $.ajax({
+            url: API.sign.url(),
+            method: API.sign.method,
             success: function (data) {
                 onSuccess && onSuccess(data);
             },
@@ -120,7 +191,6 @@
 
     }
 
-
     function uploadRecord(sessionId, record, startTime, endTime, onSuccess, onError, onComplete) {
 
         $.ajax({
@@ -141,11 +211,11 @@
 
     }
 
-    function modifyUserInfo(sessionId, nickname, sex, onSuccess, onError, onComplete) {
+    function modifyUserInfo(sessionId, nickname, sex, age, grade, onSuccess, onError, onComplete) {
 
         $.ajax({
 
-            url: API.modifyUserInfo.url(nickname, sex),
+            url: API.modifyUserInfo.url(nickname, sex, age, grade),
             method: API.modifyUserInfo.method,
             headers: API.modifyUserInfo.headers(sessionId),
             success: function (data) {
@@ -182,13 +252,13 @@
         });
     }
 
-    function getDayRanking(sessionId, onSuccess, onError, onComplete) {
+    function getDayRecords(sessionId, onSuccess, onError, onComplete) {
 
         $.ajax({
 
-            url: API.dayRanking.url(),
-            method: API.dayRanking.method,
-            headers: API.dayRanking.headers(sessionId),
+            url: API.dayRecords.url(),
+            method: API.dayRecords.method,
+            headers: API.dayRecords.headers(sessionId),
             success: function (data) {
                 onSuccess && onSuccess(data);
             },
@@ -204,6 +274,69 @@
 
     }
 
+    function getAllDaysRank(onSuccess, onError, onComplete) {
+
+        $.ajax({
+
+            url: API.allDaysRank.url(),
+            method: API.allDaysRank.method,
+            success: function (data) {
+                onSuccess && onSuccess(data);
+            },
+            error: function (err) {
+                onError && onError(err);
+            },
+            complete: function (data) {
+                onComplete && onComplete();
+            }
+
+
+        });
+
+    }
+
+    function getAllRecordsRank(onSuccess, onError, onComplete) {
+
+        $.ajax({
+
+            url: API.allRecordsRank.url(),
+            method: API.allRecordsRank.method,
+            success: function (data) {
+                onSuccess && onSuccess(data);
+            },
+            error: function (err) {
+                onError && onError(err);
+            },
+            complete: function (data) {
+                onComplete && onComplete();
+            }
+
+
+        });
+
+    }
+    
+    function getClass(sessionId, onSuccess, onError, onComplete) {
+
+        $.ajax({
+
+            url: API.getClass.url(),
+            method: API.getClass.method,
+            headers: API.getClass.headers(sessionId),
+            success: function (data) {
+                onSuccess && onSuccess(data);
+            },
+            error: function (err) {
+                onError && onError(err);
+            },
+            complete: function (data) {
+                onComplete && onComplete();
+            }
+
+        });
+
+    }
+
     if (!window.API) {
         window.API = {};
     }
@@ -213,7 +346,11 @@
     window.API.uploadRecord = uploadRecord;
     window.API.modifyUserInfo = modifyUserInfo;
     window.API.getAllRecords = getAllRecords;
-    window.API.getDayRanking = getDayRanking;
+    window.API.getDayRecords = getDayRecords;
+    window.API.getAllDaysRank = getAllDaysRank;
+    window.API.getAllRecordsRank = getAllRecordsRank;
+    window.API.getSign = getSign;
+    window.API.getClass = getClass;
 
 
 })();
