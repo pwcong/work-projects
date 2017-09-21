@@ -94,8 +94,85 @@ RankingItem.prototype.makeHTML = function () {
 // });
 
 
+var PAGE_SIZE = 10;
+var pageNo_1 = 1;
+var pageOffset_1 = 0;
+var hasMore_1 = false;
+
+var pageNo_2 = 1;
+var pageOffset_2 = 0;
+var hasMore_2 = false;
+
+function loadRecordsRank(pageNo, onSuccess, onFail, onComplete) {
+
+    API.getAllRecordsRank(
+        pageNo,
+        PAGE_SIZE,
+        function (data) {
+
+            onSuccess && onSuccess(data);
+
+            if (data.code != 'SUCCESS' || !data.result || !data.result.list) {
+                return;
+            }
+
+            data.result.list.forEach(function (item, index) {
+
+                var rankingItem = new RankingItem(index + pageOffset_1 + 1, item.avater, item.nickname, item.gender, item.record);
+
+                $('#timeRanking .tips').before(rankingItem.makeHTML());
+
+            });
+
+            pageOffset_1+=data.result.list.length;
 
 
+        },
+        function (err) {
+            onFail && onFail(err);
+        },
+        function (data) {
+            onComplete && onComplete();
+        }
+
+    );
+
+}
+
+function loadDaysRecords(pageNo, onSuccess, onFail, onComplete) {
+
+    API.getAllDaysRank(
+        pageNo,
+        PAGE_SIZE,
+        function (data) {
+
+            onSuccess && onSuccess(data);
+
+            if (data.code != 'SUCCESS' || !data.result || !data.result.list) {
+                return;
+            }
+
+            data.result.list.forEach(function (item, index) {
+
+                var rankingItem = new RankingItem(index + pageOffset_2 + 1, item.avater, item.nickname, item.gender, item.insistDay);
+
+                $('#dayRanking .tips').before(rankingItem.makeHTML());
+
+            });
+            
+            pageOffset_2+=data.result.list.length;
+
+        },
+        function (err) {
+            onFail && onFail(err);
+        },
+        function (data) {
+            onComplete && onComplete();
+        }
+
+    );
+
+}
 
 // 初始化信息
 $(document).ready(function () {
@@ -103,6 +180,140 @@ $(document).ready(function () {
     if (!window.localStorage.sessionId) {
         return;
     }
+
+    loadRecordsRank(pageNo_1,
+        function (data) {
+
+            if (!data.code == 'SUCCESS' || !data.result) {
+                return;
+            }
+
+            console.log(data);
+
+            if (data.result.totalPage > pageNo_1) {
+
+                pageNo_1++;
+                hasMore_1 = true;
+
+                $('#timeRanking .tips').html('加载更多');
+
+            } else {
+                hasMore_1 = false;
+                $('#timeRanking .tips').html('没有了~');
+            }
+
+        },
+        function (err) {
+
+        },
+        function () {
+
+        }
+    );
+
+    loadDaysRecords(pageNo_2,
+        function (data) {
+            if (!data.code == 'SUCCESS' || !data.result) {
+                return;
+            }
+
+            if (data.result.totalPage > pageNo_2) {
+
+                pageNo_2++;
+                hasMore_2 = true;
+
+                $('#dayRanking .tips').html('加载更多');
+
+            } else {
+                hasMore_2 = false;
+                $('#dayRanking .tips').html('没有了~');
+            }
+        },
+        function (err) {
+
+        },
+        function () {
+
+        }
+    );
+
+    $('#timeRanking .tips').click(function (e) {
+
+        if (hasMore_1) {
+
+            $('#timeRanking .tips').html('加载中');
+
+            loadRecordsRank(pageNo_1,
+                function (data) {
+
+                    if (!data.code == 'SUCCESS' || !data.result) {
+                        return;
+                    }
+
+
+                    if (data.result.totalPage > pageNo_1) {
+
+                        pageNo_1++;
+                        hasMore_1 = true;
+
+                        $('#timeRanking .tips').html('加载更多');
+
+                    } else {
+                        hasMore_1 = false;
+                        $('#timeRanking .tips').html('没有了~');
+                    }
+
+                },
+                function (err) {
+
+                },
+                function () {
+
+                }
+            );
+        }
+    });
+
+    $('#dayRanking .tips').click(function (e) {
+
+        if (hasMore_2) {
+
+            $('#dayRanking .tips').html('加载中');
+
+            loadDaysRecords(pageNo_2,
+                function (data) {
+                    if (!data.code == 'SUCCESS' || !data.result) {
+                        return;
+                    }
+
+                    if (data.result.totalPage > pageNo_2) {
+
+                        pageNo_2++;
+                        hasMore_2 = true;
+
+                        $('#dayRanking .tips').html('加载更多');
+
+                    } else {
+                        hasMore_2 = false;
+                        $('#dayRanking .tips').html('没有了~');
+                    }
+                },
+                function (err) {
+
+                },
+                function () {
+
+                }
+            );
+
+
+
+        }
+
+
+    });
+
+
 
     // var nickname = '-';
     // var sex = 0;
@@ -232,55 +443,8 @@ $(document).ready(function () {
     //     }
     // );
 
-    API.getAllRecordsRank(
-        function (data) {
-
-            if (data.code != 'SUCCESS' || !data.result || !data.result.list) {
-                return;
-            }
-
-            data.result.list.forEach(function (item, index) {
-
-                var rankingItem = new RankingItem(index + 1, item.avater, item.nickname, item.gender, item.record);
-
-                $('#timeRanking .tips').before(rankingItem.makeHTML());
-            });
 
 
-        },
-        function (err) {
-
-        },
-        function (data) {
-
-        }
-
-    );
-
-    API.getAllDaysRank(
-        function (data) {
-
-            if (data.code != 'SUCCESS' || !data.result || !data.result.list) {
-                return;
-            }
-
-            data.result.list.forEach(function (item, index) {
-
-                var rankingItem = new RankingItem(index + 1, item.avater, item.nickname, item.gender, item.insistDay);
-
-                $('#dayRanking .tips').before(rankingItem.makeHTML());
-            });
-
-
-        },
-        function (err) {
-
-        },
-        function (data) {
-
-        }
-
-    );
 
 
     // setTimeout(function () {

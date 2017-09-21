@@ -45,6 +45,21 @@
                 }
             }
         },
+        monthRecords: {
+            url: function (year, month) {
+
+                year = year || '';
+                month = month || '';
+
+                return API_BASE + '/api/user/record/month?year=' + year + '&month=' + month;
+            },
+            method: 'GET',
+            headers: function (sessionId) {
+                return {
+                    sessionId: sessionId
+                }
+            }
+        },
         uploadRecord: {
             url: function (record, beginTime, endTime) {
 
@@ -274,11 +289,33 @@
 
     }
 
-    function getAllDaysRank(onSuccess, onError, onComplete) {
+    function getMonthRecords(sessionId, year, month, onSuccess, onError, onComplete) {
 
         $.ajax({
 
-            url: API.allDaysRank.url(),
+            url: API.monthRecords.url(year, month),
+            method: API.monthRecords.method,
+            headers: API.monthRecords.headers(sessionId),
+            success: function (data) {
+                onSuccess && onSuccess(data);
+            },
+            error: function (err) {
+                onError && onError(err);
+            },
+            complete: function (data) {
+                onComplete && onComplete();
+            }
+
+
+        });
+
+    }
+
+    function getAllDaysRank(pageNo, pageSize, onSuccess, onError, onComplete) {
+
+        $.ajax({
+
+            url: API.allDaysRank.url(pageNo, pageSize),
             method: API.allDaysRank.method,
             success: function (data) {
                 onSuccess && onSuccess(data);
@@ -295,11 +332,11 @@
 
     }
 
-    function getAllRecordsRank(onSuccess, onError, onComplete) {
+    function getAllRecordsRank(pageNo, pageSize, onSuccess, onError, onComplete) {
 
         $.ajax({
 
-            url: API.allRecordsRank.url(),
+            url: API.allRecordsRank.url(pageNo, pageSize),
             method: API.allRecordsRank.method,
             success: function (data) {
                 onSuccess && onSuccess(data);
@@ -347,6 +384,7 @@
     window.API.modifyUserInfo = modifyUserInfo;
     window.API.getAllRecords = getAllRecords;
     window.API.getDayRecords = getDayRecords;
+    window.API.getMonthRecords = getMonthRecords;
     window.API.getAllDaysRank = getAllDaysRank;
     window.API.getAllRecordsRank = getAllRecordsRank;
     window.API.getSign = getSign;

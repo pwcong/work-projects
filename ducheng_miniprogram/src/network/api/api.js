@@ -1,6 +1,6 @@
 import * as urlUtils from '../../utils/url'
 
-const API_BASE = 'http://120.25.160.130:8000/ducheng'
+const API_BASE = 'https://paymentcard.dcyz.com/api/v1'
 
 const HEADER = {
   'Accept': 'application/json',

@@ -26,6 +26,7 @@ function uploadRecord(sessionId, record, startTime, endTime) {
         endTime,
         function (data) {
 
+
             if (data.code != 'SUCCESS') {
                 weui.alert(data.message, {
                     className: 'dialog'
@@ -34,6 +35,7 @@ function uploadRecord(sessionId, record, startTime, endTime) {
 
                 weui.toast('记录上传成功', 1500);
                 $('#lastRecord').html(record);
+                window.localStorage[moment().format('YYYY-MM-DD')] = true;
 
             }
         },
@@ -86,27 +88,34 @@ $(document).ready(function () {
 
 // 手动输入计时
 $(document).ready(function () {
-
+    // moment().format('YYYY-MM-DD hh:mm:ss');
     $('#btnSwitchManual').click(function () {
 
+
+        var flag = window.localStorage[moment().format('YYYY-MM-DD')] == 'true' || false;
+
+        if (flag) {
+            weui.alert('今天的手动输入次数已用完啦~', {
+                className: 'dialog'
+            });
+            return;
+        }
+
+
         weui.picker(
-            consts.TIME_PICKER_ITEM_HOUR, [{
-                label: '时',
+            [{
+                label: '分钟',
                 value: '-'
-            }],
-            consts.TIME_PICKER_ITEM_MINUTE, [{
-                label: '分',
-                value: '-'
-            }], {
+            }], consts.TIME_PICKER_ITEM_MINUTE, {
                 className: 'picker',
                 container: 'body',
-                defaultValue: [0, 0, 0],
+                defaultValue: [0, 0],
                 onChange: function (result) {
                     // console.log(result)
                 },
                 onConfirm: function (result) {
 
-                    var res = result[0].value * 60 + result[2].value;
+                    var res = result[1].value;
 
                     if (res < 1 || !window.localStorage.sessionId) {
                         return;
@@ -169,7 +178,7 @@ $(document).ready(function () {
             $('#minutes').html('00');
             $('#seconds').html('00');
             window.sessionStorage.startTime = startTime;
-            
+
         }
     )
 

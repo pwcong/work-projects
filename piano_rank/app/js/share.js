@@ -25,44 +25,85 @@ RankingItem.prototype.makeHTML = function () {
 
 }
 
-// 校验计时器状态
-// $(document).ready(function () {
+var PAGE_SIZE = 10;
+var pageNo_1 = 1;
+var pageOffset_1 = 0;
+var hasMore_1 = false;
 
-//     if (window.localStorage.sessionId && window.localStorage.timerFlag == 'true') {
+var pageNo_2 = 1;
+var pageOffset_2 = 0;
+var hasMore_2 = false;
 
-//         var hours = parseInt(window.localStorage.hours || 0);
-//         var minutes = parseInt(window.localStorage.minutes || 0);
-//         var seconds = parseInt(window.localStorage.seconds || 0);
+function loadRecordsRank(pageNo, onSuccess, onFail, onComplete) {
 
-//         setInterval(function () {
+    API.getAllRecordsRank(
+        pageNo,
+        PAGE_SIZE,
+        function (data) {
 
-//             seconds++;
+            onSuccess && onSuccess(data);
 
-//             if (seconds >= 60) {
-//                 seconds = 0;
-//                 minutes++;
-//             }
+            if (data.code != 'SUCCESS' || !data.result || !data.result.list) {
+                return;
+            }
 
-//             if (minutes >= 60) {
-//                 minutes = 0;
-//                 hours++;
-//             }
+            data.result.list.forEach(function (item, index) {
 
-//             if (hours >= 24) {
-//                 hours = 0;
-//             }
+                var rankingItem = new RankingItem(index + pageOffset_1 + 1, item.avater, item.nickname, item.gender, item.record);
 
-//             window.localStorage.hours = hours;
-//             window.localStorage.minutes = minutes;
-//             window.localStorage.seconds = seconds;
+                $('#timeRanking .tips').before(rankingItem.makeHTML());
 
-//         }, 1000);
+            });
 
-//     }
+            pageOffset_1 += data.result.list.length;
 
 
-// });
+        },
+        function (err) {
+            onFail && onFail(err);
+        },
+        function (data) {
+            onComplete && onComplete();
+        }
 
+    );
+
+}
+
+function loadDaysRecords(pageNo, onSuccess, onFail, onComplete) {
+
+    API.getAllDaysRank(
+        pageNo,
+        PAGE_SIZE,
+        function (data) {
+
+            onSuccess && onSuccess(data);
+
+            if (data.code != 'SUCCESS' || !data.result || !data.result.list) {
+                return;
+            }
+
+            data.result.list.forEach(function (item, index) {
+
+                var rankingItem = new RankingItem(index + pageOffset_2 + 1, item.avater, item.nickname, item.gender, item.insistDay);
+
+                $('#dayRanking .tips').before(rankingItem.makeHTML());
+
+            });
+
+            pageOffset_2 += data.result.list.length;
+
+        },
+        function (err) {
+            onFail && onFail(err);
+        },
+        function (data) {
+            onComplete && onComplete();
+        }
+
+    );
+
+}
 
 // 初始化信息
 $(document).ready(function () {
@@ -87,56 +128,188 @@ $(document).ready(function () {
     $('#practiceTime').html(utils.getUrlParam('ar') || 0);
     $('#duration').html(utils.getUrlParam('i') || 0);
 
-
-    API.getAllRecordsRank(
+    loadRecordsRank(pageNo_1,
         function (data) {
 
-            if (data.code != 'SUCCESS' || !data.result || !data.result.list) {
+            if (!data.code == 'SUCCESS' || !data.result) {
                 return;
             }
 
-            data.result.list.forEach(function (item, index) {
+            console.log(data);
 
-                var rankingItem = new RankingItem(index + 1, item.avater, item.nickname, item.gender, item.record);
+            if (data.result.totalPage > pageNo_1) {
 
-                $('#timeRanking .tips').before(rankingItem.makeHTML());
-            });
+                pageNo_1++;
+                hasMore_1 = true;
 
+                $('#timeRanking .tips').html('加载更多');
+
+            } else {
+                hasMore_1 = false;
+                $('#timeRanking .tips').html('没有了~');
+            }
 
         },
         function (err) {
 
         },
-        function (data) {
+        function () {
 
         }
-
     );
 
-    API.getAllDaysRank(
+    loadDaysRecords(pageNo_2,
         function (data) {
-
-            if (data.code != 'SUCCESS' || !data.result || !data.result.list) {
+            if (!data.code == 'SUCCESS' || !data.result) {
                 return;
             }
 
-            data.result.list.forEach(function (item, index) {
+            if (data.result.totalPage > pageNo_2) {
 
-                var rankingItem = new RankingItem(index + 1, item.avater, item.nickname, item.gender, item.insistDay);
+                pageNo_2++;
+                hasMore_2 = true;
 
-                $('#dayRanking .tips').before(rankingItem.makeHTML());
-            });
+                $('#dayRanking .tips').html('加载更多');
 
-
+            } else {
+                hasMore_2 = false;
+                $('#dayRanking .tips').html('没有了~');
+            }
         },
         function (err) {
 
         },
-        function (data) {
+        function () {
+
+        }
+    );
+
+    $('#timeRanking .tips').click(function (e) {
+
+        if (hasMore_1) {
+
+            $('#timeRanking .tips').html('加载中');
+
+            loadRecordsRank(pageNo_1,
+                function (data) {
+
+                    if (!data.code == 'SUCCESS' || !data.result) {
+                        return;
+                    }
+
+
+                    if (data.result.totalPage > pageNo_1) {
+
+                        pageNo_1++;
+                        hasMore_1 = true;
+
+                        $('#timeRanking .tips').html('加载更多');
+
+                    } else {
+                        hasMore_1 = false;
+                        $('#timeRanking .tips').html('没有了~');
+                    }
+
+                },
+                function (err) {
+
+                },
+                function () {
+
+                }
+            );
+        }
+    });
+
+    $('#dayRanking .tips').click(function (e) {
+
+        if (hasMore_2) {
+
+            $('#dayRanking .tips').html('加载中');
+
+            loadDaysRecords(pageNo_2,
+                function (data) {
+                    if (!data.code == 'SUCCESS' || !data.result) {
+                        return;
+                    }
+
+                    if (data.result.totalPage > pageNo_2) {
+
+                        pageNo_2++;
+                        hasMore_2 = true;
+
+                        $('#dayRanking .tips').html('加载更多');
+
+                    } else {
+                        hasMore_2 = false;
+                        $('#dayRanking .tips').html('没有了~');
+                    }
+                },
+                function (err) {
+
+                },
+                function () {
+
+                }
+            );
+
+
 
         }
 
-    );
+
+    });
+
+
+    // API.getAllRecordsRank(
+    //     function (data) {
+
+    //         if (data.code != 'SUCCESS' || !data.result || !data.result.list) {
+    //             return;
+    //         }
+
+    //         data.result.list.forEach(function (item, index) {
+
+    //             var rankingItem = new RankingItem(index + 1, item.avater, item.nickname, item.gender, item.record);
+
+    //             $('#timeRanking .tips').before(rankingItem.makeHTML());
+    //         });
+
+
+    //     },
+    //     function (err) {
+
+    //     },
+    //     function (data) {
+
+    //     }
+
+    // );
+
+    // API.getAllDaysRank(
+    //     function (data) {
+
+    //         if (data.code != 'SUCCESS' || !data.result || !data.result.list) {
+    //             return;
+    //         }
+
+    //         data.result.list.forEach(function (item, index) {
+
+    //             var rankingItem = new RankingItem(index + 1, item.avater, item.nickname, item.gender, item.insistDay);
+
+    //             $('#dayRanking .tips').before(rankingItem.makeHTML());
+    //         });
+
+
+    //     },
+    //     function (err) {
+
+    //     },
+    //     function (data) {
+
+    //     }
+
+    // );
 
 
 
