@@ -1,0 +1,382 @@
+<style lang="scss">
+.label {
+
+  position: absolute;
+
+  z-index: 100;
+
+  width: 144rpx;
+  height: 88rpx;
+
+  top: 0;
+  right: 100rpx;
+}
+
+.main {
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  box-sizing: border-box;
+
+  overflow: auto;
+
+
+
+  .info {
+
+    margin-top: 50rpx;
+
+    font-size: 17px;
+    color: #4A4A4A;
+    letter-spacing: -0.41px;
+
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+
+    padding: 0 60rpx;
+
+    .avatar {
+      width: 80rpx;
+      height: 80rpx;
+      border-radius: 50%;
+
+      margin-right: 36rpx;
+    }
+  }
+
+  .details {
+
+    margin-top: 70rpx;
+
+
+    .details-wrap {
+
+      box-sizing: border-box;
+      padding-top: 88rpx;
+      position: relative;
+      margin: 0 auto;
+      height: 366rpx;
+      width: 440rpx;
+
+      .details-item {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .details-head {
+        font-size: 15px;
+        color: #4A4A4A;
+        letter-spacing: -0.38px;
+        image {
+          margin-right: 8rpx;
+          height: 46rpx;
+          width: 42rpx;
+        }
+      }
+
+      .details-score {
+
+        margin-top: 18rpx;
+
+        color: #4A4A4A;
+
+        font-size: 36px;
+        letter-spacing: -0.98px;
+      }
+      .details-level {
+        font-size: 12px;
+        color: #4A4A4A;
+        letter-spacing: -0.26px;
+      }
+
+      .details-duration {
+        font-size: 13px;
+        color: #4990E2;
+        position: absolute;
+        bottom: -35rpx;
+        left: 50%;
+        height: 70rpx;
+        width: 312rpx;
+        line-height: 70rpx;
+        z-index: 999;
+        background-color: white;
+        border: 1px solid #4990E2;
+        border-radius: 35rpx;
+        text-align: center;
+        transform: translateX(-50%);
+      }
+    }
+  }
+
+  .tools {
+
+    margin-top: 60rpx;
+
+    padding: 0 20rpx;
+
+    .row {
+      background-color: white;
+
+      font-size: 15px;
+      color: #4A4A4A;
+      letter-spacing: -0.38px;
+
+      overflow: hidden;
+
+      height: 152rpx;
+
+      .divider {
+        width: 1px;
+        height: 84rpx;
+        background-color: rgba(151, 151, 151, 0.62);
+      }
+
+      .col {
+        padding-left: 60rpx;
+
+        transition: background-color 0.2s;
+
+        &:active {
+
+          background-color: #f4f4f4;
+        }
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid rgba(151, 151, 151, 0.62);
+        border-top-left-radius: 16rpx;
+        border-top-right-radius: 16rpx;
+      }
+
+      &:last-child {
+        border-bottom-left-radius: 16rpx;
+        border-bottom-right-radius: 16rpx;
+      }
+    }
+
+    image {
+      width: 52rpx;
+      height: 60rpx;
+
+      margin-right: 15rpx;
+    }
+  }
+
+  .action {
+
+    margin-top: 64rpx;
+
+    button {
+
+      font-size: 16px;
+      background-color: #09bb07;
+      line-height: 106rpx;
+      color: white;
+      width: 304rpx;
+      height: 106rpx;
+
+      box-shadow: 0 5rpx 15rpx #aaa;
+
+      &:active {
+        background-color: #08aa06;
+      }
+    }
+  }
+}
+</style>
+<template>
+  <view class="container">
+
+    <image src="../assets/imgs/bg_home.png" class="bg" />
+
+    <image src="{{honorLabel}}" class="label" />
+
+    <view class="main">
+
+      <view class="section info" @tap="handleNavigateTo('center')">
+        <image src="{{userInfo.avatarUrl}}" class="avatar" />
+        <text>Pwcong</text>
+      </view>
+
+      <view class="section details">
+
+        <view class="details-wrap">
+          <image src="../assets/imgs/ring_grey.png" class="bg" />
+          <view class="details-item details-head">
+            <image src="../assets/imgs/icon_run.png" />
+            <text>运动步数</text>
+          </view>
+
+          <view class="details-item details-score">{{step || '-'}}</view>
+          <view wx:if="{{level}}" class="details-item details-level">里程碑{{level}}</view>
+
+          <view class="details-item details-duration">
+            运动时长{{hours || '-' }}小时{{minutes || '-'}}分
+          </view>
+        </view>
+      </view>
+
+      <view class="section tools">
+
+        <view class="row">
+          <view class="col" @tap="handleNavigateTo('record')">
+            <image src="../assets/imgs/icon_statistics.png" /> 我的统计
+          </view>
+          <view class="divider"></view>
+          <view class="col" @tap="handleNavigateTo('rank?navIndex=0')">
+            <image src="../assets/imgs/icon_rank.png" /> 班级排名
+          </view>
+        </view>
+        <view class="row">
+          <view class="col" @tap="handleNavigateTo('rank?navIndex=1')">
+            <image src="../assets/imgs/icon_school.png" /> 全校Top10
+          </view>
+          <view class="divider"></view>
+          <view class="col">
+            <image src="../assets/imgs/icon_hi.png" /> 约跑运动圈
+          </view>
+        </view>
+
+      </view>
+
+      <view class="section action">
+
+        <button @tap="handleNavigateTo('start')">开始运动</button>
+
+      </view>
+
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+import WXApiUtils from '../utils/wxapi';
+
+import SportApi from '../network/api/sport';
+
+export default class Home extends wepy.page {
+  config = {
+    navigationBarTitleText: '广外运动'
+  }
+  components = {
+  }
+
+  mixins = [
+  ]
+
+  data = {
+    userInfo: null,
+
+    step: 12345,
+    level: 30,
+
+    honorLabel: '../assets/imgs/icon_star.png',
+
+    hours: 8,
+    minutes: 8
+
+  }
+
+  computed = {
+  }
+
+  methods = {
+
+    handleNavigateTo(to) {
+
+      wepy.navigateTo({
+        url: to
+      });
+
+    },
+    handleRedirectTo(to) {
+
+      wepy.redirectTo({
+        url: to
+      });
+
+    }
+
+  }
+
+  events = {
+
+
+  }
+
+  async getRunSteps() {
+
+    let ctx = this;
+
+    let sessionId = null;
+
+    try {
+
+      sessionId = await ctx.$parent.getSessionId();
+
+    } catch (err) {
+
+      wepy.showModal({
+        title: '提示',
+        content: err
+      });
+      return;
+
+    } finally { }
+
+
+    let loginState = null;
+    let runData = null;
+
+    try {
+      loginState = await WXApiUtils.login();
+      runData = await WXApiUtils.getWeRunData();
+    } catch (err) {
+      wepy.showModal({
+        title: '提示',
+        content: err
+      });
+      return;
+    } finally { }
+
+    console.log(runData);
+
+    let res = null;
+    try {
+      res = await SportApi.uploadRunData(sessionId, loginState.code, runData.encryptedData, runData.iv);
+    } catch (err) {
+
+    } finally {
+
+    }
+
+    console.log(res);
+
+
+
+  }
+
+  onLoad() {
+    let ctx = this;
+
+    ctx.$parent.getUserInfo(function(userInfo) {
+
+      ctx.userInfo = userInfo;
+      ctx.$apply();
+
+    });
+
+
+    ctx.getRunSteps();
+
+
+  }
+}
+</script>

@@ -15,9 +15,9 @@ export function getInfo(token, userId) {
 export function getInfos(token, keyword, branch_id, company_id) {
 
   return request(
-    api.user.getInfos.url(keyword, branch_id, company_id),
+    api.user.getInfos.url(),
     api.user.getInfos.method,
-    api.user.getInfos.data(),
+    api.user.getInfos.data(keyword, branch_id, company_id),
     api.user.getInfos.header(token)
   );
 

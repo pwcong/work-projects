@@ -4,7 +4,7 @@
         <view class="main">
             <view class="section balance">
                 <view>当前余额</view>
-                <view>￥{{balance}}</view>
+                <view>￥{{balance || '-'}}</view>
             </view>
 
             <view class="section form">

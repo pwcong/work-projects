@@ -1,0 +1,577 @@
+<style lang="scss">
+.main {
+
+    position: relative;
+    width: 100%;
+    height: calc(100% - 184rpx);
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+}
+
+.tools {
+
+    // position: absolute;
+    // left: 0;
+    // bottom: 0;
+    width: 100%;
+    height: 184rpx;
+    z-index: 100;
+    background-color: white;
+
+    .col {
+
+        justify-content: center;
+
+        button {
+            width: 300rpx;
+            height: 100rpx;
+            line-height: 100rpx;
+            font-size: 18px;
+            color: white;
+
+            background-color: #FB465C;
+
+            box-shadow: 2rpx 2rpx 15rpx #aaa;
+
+            &:active {
+                background-color: #ea354b;
+            }
+        }
+        &.left {
+            font-size: 30px;
+            color: #4A4A4A;
+            letter-spacing: -0.72px;
+        }
+    }
+}
+
+// .start-modal {
+//     position: relative;
+//     top: -60rpx;
+//     width: 550rpx;
+//     margin: 0 auto;
+//     background-color: white;
+//     overflow: hidden;
+//     border-radius: 6rpx;
+//     .start-modal-head {
+//         box-sizing: border-box;
+//         padding: 48rpx 44rpx;
+//         background-color: #55C9F8;
+//         .right {
+//             font-size: 13px;
+//             color: #FFFFFF;
+//             letter-spacing: -0.11px;
+//             line-height: 18px;
+//             flex: 5;
+//         }
+//         image {
+//             width: 50rpx;
+//             height: 50rpx;
+//         }
+//     }
+//     .start-modal-action {
+//         flex-flow: row wrap;
+//         box-sizing: border-box;
+//         padding: 24rpx 44rpx 40rpx 44rpx;
+//         text-align: center;
+//         .start-modal-tips {
+//             width: 358rpx;
+//             height: 64rpx;
+//             line-height: 64rpx;
+//             margin: 0 auto;
+//             border: 1px solid #f6a623;
+//             color: #f6a623;
+//             font-size: 13px;
+//             border-radius: 32rpx;
+//         }
+//         .start-modal-list {
+//             margin-top: 20rpx;
+//             max-height: 280rpx;
+//             overflow: auto;
+//             .start-modal-list-item {
+//                 display: flex;
+//                 align-items: center;
+//                 justify-content: center;
+//                 padding: 9rpx 0;
+//                 font-size: 15px;
+//                 color: #797879;
+//                 letter-spacing: -0.12px;
+//                 .dot {
+//                     background-color: #F6A623;
+//                     width: 16rpx;
+//                     height: 16rpx;
+//                     border-radius: 8rpx;
+//                     margin-right: 20rpx;
+//                 }
+//             }
+//         }
+//         button {
+//             background-color: #09BB07;
+//             font-size: 16px;
+//             color: white;
+//             height: 80rpx;
+//             width: 224rpx;
+//             text-align: center;
+//             line-height: 80rpx;
+//             margin-top: 64rpx;
+//             padding: 0;
+//             &:active {
+//                 background-color: #08aa06;
+//             }
+//         }
+//     }
+// }
+</style>
+<template>
+    <view class="container">
+
+        <view class="main">
+            <map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="16" circles="{{circles}}" markers="{{markers}}" bindmarkertap="markertap" show-location style="width: 100%; height: 100%;"></map>
+        </view>
+
+        <view class="row tools" wx:if="{{startFlag}}">
+
+            <view class="col left">
+                {{duration}}
+            </view>
+            <view class="col right">
+                <button @tap="handleStopButtonClick">结束运动</button>
+            </view>
+
+        </view>
+
+        <view class="row tools" wx:else>
+
+            <view class="col">
+                <button @tap="start">开始运动</button>
+            </view>
+
+        </view>
+
+        <!-- 
+                        <stop-err-modal :active.sync="stopErrModalActive">
+
+                        <view slot="main" class="start-modal">
+                        <view class="row start-modal-head">
+
+                        <view class="col left">
+                        <image src="../assets/imgs/icon_warn.png" />
+                        </view>
+                        <view class="col right">
+                        请抵达指定场地签到处，并开启 手机蓝牙功能后，点击结束运动 按钮，进行签退。
+                        </view>
+
+                        </view>
+
+                        <view class="row start-modal-action">
+
+                        <button @tap="handleModalButtonClick(stopErrModalActive)">我知道了</button>
+
+                        </view>
+
+                        </view>
+
+                        </stop-err-modal>
+
+                        <start-err-modal :active.sync="startErrModalActive">
+
+                        <view slot="main" class="start-modal">
+                        <view class="row start-modal-head">
+
+                        <view class="col left">
+
+                        <image src="../assets/imgs/icon_warn.png" />
+                        </view>
+                        <view class="col right">
+                        请抵达指定场地签到处，开启手机 蓝牙功能，再开始运动。
+                        </view>
+
+                        </view>
+
+                        <view class="start-modal-action">
+
+                        <view class="start-modal-tips">目前已支持的运动场地</view>
+                        <view class="start-modal-list">
+
+                        <repeat for="{{supportedLocation}}">
+
+                        <view class="start-modal-list-item">
+                        <view class="dot"></view>
+                        <text>{{item}}</text>
+                        </view>
+
+                        </repeat>
+
+                        </view>
+
+                        <button @tap="handleModalButtonClick(startErrModalActive)">我知道了</button>
+
+                        </view>
+
+                        </view>
+
+                        </start-err-modal> 
+                                    -->
+
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+// import Modal from '../components/modal';
+
+import WXApiUtils from '../utils/wxapi';
+import StringUtils from '../utils/string';
+
+import SportApi from '../network/api/sport';
+
+export default class Start extends wepy.page {
+
+    config = {
+        navigationBarTitleText: '广外运动'
+    }
+    components = {
+        // 'start-err-modal': Modal,
+        // 'stop-err-modal': Modal,
+    }
+
+    mixins = [
+    ]
+
+    data = {
+        userInfo: null,
+
+        startFlag: false,
+
+        markers: [
+            {
+                iconPath: "../assets/imgs/icon_map.png",
+                callout: {
+                    content: '广东外语外贸大学大学城校区',
+                    bgColor: '#21C01E',
+                    color: '#fff',
+                    padding: 12,
+                    fontSize: 16
+                },
+                id: 0,
+                latitude: 23.065608,
+                longitude: 113.398063,
+                width: 40,
+                height: 40
+            },
+            {
+                iconPath: "../assets/imgs/icon_map.png",
+                callout: {
+                    content: '广东外语外贸大学体育场',
+                    bgColor: '#21C01E',
+                    color: '#fff',
+                    padding: 12,
+                    fontSize: 16
+                },
+                id: 2,
+                latitude: 23.068514,
+                longitude: 113.397253,
+                width: 40,
+                height: 40
+            },
+        ],
+
+        circles: [
+            {
+                latitude: 23.065592,
+                longitude: 113.398073,
+                fillColor: '#ea354b33',
+                radius: 80,
+            },
+            {
+                latitude: 23.068514,
+                longitude: 113.397253,
+                fillColor: '#ea354b33',
+                radius: 120,
+            }
+        ],
+
+        startErrModalActive: false,
+        stopErrModalActive: false,
+
+        timer: null,
+        startTime: null,
+        currentTime: null,
+
+        longitude: 113.398073,
+        latitude: 23.065592
+    }
+
+    computed = {
+        supportedLocation() {
+
+            // 处理markers，返回地址
+
+            return ([
+                '东区田径场',
+                '南区田径场',
+                '西区田径场',
+                '北区田径场'
+            ]);
+        },
+        duration() {
+
+            let ctx = this;
+
+            if (!ctx.startTime || !ctx.currentTime) {
+                return '00:00:00';
+            }
+
+            let time = parseInt((Date.parse(ctx.currentTime) - Date.parse(ctx.startTime)) / 1000);
+
+            let hours = parseInt(time / 3600);
+            let minutes = parseInt(time / 60) % 60;
+            let seconds = time % 60;
+
+            return StringUtils.formatTime(hours) + ':' + StringUtils.formatTime(minutes) + ':' + StringUtils.formatTime(seconds);
+
+
+        }
+    }
+
+    methods = {
+        markertap(e) {
+            console.log(e.markerId);
+        },
+        handleModalButtonClick(key) {
+            this[key] = false;
+        },
+        handleStopButtonClick(e) {
+
+
+            let ctx = this;
+
+            wepy.showModal({
+                title: '提示',
+                content: `确定结束运动？`,
+                success: function(s) {
+                    if (s.confirm) {
+
+                        ctx.stop();
+
+                    }
+                }
+            });
+
+        }
+    }
+
+    events = {
+
+    }
+
+    stopTimer() {
+
+        let ctx = this;
+
+        if (ctx.timer) {
+            clearInterval(ctx.timer);
+            ctx.timer = null;
+        }
+
+        ctx.$apply();
+
+    }
+
+    startTimer(initTime) {
+
+        let ctx = this;
+
+        if (ctx.timer) {
+            clearInterval(ctx.timer);
+            ctx.timer = null;
+        }
+
+        ctx.startTime = initTime || new Date();
+        ctx.currentTime = new Date();
+
+        ctx.timer = setInterval(() => {
+
+            ctx.currentTime = new Date();
+            ctx.$apply();
+
+        }, 1000);
+
+        ctx.$apply();
+    }
+
+    async stop() {
+
+        let ctx = this;
+
+        // 检测蓝牙开启，探测周边ibeancon设备
+        try {
+
+            await WXApiUtils.openBluetoothAdapter();
+            await WXApiUtils.getBluetoothAdapterState();
+
+            await WXApiUtils.startBeaconDiscovery(['FDA50693-A4E2-4FB1-AFCF-C6EB07647825']);
+        } catch (err) {
+            // ctx.stopErrModalActive = true;
+            // ctx.$apply();
+
+            wepy.showModal({
+                title: '提示',
+                content: `请抵达指定场地签到处，并开启手机蓝牙功能后，点击结束运动按钮，进行签退。`,
+                showCancel: false
+            });
+            return;
+        }
+
+        wepy.showLoading({
+            title: '提交运动数据中',
+            mask: true
+        });
+
+        await SportApi.uploadSportRecord();
+
+        wepy.hideLoading();
+
+        wx.showToast({
+            title: '提交成功'
+        });
+
+        ctx.startTime = null;
+        ctx.startFlag = false;
+
+        ctx.stopTimer();
+
+        ctx.$apply();
+
+
+    }
+
+    async start() {
+
+        let ctx = this;
+
+        // 检测蓝牙开启，探测周边ibeancon设备
+        try {
+
+            await WXApiUtils.openBluetoothAdapter();
+            await WXApiUtils.getBluetoothAdapterState();
+
+            await WXApiUtils.startBeaconDiscovery(['FDA50693-A4E2-4FB1-AFCF-C6EB07647825']);
+        } catch (err) {
+            // ctx.startErrModalActive = true;
+            // ctx.$apply();
+
+            wepy.showModal({
+                title: '提示',
+                content: `请抵达指定场地签到处，开启手机蓝牙功能，再开始运动。`,
+                showCancel: false
+            });
+            return;
+        }
+
+        ctx.startFlag = true;
+        ctx.startTimer();
+        ctx.$apply();
+
+
+    }
+
+    // 检测上次的状态
+    checkLastTime() {
+
+        let ctx = this;
+
+        return new Promise(async function(resolve, reject) {
+
+            let sessionId = null;
+
+            // 获取用户凭证
+            try {
+                sessionId = await ctx.$parent.getSessionId();
+            } catch (err) {
+                resolve({
+                    status: 0,
+                    startTime: null
+                });
+                return;
+            } finally { }
+
+            let res = null;
+
+            // 获取上次运动数据
+            try {
+
+                res = await SportApi.lastSignIn(sessionId);
+
+            } catch (err) {
+
+                resolve({
+                    status: 0,
+                    startTime: null
+                });
+                return;
+
+            } finally {
+            }
+
+            if (res.result.beginTime && !res.result.endTime) {
+                resolve({
+                    status: 1,
+                    startTime: new Date(res.result.beginTime)
+                });
+                return;
+            }
+
+            resolve({
+                status: 0,
+                startTime: null
+            });
+        });
+
+    }
+
+
+    async check() {
+
+        let ctx = this;
+
+        let lastTime = await ctx.checkLastTime();
+
+        // 上次运动并未结束，继续
+        if (lastTime.status == 1 && lastTime.startTime) {
+
+            ctx.startTime(lastTime.startTime);
+            ctx.startFlag = true;
+
+        } else { // 开始新的运动计时
+
+            ctx.start();
+
+        }
+
+        ctx.$apply();
+
+    }
+
+    onShow() {
+        let ctx = this;
+
+        ctx.check();
+    }
+
+    onLoad() {
+        let ctx = this;
+
+        ctx.$parent.getUserInfo(function(userInfo) {
+
+            ctx.userInfo = userInfo;
+            ctx.$apply();
+
+        });
+
+    }
+}
+</script>

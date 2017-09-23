@@ -1,0 +1,393 @@
+<style lang="scss">
+.nav {
+
+    width: 100%;
+    height: 106rpx;
+    background-color: white;
+    box-shadow: 0 2px 4px 0 rgba(148, 148, 148, 0.41);
+
+    font-size: 14px;
+    color: #4A4A4A;
+    letter-spacing: -0.34px;
+
+    .col {
+        justify-content: center;
+    }
+
+    .divider {
+        width: 1px;
+        height: 30rpx;
+        background-color: #09BB07;
+    }
+
+    .nav-index {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        width: 100%;
+        height: 6rpx;
+
+        .nav-index-flag {
+            position: relative;
+            transition: left 0.2s;
+            left: 0;
+            height: 100%;
+            view {
+                margin: 0 auto;
+                width: 50%;
+                height: 100%;
+                background-color: #09BB07;
+            }
+        }
+    }
+}
+
+.main {
+
+    position: relative;
+    width: 100%;
+    height: calc(100% - 106rpx);
+
+    overflow: hidden;
+
+    background-color: #F1F1F1;
+
+    box-sizing: border-box;
+
+    .section {
+        // background-color: red;
+    }
+
+    .rank {
+        height: 100%;
+
+        .rank-section {
+
+            overflow: auto;
+
+            .rank-item {
+
+                box-sizing: border-box;
+
+                height: 180rpx;
+                background-color: white;
+                box-shadow: 0 2px 4px 0 rgba(148, 148, 148, 0.41);
+
+                align-items: center;
+                padding: 46rpx 30rpx;
+
+                justify-content: space-between;
+
+                .rank-item-col {
+
+                    display: flex;
+                    align-items: center;
+                    height: 100%;
+                    flex-flow: row nowrap;
+                }
+
+                &.rank-self {
+                    margin-bottom: 14rpx;
+
+                    .score {
+                        color: #09BB07;
+                    }
+                }
+
+                .name {
+                    font-size: 17px;
+                    color: #6F6F6F;
+                    letter-spacing: 0.23px;
+                }
+
+                .score {
+                    color: #4A4A4A;
+                    font-size: 27px;
+                    letter-spacing: -0.65px;
+                    margin-right: 34rpx;
+                }
+
+                .avatar {
+                    margin-right: 26rpx;
+                    width: 90rpx;
+                    height: 90rpx;
+                    border-radius: 45rpx;
+                }
+
+                .step {
+                    font-size: 25px;
+                    color: #4A4A4A;
+                    letter-spacing: -0.6px;
+                    margin-right: 14rpx;
+                }
+
+                .icon-step {
+                    width: 48rpx;
+                    height: 50rpx;
+                }
+
+                .icon-medal {
+                    width: 54rpx;
+                    height: 72rpx;
+                    margin-right: 20rpx;
+                }
+            }
+        }
+    }
+}
+</style>
+<template>
+    <view class="container">
+
+        <view class="row nav">
+            <view class="col" @tap="handleNavItemClick(0)">
+                班级排行
+            </view>
+            <view class="divider"></view>
+            <view class="col" @tap="handleNavItemClick(1)">
+                全校Top10
+            </view>
+
+            <view class="nav-index">
+                <view class="nav-index-flag" style="width: 50%; left: {{navPosition}}%;">
+                    <view></view>
+                </view>
+            </view>
+
+        </view>
+
+        <view class="main">
+
+            <swiper class="section rank" @change="handleSwiperChange" current="{{navIndex}}" duration="200">
+                <swiper-item class="rank-section rank-class">
+
+                    <view class="row rank-item rank-self">
+                        <view class="rank-item-col left">
+                            <text class="score">4</text>
+                            <image src="{{userInfo.avatarUrl}}" class="avatar" />
+                            <text class="name">Pwcong</text>
+                        </view>
+                        <view class="rank-item-col right">
+                            <text class="step">12345</text>
+                            <image src="../assets/imgs/icon_step.png" class="icon-step" />
+                        </view>
+                    </view>
+
+                    <view class="row rank-item">
+                        <view class="rank-item-col left">
+                            <image src="../assets/imgs/icon_gold.png" class="icon-medal" />
+                            <image src="{{userInfo.avatarUrl}}" class="avatar" />
+                            <text class="name">Pwcong</text>
+                        </view>
+                        <view class="rank-item-col right">
+                            <text class="step">12345</text>
+                            <image src="../assets/imgs/icon_step.png" class="icon-step" />
+                        </view>
+                    </view>
+                    <view class="row rank-item">
+                        <view class="rank-item-col left">
+                            <image src="../assets/imgs/icon_silver.png" class="icon-medal" />
+                            <image src="{{userInfo.avatarUrl}}" class="avatar" />
+                            <text class="name">Pwcong</text>
+                        </view>
+                        <view class="rank-item-col right">
+                            <text class="step">12345</text>
+                            <image src="../assets/imgs/icon_step.png" class="icon-step" />
+                        </view>
+                    </view>
+                    <view class="row rank-item">
+                        <view class="rank-item-col left">
+                            <image src="../assets/imgs/icon_copper.png" class="icon-medal" />
+                            <image src="{{userInfo.avatarUrl}}" class="avatar" />
+                            <text class="name">Pwcong</text>
+                        </view>
+                        <view class="rank-item-col right">
+                            <text class="step">12345</text>
+                            <image src="../assets/imgs/icon_step.png" class="icon-step" />
+                        </view>
+                    </view>
+                    <view class="row rank-item">
+                        <view class="rank-item-col left">
+                            <text class="score">4</text>
+                            <image src="{{userInfo.avatarUrl}}" class="avatar" />
+                            <text class="name">Pwcong</text>
+                        </view>
+                        <view class="rank-item-col right">
+                            <text class="step">12345</text>
+                            <image src="../assets/imgs/icon_step.png" class="icon-step" />
+                        </view>
+                    </view>
+
+                    <view class="row rank-item">
+                        <view class="rank-item-col left">
+                            <text class="score">5</text>
+                            <image src="{{userInfo.avatarUrl}}" class="avatar" />
+                            <text class="name">Pwcong</text>
+                        </view>
+                        <view class="rank-item-col right">
+                            <text class="step">12345</text>
+                            <image src="../assets/imgs/icon_step.png" class="icon-step" />
+                        </view>
+                    </view>
+                    <view class="row rank-item">
+                        <view class="rank-item-col left">
+                            <text class="score">6</text>
+                            <image src="{{userInfo.avatarUrl}}" class="avatar" />
+                            <text class="name">Pwcong</text>
+                        </view>
+                        <view class="rank-item-col right">
+                            <text class="step">12345</text>
+                            <image src="../assets/imgs/icon_step.png" class="icon-step" />
+                        </view>
+                    </view>
+
+                </swiper-item>
+                <swiper-item class="rank-section rank-school">
+
+                    <view class="row rank-item rank-self">
+                        <view class="rank-item-col left">
+                            <text class="score">4</text>
+                            <image src="{{userInfo.avatarUrl}}" class="avatar" />
+                            <text class="name">Pwcong</text>
+                        </view>
+                        <view class="rank-item-col right">
+                            <text class="step">12345</text>
+                            <image src="../assets/imgs/icon_step.png" class="icon-step" />
+                        </view>
+                    </view>
+
+                    <view class="row rank-item">
+                        <view class="rank-item-col left">
+                            <image src="../assets/imgs/icon_gold.png" class="icon-medal" />
+                            <image src="{{userInfo.avatarUrl}}" class="avatar" />
+                            <text class="name">Pwcong</text>
+                        </view>
+                        <view class="rank-item-col right">
+                            <text class="step">12345</text>
+                            <image src="../assets/imgs/icon_step.png" class="icon-step" />
+                        </view>
+                    </view>
+                    <view class="row rank-item">
+                        <view class="rank-item-col left">
+                            <image src="../assets/imgs/icon_silver.png" class="icon-medal" />
+                            <image src="{{userInfo.avatarUrl}}" class="avatar" />
+                            <text class="name">Pwcong</text>
+                        </view>
+                        <view class="rank-item-col right">
+                            <text class="step">12345</text>
+                            <image src="../assets/imgs/icon_step.png" class="icon-step" />
+                        </view>
+                    </view>
+                    <view class="row rank-item">
+                        <view class="rank-item-col left">
+                            <image src="../assets/imgs/icon_copper.png" class="icon-medal" />
+                            <image src="{{userInfo.avatarUrl}}" class="avatar" />
+                            <text class="name">Pwcong</text>
+                        </view>
+                        <view class="rank-item-col right">
+                            <text class="step">12345</text>
+                            <image src="../assets/imgs/icon_step.png" class="icon-step" />
+                        </view>
+                    </view>
+                    <view class="row rank-item">
+                        <view class="rank-item-col left">
+                            <text class="score">4</text>
+                            <image src="{{userInfo.avatarUrl}}" class="avatar" />
+                            <text class="name">Pwcong</text>
+                        </view>
+                        <view class="rank-item-col right">
+                            <text class="step">12345</text>
+                            <image src="../assets/imgs/icon_step.png" class="icon-step" />
+                        </view>
+                    </view>
+
+                    <view class="row rank-item">
+                        <view class="rank-item-col left">
+                            <text class="score">5</text>
+                            <image src="{{userInfo.avatarUrl}}" class="avatar" />
+                            <text class="name">Pwcong</text>
+                        </view>
+                        <view class="rank-item-col right">
+                            <text class="step">12345</text>
+                            <image src="../assets/imgs/icon_step.png" class="icon-step" />
+                        </view>
+                    </view>
+                    <view class="row rank-item">
+                        <view class="rank-item-col left">
+                            <text class="score">6</text>
+                            <image src="{{userInfo.avatarUrl}}" class="avatar" />
+                            <text class="name">Pwcong</text>
+                        </view>
+                        <view class="rank-item-col right">
+                            <text class="step">12345</text>
+                            <image src="../assets/imgs/icon_step.png" class="icon-step" />
+                        </view>
+                    </view>
+
+                </swiper-item>
+            </swiper>
+
+        </view>
+
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+
+export default class Rank extends wepy.page {
+    config = {
+        navigationBarTitleText: '排行榜'
+    }
+    components = {
+    }
+
+    mixins = [
+    ]
+
+    data = {
+        userInfo: null,
+        navIndex: 0,
+        rankList: [
+        ]
+    }
+
+    computed = {
+        navPosition() {
+            return this.navIndex * 50;
+        }
+    }
+
+    methods = {
+
+        handleNavItemClick(index) {
+            this.navIndex = index;
+        },
+        handleSwiperChange(e) {
+            this.navIndex = e.detail.current;
+        }
+    }
+
+    events = {
+    }
+
+    onLoad() {
+        let ctx = this;
+
+        for (let key in ctx.$wxpage.options) {
+            ctx[key] = ctx.$wxpage.options[key];
+        }
+
+        ctx.$parent.getUserInfo(function(userInfo) {
+
+            ctx.userInfo = userInfo;
+            ctx.$apply();
+
+        });
+
+
+    }
+}
+</script>

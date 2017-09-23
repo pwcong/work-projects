@@ -1,0 +1,168 @@
+<style lang="scss">
+.container {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+
+  overflow: hidden;
+}
+
+.bg {
+
+  z-index: -999;
+
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+.section {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.row {
+
+  position: relative;
+  box-sizing: border-box;
+
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  .col {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    box-sizing: border-box;
+    flex-flow: row nowrap;
+    align-items: center;
+  }
+}
+
+.icon {
+  display: inline-block;
+}
+
+.icon-label {
+  border-radius: 16rpx;
+  padding: 8rpx;
+}
+</style>
+
+<script>
+import wepy from 'wepy';
+import 'wepy-async-function';
+
+import AuthApi from './network/api/auth';
+
+import WXApiUtils from './utils/wxapi';
+
+export default class extends wepy.app {
+  config = {
+    pages: [
+      'pages/home',
+      'pages/start',
+      'pages/record',
+      'pages/center',
+      'pages/rank',
+    ],
+    window: {
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#fff',
+      navigationBarTitleText: 'WeChat',
+      navigationBarTextStyle: 'black'
+    }
+  }
+
+  globalData = {
+    userInfo: null,
+    sessionId: null,
+  }
+
+  constructor() {
+    super();
+    this.use('requestfix');
+  }
+
+  onLaunch() {
+
+  }
+
+  getSessionId() {
+
+    let ctx = this;
+
+    return new Promise(async function(resolve, reject) {
+
+      if (ctx.sessionId) {
+        resolve(ctx.sessionid);
+        return;
+      }
+
+      let loginState = null;
+      let userInfo = null;
+
+      try {
+
+        loginState = await WXApiUtils.login();
+        userInfo = await WXApiUtils.getUserInfo(true);
+
+      } catch (err) {
+        reject(err);
+        return;
+
+      } finally {
+      }
+
+      if (!loginState.code || !userInfo.encryptedData || !userInfo.iv) {
+        reject();
+        return;
+      }
+
+      let res = null;
+
+      try {
+        res = await AuthApi.login(loginState.code, userInfo.encryptedData, userInfo.iv);
+      }
+      catch (err) {
+        reject(err);
+        return;
+      } finally {
+      }
+
+      ctx.sessionId = res.result;
+      resolve(res.result);
+
+    });
+
+  }
+
+  getUserInfo(cb) {
+
+    let ctx = this;
+
+    if (ctx.globalData.userInfo) {
+      cb(ctx.globalData.userInfo);
+      return;
+    }
+
+    wepy.getUserInfo({
+      success(res) {
+        ctx.globalData.userInfo = res.userInfo
+        cb && cb(res.userInfo);
+      }
+    });
+  }
+}
+</script>

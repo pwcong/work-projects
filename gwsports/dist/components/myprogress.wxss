@@ -1,0 +1,1 @@
+.my-progress{width:100%}.my-progress .my-progress-label{width:100%;display:flex;flex-flow:row nowrap;align-items:center;justify-content:space-between}.my-progress .my-progress-main{width:100%;overflow:hidden}.my-progress .my-progress-main view{height:100%}

@@ -1,0 +1,63 @@
+
+  <view class="container">
+
+    <image src="../assets/imgs/bg_home.png" class="bg"/>
+
+    <image src="{{honorLabel}}" class="label"/>
+
+    <view class="main">
+
+      <view class="section info" bindtap="handleNavigateTo" data-wepy-params-a="center">
+        <image src="{{userInfo.avatarUrl}}" class="avatar"/>
+        <text>Pwcong</text>
+      </view>
+
+      <view class="section details">
+
+        <view class="details-wrap">
+          <image src="../assets/imgs/ring_grey.png" class="bg"/>
+          <view class="details-item details-head">
+            <image src="../assets/imgs/icon_run.png"/>
+            <text>运动步数</text>
+          </view>
+
+          <view class="details-item details-score">{{step || '-'}}</view>
+          <view  wx:if="{{level}}" class="details-item details-level">里程碑{{level}}</view>
+
+          <view class="details-item details-duration">
+            运动时长{{hours || '-' }}小时{{minutes || '-'}}分
+          </view>
+        </view>
+      </view>
+
+      <view class="section tools">
+
+        <view class="row">
+          <view class="col" bindtap="handleNavigateTo" data-wepy-params-a="record">
+            <image src="../assets/imgs/icon_statistics.png"/> 我的统计
+          </view>
+          <view class="divider"/>
+          <view class="col" bindtap="handleNavigateTo" data-wepy-params-a="rank?navIndex=0">
+            <image src="../assets/imgs/icon_rank.png"/> 班级排名
+          </view>
+        </view>
+        <view class="row">
+          <view class="col" bindtap="handleNavigateTo" data-wepy-params-a="rank?navIndex=1">
+            <image src="../assets/imgs/icon_school.png"/> 全校Top10
+          </view>
+          <view class="divider"/>
+          <view class="col">
+            <image src="../assets/imgs/icon_hi.png"/> 约跑运动圈
+          </view>
+        </view>
+
+      </view>
+
+      <view class="section action">
+
+        <button bindtap="handleNavigateTo" data-wepy-params-a="start">开始运动</button>
+
+      </view>
+
+    </view>
+  </view>

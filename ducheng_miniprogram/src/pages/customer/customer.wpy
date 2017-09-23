@@ -408,7 +408,7 @@ export default class Customer extends wepy.page {
             ctx.user.balance = globalData.user.balance;
 
             if (globalData.user.company) {
-                ctx.user.company = globalData.user.company.remark;
+                ctx.user.company = globalData.user.company.name;
             }
         }
 

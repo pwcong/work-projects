@@ -1,0 +1,92 @@
+
+    <view class="container">
+
+        <view class="nav">
+
+            <view class="row nav-main">
+
+                <view class="col {{navIndex == 0 ? 'active' : ''}}" bindtap="handleNavItemClick" data-wepy-params-a="0">
+                    周统计
+                </view>
+                <view class="col {{navIndex == 1 ? 'active' : ''}}" bindtap="handleNavItemClick" data-wepy-params-a="1">
+                    年统计
+                </view>
+
+                <view class="mask" style="left: {{navIndex == 0 ? '0' : '50%'}}"/>
+
+            </view>
+
+            <view class="row nav-tips">
+                2017年1月1日起
+            </view>
+
+        </view>
+
+        <view class="main">
+
+            <view class="section record">
+
+                <view class="record-section record-week {{navIndex == 0 ? 'active' : ''}}">
+
+                    <view class="record-item">
+
+                        <view class="row record-item-head">
+                            <view class="col left">
+                                <image src="../assets/imgs/icon_run.png"/> 步数统计
+                            </view>
+                            <view class="col right">
+                                本周总步数：12345
+                            </view>
+                        </view>
+
+                        <canvas canvas-id="weekStepCanvas" class="canvas" style="width: 100%; height: 160px;"/>
+                    </view>
+
+                    <view class="record-item">
+                        <view class="row record-item-head">
+                            <view class="col left">
+                                <image src="../assets/imgs/icon_time.png"/> 时间统计
+                            </view>
+                            <view class="col right">
+                                本周总运动时间：8小时8分
+                            </view>
+                        </view>
+
+                        <canvas canvas-id="weekTimeCanvas" class="canvas" style="width: 100%; height: 160px;"/>
+                    </view>
+                </view>
+
+                <view class="record-section record-year {{navIndex == 1 ? 'active' : ''}}">
+                    <view class="record-item">
+
+                        <view class="row record-item-head">
+                            <view class="col left">
+                                <image src="../assets/imgs/icon_run.png"/> 步数统计
+                            </view>
+                            <view class="col right">
+                                总步数：12345
+                            </view>
+                        </view>
+
+                        <canvas canvas-id="yearStepCanvas" class="canvas" style="width: 100%; height: 160px;"/>
+                    </view>
+
+                    <view class="record-item">
+                        <view class="row record-item-head">
+                            <view class="col left">
+                                <image src="../assets/imgs/icon_time.png"/> 时间统计
+                            </view>
+                            <view class="col right">
+                                总运动时间：8小时8分
+                            </view>
+                        </view>
+
+                        <canvas canvas-id="yearTimeCanvas" class="canvas" style="width: 100%; height: 160px;"/>
+                    </view>
+                </view>
+
+            </view>
+
+        </view>
+
+    </view>

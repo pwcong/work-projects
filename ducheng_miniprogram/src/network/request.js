@@ -12,13 +12,16 @@ export default function request(url, method, data, header) {
       header,
       success(res) {
 
-        if(res.statusCode === 200){
+        if(res.statusCode == 200){
           if(res.data && res.data.success){
             resolve(res.data);
           }else{
             reject(res.data.message);
           }
         }else{
+
+          console.log(JSON.stringify(res));
+
           reject(res.errMsg);
         }
       },

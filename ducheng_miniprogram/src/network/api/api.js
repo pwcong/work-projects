@@ -1,5 +1,3 @@
-import * as urlUtils from '../../utils/url'
-
 const API_BASE = 'https://paymentcard.dcyz.com/api/v1'
 
 const HEADER = {
@@ -52,15 +50,15 @@ export default {
 
     },
     getInfos: {
-      url(keyword, branch_id, company_id) {
-        return API_BASE + '/users?' + urlUtils.formatQueryParams({
-          keyword,
-          branch_id,
-          company_id
-        })
+      url() {
+        return API_BASE + '/users';
       },
       method: 'GET',
-      data: () => ({}),
+      data: (keyword, branch_id, company_id) => ({
+        keyword,
+        branch_id,
+        company_id
+      }),
       header: token => Object.assign({}, HEADER, {
         token
       })
@@ -246,12 +244,12 @@ export default {
 
     cashierSelfTodayOrder: {
 
-      url: (page = 1, limit = 20) => API_BASE + '/stat/cashier/order/today?' + urlUtils.formatQueryParams({
+      url: () => API_BASE + '/stat/cashier/order/today',
+      method: 'GET',
+      data: (page = 1, limit = 20) => ({
         page,
         limit
       }),
-      method: 'GET',
-      data: () => ({}),
       header: token => Object.assign({}, HEADER, {
         token
       })
@@ -277,15 +275,15 @@ export default {
     },
     cashiersOrder: {
 
-      url: (cashier_ids, from_time, to_time, page = 1, limit = 20) => API_BASE + `/stat/cashier/order?` + urlUtils.formatQueryParams({
+      url: () => API_BASE + `/stat/cashier/order`,
+      method: 'GET',
+      data: (cashier_ids, from_time, to_time, page = 1, limit = 20) => ({
         id: cashier_ids,
         from_time,
         to_time,
         page,
         limit
       }),
-      method: 'GET',
-      data: () => ({}),
       header: token => Object.assign({}, HEADER, {
         token
       })
@@ -293,13 +291,13 @@ export default {
     },
     cashiersStat: {
 
-      url: (cashier_ids, from_time, to_time) => API_BASE + `/stat/cashier/stat?` + urlUtils.formatQueryParams({
+      url: () => API_BASE + `/stat/cashier/stat`,
+      method: 'GET',
+      data: (cashier_ids, from_time, to_time) => ({
         id: cashier_ids,
         from_time,
         to_time
       }),
-      method: 'GET',
-      data: () => ({}),
       header: token => Object.assign({}, HEADER, {
         token
       })
@@ -307,12 +305,12 @@ export default {
     },
     customerStat: {
 
-      url: (from_time, to_time) => API_BASE + `/stat/customer/stat?` + urlUtils.formatQueryParams({
+      url: () => API_BASE + `/stat/customer/stat`,
+      method: 'GET',
+      data: (from_time, to_time) => ({
         from_time,
         to_time
       }),
-      method: 'GET',
-      data: () => ({}),
       header: token => Object.assign({}, HEADER, {
         token
       })
@@ -320,14 +318,14 @@ export default {
     },
     customerOrder: {
 
-      url: (from_time, to_time, page = 1, limit = 20) => API_BASE + `/stat/customer/order?` + urlUtils.formatQueryParams({
+      url: () => API_BASE + `/stat/customer/order`,
+      method: 'GET',
+      data: (from_time, to_time, page = 1, limit = 20) => ({
         from_time,
         to_time,
         page,
         limit
       }),
-      method: 'GET',
-      data: () => ({}),
       header: token => Object.assign({}, HEADER, {
         token
       })
