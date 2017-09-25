@@ -1,7 +1,7 @@
 
     <view class="container">
         <view class="main">
-            <view class="result" style="margin: 100rpx 0 200rpx 0; background-image: url({{bgUrl}});">
+            <image class="result" src="{{bgUrl}}" style="margin: 100rpx 0 200rpx 0;">
                 <view class="result-wrap">
                     <view>
                         <icon type="{{type}}" size="70"/>
@@ -12,7 +12,7 @@
                     </view>
                 </view>
 
-            </view>
+            </image>
     
             <view>
                 <view class="btn" bindtap="handleCheckButtonClick">确认</view>

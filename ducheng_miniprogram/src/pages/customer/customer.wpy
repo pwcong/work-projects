@@ -59,11 +59,11 @@
 
     flex: 1;
     box-sizing: border-box;
-    overflow: auto;
+    overflow: hidden;
 
     position: relative;
 
-    padding: 60rpx 30rpx;
+    padding: 30rpx;
 
     .section {
         width: 100%;
@@ -106,7 +106,7 @@
     .qrcode-num {
         width: 100%;
         font-size: 18px;
-        margin-top: 40rpx;
+        margin-top: 24rpx;
         text-align: center;
         columns: #353535;
     }
@@ -117,6 +117,15 @@
         font-size: 14px;
         color: #61749B;
         letter-spacing: 0.69px;
+    }
+
+    .logo{
+        width: 152rpx;
+        height: 48rpx;
+        position: absolute;
+        bottom: 30rpx;
+        left: 50%;
+        transform: translateX(-50%);
     }
 }
 </style>
@@ -137,13 +146,15 @@
             </view>
 
             <view class="section qrcode">
-                <canvas canvas-id="qrcode" style="width: 192px; height: 192px;" />
+                <canvas canvas-id="qrcode" style="width: 172px; height: 172px;" />
                 <view class="qrcode-num">{{user.payCode}}</view>
             </view>
 
             <view class="section action">
                 <text @tap="handleGiveButtonClick">转赠</text>
             </view>
+
+            <image src="../../assets/imgs/login_logo.png" class="logo"></image>
 
         </view>
 
@@ -351,8 +362,8 @@ export default class Customer extends wepy.page {
         let res = t.generatePayCode(userId);
 
         let qrcode = new QRCode(ctx.canvasContext, {
-            width: 192,
-            height: 192
+            width: 172,
+            height: 172
         });
 
         qrcode.makeCode(res.payCode);

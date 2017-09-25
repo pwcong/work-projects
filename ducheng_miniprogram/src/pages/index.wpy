@@ -123,8 +123,6 @@ import wepy from 'wepy';
 
 import TimeUtils from '../utils/time';
 
-import * as urls from '../consts/urls';
-
 import * as authApi from '../network/api/auth';
 
 export default class Index extends wepy.page {
