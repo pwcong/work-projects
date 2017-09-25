@@ -25,68 +25,68 @@
         </view>
 
         <!-- 
-                        <stop-err-modal v-bind:active.sync="stopErrModalActive">
+                                                        <stop-err-modal v-bind:active.sync="stopErrModalActive">
 
-                        <view slot="main" class="start-modal">
-                        <view class="row start-modal-head">
+                                                        <view slot="main" class="start-modal">
+                                                        <view class="row start-modal-head">
 
-                        <view class="col left">
-                        <image src="../assets/imgs/icon_warn.png" />
-                        </view>
-                        <view class="col right">
-                        请抵达指定场地签到处，并开启 手机蓝牙功能后，点击结束运动 按钮，进行签退。
-                        </view>
+                                                        <view class="col left">
+                                                        <image src="../assets/imgs/icon_warn.png" />
+                                                        </view>
+                                                        <view class="col right">
+                                                        请抵达指定场地签到处，并开启 手机蓝牙功能后，点击结束运动 按钮，进行签退。
+                                                        </view>
 
-                        </view>
+                                                        </view>
 
-                        <view class="row start-modal-action">
+                                                        <view class="row start-modal-action">
 
-                        <button bindtap="handleModalButtonClick(stopErrModalActive)">我知道了</button>
+                                                        <button bindtap="handleModalButtonClick(stopErrModalActive)">我知道了</button>
 
-                        </view>
+                                                        </view>
 
-                        </view>
+                                                        </view>
 
-                        </stop-err-modal>
+                                                        </stop-err-modal>
 
-                        <start-err-modal v-bind:active.sync="startErrModalActive">
+                                                        <start-err-modal v-bind:active.sync="startErrModalActive">
 
-                        <view slot="main" class="start-modal">
-                        <view class="row start-modal-head">
+                                                        <view slot="main" class="start-modal">
+                                                        <view class="row start-modal-head">
 
-                        <view class="col left">
+                                                        <view class="col left">
 
-                        <image src="../assets/imgs/icon_warn.png" />
-                        </view>
-                        <view class="col right">
-                        请抵达指定场地签到处，开启手机 蓝牙功能，再开始运动。
-                        </view>
+                                                        <image src="../assets/imgs/icon_warn.png" />
+                                                        </view>
+                                                        <view class="col right">
+                                                        请抵达指定场地签到处，开启手机 蓝牙功能，再开始运动。
+                                                        </view>
 
-                        </view>
+                                                        </view>
 
-                        <view class="start-modal-action">
+                                                        <view class="start-modal-action">
 
-                        <view class="start-modal-tips">目前已支持的运动场地</view>
-                        <view class="start-modal-list">
+                                                        <view class="start-modal-tips">目前已支持的运动场地</view>
+                                                        <view class="start-modal-list">
 
-                        <repeat for="{{supportedLocation}}">
+                                                        <repeat for="{{supportedLocation}}">
 
-                        <view class="start-modal-list-item">
-                        <view class="dot"></view>
-                        <text>{{item}}</text>
-                        </view>
+                                                        <view class="start-modal-list-item">
+                                                        <view class="dot"></view>
+                                                        <text>{{item}}</text>
+                                                        </view>
 
-                        </repeat>
+                                                        </repeat>
 
-                        </view>
+                                                        </view>
 
-                        <button bindtap="handleModalButtonClick(startErrModalActive)">我知道了</button>
+                                                        <button bindtap="handleModalButtonClick(startErrModalActive)">我知道了</button>
 
-                        </view>
+                                                        </view>
 
-                        </view>
+                                                        </view>
 
-                        </start-err-modal> 
-                                    -->
+                                                        </start-err-modal> 
+                                                                    -->
 
     </view>

@@ -167,17 +167,17 @@
             <view class="section info">
 
                 <view class="row info-user">
-                    <image src="{{userInfo.avatarUrl}}" class="avatar" /> {{userInfo.nickName || '-'}}
+                    <image src="{{userInfo.avatarUrl}}" class="avatar" /> {{userInfo.nickName}}
                 </view>
 
                 <view class="row info-sports">
                     <view class="col">
-                        {{step || '-'}}
+                        {{step}}
                         <text>步数统计</text>
                     </view>
                     <view class="divider"></view>
                     <view class="col">
-                        {{hours || '-'}}小时{{minutes || '-'}}分
+                        {{hours}}小时{{minutes}}分
                         <text>时间统计</text>
                     </view>
 
@@ -250,17 +250,18 @@ export default class Center extends wepy.page {
     ]
 
     data = {
-        userInfo: null,
+        userInfo: {
 
+        },
         level: 30,
         maxLevel: 50,
         progressSection: 2,
 
         honorLabel: '../assets/imgs/icon_star.png',
 
-        step: 12345,
-        hours: 8,
-        minutes: 8
+        step: '-',
+        hours: 1,
+        minutes: 18
 
     }
 
@@ -278,6 +279,17 @@ export default class Center extends wepy.page {
     events = {
     }
 
+
+    getSteps() {
+
+        let ctx = this;
+        
+        ctx.step = ctx.$parent.globalData.step;
+
+        ctx.$apply();
+
+    }
+
     onLoad() {
 
         let ctx = this;
@@ -288,6 +300,8 @@ export default class Center extends wepy.page {
             ctx.$apply();
 
         });
+
+        ctx.getSteps();
 
     }
 }

@@ -9,7 +9,7 @@
 
       <view class="section info" bindtap="handleNavigateTo" data-wepy-params-a="center">
         <image src="{{userInfo.avatarUrl}}" class="avatar"/>
-        <text>Pwcong</text>
+        <text>{{userInfo.nickName}}</text>
       </view>
 
       <view class="section details">
@@ -21,11 +21,11 @@
             <text>运动步数</text>
           </view>
 
-          <view class="details-item details-score">{{step || '-'}}</view>
+          <view class="details-item details-score">{{step}}</view>
           <view  wx:if="{{level}}" class="details-item details-level">里程碑{{level}}</view>
 
           <view class="details-item details-duration">
-            运动时长{{hours || '-' }}小时{{minutes || '-'}}分
+            运动时长{{hours}}小时{{minutes}}分
           </view>
         </view>
       </view>

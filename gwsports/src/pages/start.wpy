@@ -151,69 +151,69 @@
         </view>
 
         <!-- 
-                        <stop-err-modal :active.sync="stopErrModalActive">
+                                                        <stop-err-modal :active.sync="stopErrModalActive">
 
-                        <view slot="main" class="start-modal">
-                        <view class="row start-modal-head">
+                                                        <view slot="main" class="start-modal">
+                                                        <view class="row start-modal-head">
 
-                        <view class="col left">
-                        <image src="../assets/imgs/icon_warn.png" />
-                        </view>
-                        <view class="col right">
-                        请抵达指定场地签到处，并开启 手机蓝牙功能后，点击结束运动 按钮，进行签退。
-                        </view>
+                                                        <view class="col left">
+                                                        <image src="../assets/imgs/icon_warn.png" />
+                                                        </view>
+                                                        <view class="col right">
+                                                        请抵达指定场地签到处，并开启 手机蓝牙功能后，点击结束运动 按钮，进行签退。
+                                                        </view>
 
-                        </view>
+                                                        </view>
 
-                        <view class="row start-modal-action">
+                                                        <view class="row start-modal-action">
 
-                        <button @tap="handleModalButtonClick(stopErrModalActive)">我知道了</button>
+                                                        <button @tap="handleModalButtonClick(stopErrModalActive)">我知道了</button>
 
-                        </view>
+                                                        </view>
 
-                        </view>
+                                                        </view>
 
-                        </stop-err-modal>
+                                                        </stop-err-modal>
 
-                        <start-err-modal :active.sync="startErrModalActive">
+                                                        <start-err-modal :active.sync="startErrModalActive">
 
-                        <view slot="main" class="start-modal">
-                        <view class="row start-modal-head">
+                                                        <view slot="main" class="start-modal">
+                                                        <view class="row start-modal-head">
 
-                        <view class="col left">
+                                                        <view class="col left">
 
-                        <image src="../assets/imgs/icon_warn.png" />
-                        </view>
-                        <view class="col right">
-                        请抵达指定场地签到处，开启手机 蓝牙功能，再开始运动。
-                        </view>
+                                                        <image src="../assets/imgs/icon_warn.png" />
+                                                        </view>
+                                                        <view class="col right">
+                                                        请抵达指定场地签到处，开启手机 蓝牙功能，再开始运动。
+                                                        </view>
 
-                        </view>
+                                                        </view>
 
-                        <view class="start-modal-action">
+                                                        <view class="start-modal-action">
 
-                        <view class="start-modal-tips">目前已支持的运动场地</view>
-                        <view class="start-modal-list">
+                                                        <view class="start-modal-tips">目前已支持的运动场地</view>
+                                                        <view class="start-modal-list">
 
-                        <repeat for="{{supportedLocation}}">
+                                                        <repeat for="{{supportedLocation}}">
 
-                        <view class="start-modal-list-item">
-                        <view class="dot"></view>
-                        <text>{{item}}</text>
-                        </view>
+                                                        <view class="start-modal-list-item">
+                                                        <view class="dot"></view>
+                                                        <text>{{item}}</text>
+                                                        </view>
 
-                        </repeat>
+                                                        </repeat>
 
-                        </view>
+                                                        </view>
 
-                        <button @tap="handleModalButtonClick(startErrModalActive)">我知道了</button>
+                                                        <button @tap="handleModalButtonClick(startErrModalActive)">我知道了</button>
 
-                        </view>
+                                                        </view>
 
-                        </view>
+                                                        </view>
 
-                        </start-err-modal> 
-                                    -->
+                                                        </start-err-modal> 
+                                                                    -->
 
     </view>
 </template>
@@ -256,7 +256,7 @@ export default class Start extends wepy.page {
                     padding: 12,
                     fontSize: 16
                 },
-                id: 0,
+                id: 1,
                 latitude: 23.065608,
                 longitude: 113.398063,
                 width: 40,
@@ -407,13 +407,20 @@ export default class Start extends wepy.page {
 
         let ctx = this;
 
+
+        wepy.showLoading({
+            title: '搜寻中',
+            mask: true
+        });
+
         // 检测蓝牙开启，探测周边ibeancon设备
         try {
 
             await WXApiUtils.openBluetoothAdapter();
             await WXApiUtils.getBluetoothAdapterState();
 
-            await WXApiUtils.startBeaconDiscovery(['FDA50693-A4E2-4FB1-AFCF-C6EB07647825']);
+            let res = await WXApiUtils.startBeaconDiscovery(['FDA50693-A4E2-4FB1-AFCF-C6EB07647825', 'e2c56db5-dffb-48d2-b060-d0f5a71096e0']);
+            console.log(res);
         } catch (err) {
             // ctx.stopErrModalActive = true;
             // ctx.$apply();
@@ -424,7 +431,10 @@ export default class Start extends wepy.page {
                 showCancel: false
             });
             return;
+        } finally {
+            wepy.hideLoading();
         }
+
 
         wepy.showLoading({
             title: '提交运动数据中',
@@ -453,13 +463,20 @@ export default class Start extends wepy.page {
 
         let ctx = this;
 
+
+        wepy.showLoading({
+            title: '搜寻中',
+            mask: true
+        });
+
         // 检测蓝牙开启，探测周边ibeancon设备
         try {
 
             await WXApiUtils.openBluetoothAdapter();
             await WXApiUtils.getBluetoothAdapterState();
 
-            await WXApiUtils.startBeaconDiscovery(['FDA50693-A4E2-4FB1-AFCF-C6EB07647825']);
+            let res = await WXApiUtils.startBeaconDiscovery(['FDA50693-A4E2-4FB1-AFCF-C6EB07647825', 'e2c56db5-dffb-48d2-b060-d0f5a71096e0']);
+            console.log(res);
         } catch (err) {
             // ctx.startErrModalActive = true;
             // ctx.$apply();
@@ -470,6 +487,8 @@ export default class Start extends wepy.page {
                 showCancel: false
             });
             return;
+        } finally {
+            wepy.hideLoading();
         }
 
         ctx.startFlag = true;
@@ -491,6 +510,7 @@ export default class Start extends wepy.page {
             // 获取用户凭证
             try {
                 sessionId = await ctx.$parent.getSessionId();
+
             } catch (err) {
                 resolve({
                     status: 0,
@@ -533,6 +553,24 @@ export default class Start extends wepy.page {
 
     }
 
+    async getLocation() {
+
+        let ctx = this;
+
+        let res = null;
+
+        try {
+            res = await WXApiUtils.getLocation();
+        } catch (err) {
+
+        } finally { }
+
+        ctx.latitude = res.latitude;
+        ctx.longitude = res.longitude;
+        ctx.$apply();
+
+    }
+
 
     async check() {
 
@@ -560,6 +598,7 @@ export default class Start extends wepy.page {
         let ctx = this;
 
         ctx.check();
+        ctx.getLocation();
     }
 
     onLoad() {

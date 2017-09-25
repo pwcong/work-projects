@@ -46,19 +46,41 @@ function lastSignIn(sessionId) {
 
 }
 
+function getDayRecords(sessionId) {
+
+  return request(
+    api.sport.getDayRecords.url(),
+    api.sport.getDayRecords.method,
+    api.sport.getDayRecords.data(),
+    api.sport.getDayRecords.header(sessionId)
+  );
+
+}
+
+function getDayRank(sessionId, pageNo, pageSize) {
+
+  return request(
+    api.sport.dayRank.url(),
+    api.sport.dayRank.method,
+    api.sport.dayRank.data(pageNo, pageSize),
+    api.sport.dayRank.header(sessionId)
+  );
+
+}
+
 
 // 模拟上传数据
-function uploadSportRecord(){
+function uploadSportRecord() {
 
-    return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
 
-        setTimeout(() => {
+    setTimeout(() => {
 
-            resolve();
+      resolve();
 
-        }, 1000);
+    }, 1000);
 
-    });
+  });
 
 }
 
@@ -67,6 +89,8 @@ export default {
   signIn,
   signOut,
   lastSignIn,
-  uploadSportRecord
+  uploadSportRecord,
+  getDayRecords,
+  getDayRank
 
 }

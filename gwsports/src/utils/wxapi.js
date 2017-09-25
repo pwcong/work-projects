@@ -34,19 +34,48 @@ function getBeacons() {
 
 }
 
-function startBeaconDiscovery(uuids) {
+function startBeaconDiscovery(uuids, timeout = 5000) {
 
-  return new Promise((resolve, reject) => {
+  return new Promise(async function (resolve, reject) {
 
+    let devices = [];
     wepy.startBeaconDiscovery({
-      uuids,
-      success(res) {
-        resolve(res);
+      uuids: uuids,
+      success() {
+        console.log("开始扫描设备...");
+        wx.onBeaconUpdate(res => {
+          //请注意，官方文档此处又有BUG，是res.beacons，不是beacons。
+          if (res && res.beacons && res.beacons.length > 0) {
+            devices = res.beacons;
+            //此处最好检测rssi是否等于0，等于0的话信号强度等信息不准确。我是5秒内重复扫描排重。
+          }
+        });
       },
       fail(err) {
         reject(err);
       }
     });
+
+    setTimeout(() => {
+      wepy.stopBeaconDiscovery({
+        success() {
+          console.log("停止设备扫描！");
+          console.log(devices);
+
+          if (devices.length <= 0) {
+            reject();
+            return;
+          }
+
+          resolve(devices);
+
+        },
+        fail(err) {
+          reject(err);
+        }
+      });
+    }, timeout);
+
   });
 
 }
@@ -132,6 +161,7 @@ function getUserInfo(withCredentials = false, lang = 'zh_CN') {
   });
 
 }
+
 
 export default {
 

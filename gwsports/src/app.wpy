@@ -72,10 +72,10 @@ export default class extends wepy.app {
   config = {
     pages: [
       'pages/home',
+      'pages/rank',
       'pages/start',
       'pages/record',
       'pages/center',
-      'pages/rank',
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -103,12 +103,11 @@ export default class extends wepy.app {
 
     let ctx = this;
 
-    return new Promise(async function(resolve, reject) {
+    if (ctx.globalData.sessionId) {
+      return Promise.resolve(ctx.globalData.sessionId);
+    }
 
-      if (ctx.sessionId) {
-        resolve(ctx.sessionid);
-        return;
-      }
+    return new Promise(async function(resolve, reject) {
 
       let loginState = null;
       let userInfo = null;
@@ -141,7 +140,7 @@ export default class extends wepy.app {
       } finally {
       }
 
-      ctx.sessionId = res.result;
+      ctx.globalData.sessionId = res.result;
       resolve(res.result);
 
     });

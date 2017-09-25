@@ -6,17 +6,17 @@
             <view class="section info">
 
                 <view class="row info-user">
-                    <image src="{{userInfo.avatarUrl}}" class="avatar"/> {{userInfo.nickName || '-'}}
+                    <image src="{{userInfo.avatarUrl}}" class="avatar"/> {{userInfo.nickName}}
                 </view>
 
                 <view class="row info-sports">
                     <view class="col">
-                        {{step || '-'}}
+                        {{step}}
                         <text>步数统计</text>
                     </view>
                     <view class="divider"/>
                     <view class="col">
-                        {{hours || '-'}}小时{{minutes || '-'}}分
+                        {{hours}}小时{{minutes}}分
                         <text>时间统计</text>
                     </view>
 

@@ -69,6 +69,28 @@ export default {
       })
     },
 
+    getDayRecords: {
+      url: () => API_BASE + '/api/user/record/month',
+      method: 'GET',
+      data: () => ({}),
+      header: sessionId => Object.assign({}, HEADER, {
+        sessionId
+      })
+    },
+
+    dayRank: {
+      url: () => API_BASE + '/api/rank/day',
+      method: 'GET',
+      data: (pageNo = 1, pageSize = 20) => ({
+        pageNo,
+        pageSize
+      }),
+      header: sessionId => Object.assign({}, HEADER, {
+        sessionId
+      })
+    },
+
+
 
   }
 

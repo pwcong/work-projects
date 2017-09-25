@@ -25,167 +25,61 @@
 
                     <view class="row rank-item rank-self">
                         <view class="rank-item-col left">
-                            <text class="score">4</text>
+                            <!-- <image wx:if="{{medal}}" src="{{medal}}" class="icon-medal" />
+                            <text wx:else class="score">{{rank}}</text> -->
                             <image src="{{userInfo.avatarUrl}}" class="avatar"/>
-                            <text class="name">Pwcong</text>
+                            <text class="name">{{userInfo.nickName}}</text>
                         </view>
                         <view class="rank-item-col right">
-                            <text class="step">12345</text>
+                            <text class="step">{{step}}</text>
                             <image src="../assets/imgs/icon_step.png" class="icon-step"/>
                         </view>
                     </view>
 
-                    <view class="row rank-item">
-                        <view class="rank-item-col left">
-                            <image src="../assets/imgs/icon_gold.png" class="icon-medal"/>
-                            <image src="{{userInfo.avatarUrl}}" class="avatar"/>
-                            <text class="name">Pwcong</text>
+                    <block wx:for="{{rankList}}" wx:for-index="index" wx:for-item="item" wx:key="key">
+                        <view class="row rank-item">
+                            <view class="rank-item-col left">
+                                <image  wx:if="{{item.medal}}" src="{{item.medal}}" class="icon-medal"/>
+                                <text  wx:else class="score">{{item.rank}}</text>
+                                <image src="{{item.avatarUrl}}" class="avatar"/>
+                                <text class="name">{{item.name}}</text>
+                            </view>
+                            <view class="rank-item-col right">
+                                <text class="step">{{item.step}}</text>
+                                <image src="../assets/imgs/icon_step.png" class="icon-step"/>
+                            </view>
                         </view>
-                        <view class="rank-item-col right">
-                            <text class="step">12345</text>
-                            <image src="../assets/imgs/icon_step.png" class="icon-step"/>
-                        </view>
-                    </view>
-                    <view class="row rank-item">
-                        <view class="rank-item-col left">
-                            <image src="../assets/imgs/icon_silver.png" class="icon-medal"/>
-                            <image src="{{userInfo.avatarUrl}}" class="avatar"/>
-                            <text class="name">Pwcong</text>
-                        </view>
-                        <view class="rank-item-col right">
-                            <text class="step">12345</text>
-                            <image src="../assets/imgs/icon_step.png" class="icon-step"/>
-                        </view>
-                    </view>
-                    <view class="row rank-item">
-                        <view class="rank-item-col left">
-                            <image src="../assets/imgs/icon_copper.png" class="icon-medal"/>
-                            <image src="{{userInfo.avatarUrl}}" class="avatar"/>
-                            <text class="name">Pwcong</text>
-                        </view>
-                        <view class="rank-item-col right">
-                            <text class="step">12345</text>
-                            <image src="../assets/imgs/icon_step.png" class="icon-step"/>
-                        </view>
-                    </view>
-                    <view class="row rank-item">
-                        <view class="rank-item-col left">
-                            <text class="score">4</text>
-                            <image src="{{userInfo.avatarUrl}}" class="avatar"/>
-                            <text class="name">Pwcong</text>
-                        </view>
-                        <view class="rank-item-col right">
-                            <text class="step">12345</text>
-                            <image src="../assets/imgs/icon_step.png" class="icon-step"/>
-                        </view>
-                    </view>
-
-                    <view class="row rank-item">
-                        <view class="rank-item-col left">
-                            <text class="score">5</text>
-                            <image src="{{userInfo.avatarUrl}}" class="avatar"/>
-                            <text class="name">Pwcong</text>
-                        </view>
-                        <view class="rank-item-col right">
-                            <text class="step">12345</text>
-                            <image src="../assets/imgs/icon_step.png" class="icon-step"/>
-                        </view>
-                    </view>
-                    <view class="row rank-item">
-                        <view class="rank-item-col left">
-                            <text class="score">6</text>
-                            <image src="{{userInfo.avatarUrl}}" class="avatar"/>
-                            <text class="name">Pwcong</text>
-                        </view>
-                        <view class="rank-item-col right">
-                            <text class="step">12345</text>
-                            <image src="../assets/imgs/icon_step.png" class="icon-step"/>
-                        </view>
-                    </view>
-
+                    </block>
                 </swiper-item>
                 <swiper-item class="rank-section rank-school">
 
                     <view class="row rank-item rank-self">
                         <view class="rank-item-col left">
-                            <text class="score">4</text>
+                            <!-- <image wx:if="{{medal}}" src="{{medal}}" class="icon-medal" />
+                            <text wx:else class="score">{{rank}}</text> -->
                             <image src="{{userInfo.avatarUrl}}" class="avatar"/>
-                            <text class="name">Pwcong</text>
+                            <text class="name">{{userInfo.nickName}}</text>
                         </view>
                         <view class="rank-item-col right">
-                            <text class="step">12345</text>
+                            <text class="step">{{step}}</text>
                             <image src="../assets/imgs/icon_step.png" class="icon-step"/>
                         </view>
                     </view>
 
-                    <view class="row rank-item">
-                        <view class="rank-item-col left">
-                            <image src="../assets/imgs/icon_gold.png" class="icon-medal"/>
-                            <image src="{{userInfo.avatarUrl}}" class="avatar"/>
-                            <text class="name">Pwcong</text>
+                    <block wx:for="{{rankList}}" wx:for-index="index" wx:for-item="item" wx:key="key">
+                        <view class="row rank-item">
+                            <view class="rank-item-col left">
+                                <image wx:if="{{item.medal}}" src="{{item.medal}}" class="icon-medal"/>
+                                <text wx:else class="score">{{item.rank}}</text>
+                                <image src="{{item.avatarUrl}}" class="avatar"/>
+                                <text class="name">{{item.name}}</text>
+                            </view>
+                            <view class="rank-item-col right">
+                                <text class="step">{{item.step}}</text>
+                                <image src="../assets/imgs/icon_step.png" class="icon-step"/>
+                            </view>
                         </view>
-                        <view class="rank-item-col right">
-                            <text class="step">12345</text>
-                            <image src="../assets/imgs/icon_step.png" class="icon-step"/>
-                        </view>
-                    </view>
-                    <view class="row rank-item">
-                        <view class="rank-item-col left">
-                            <image src="../assets/imgs/icon_silver.png" class="icon-medal"/>
-                            <image src="{{userInfo.avatarUrl}}" class="avatar"/>
-                            <text class="name">Pwcong</text>
-                        </view>
-                        <view class="rank-item-col right">
-                            <text class="step">12345</text>
-                            <image src="../assets/imgs/icon_step.png" class="icon-step"/>
-                        </view>
-                    </view>
-                    <view class="row rank-item">
-                        <view class="rank-item-col left">
-                            <image src="../assets/imgs/icon_copper.png" class="icon-medal"/>
-                            <image src="{{userInfo.avatarUrl}}" class="avatar"/>
-                            <text class="name">Pwcong</text>
-                        </view>
-                        <view class="rank-item-col right">
-                            <text class="step">12345</text>
-                            <image src="../assets/imgs/icon_step.png" class="icon-step"/>
-                        </view>
-                    </view>
-                    <view class="row rank-item">
-                        <view class="rank-item-col left">
-                            <text class="score">4</text>
-                            <image src="{{userInfo.avatarUrl}}" class="avatar"/>
-                            <text class="name">Pwcong</text>
-                        </view>
-                        <view class="rank-item-col right">
-                            <text class="step">12345</text>
-                            <image src="../assets/imgs/icon_step.png" class="icon-step"/>
-                        </view>
-                    </view>
-
-                    <view class="row rank-item">
-                        <view class="rank-item-col left">
-                            <text class="score">5</text>
-                            <image src="{{userInfo.avatarUrl}}" class="avatar"/>
-                            <text class="name">Pwcong</text>
-                        </view>
-                        <view class="rank-item-col right">
-                            <text class="step">12345</text>
-                            <image src="../assets/imgs/icon_step.png" class="icon-step"/>
-                        </view>
-                    </view>
-                    <view class="row rank-item">
-                        <view class="rank-item-col left">
-                            <text class="score">6</text>
-                            <image src="{{userInfo.avatarUrl}}" class="avatar"/>
-                            <text class="name">Pwcong</text>
-                        </view>
-                        <view class="rank-item-col right">
-                            <text class="step">12345</text>
-                            <image src="../assets/imgs/icon_step.png" class="icon-step"/>
-                        </view>
-                    </view>
-
+                    </block>
                 </swiper-item>
             </swiper>
 

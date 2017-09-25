@@ -17,7 +17,7 @@
             </view>
 
             <view class="row nav-tips">
-                2017年1月1日起
+                2017年9月18日起
             </view>
 
         </view>
@@ -35,7 +35,7 @@
                                 <image src="../assets/imgs/icon_run.png"/> 步数统计
                             </view>
                             <view class="col right">
-                                本周总步数：12345
+                                本周总步数：{{step}}
                             </view>
                         </view>
 
@@ -48,7 +48,7 @@
                                 <image src="../assets/imgs/icon_time.png"/> 时间统计
                             </view>
                             <view class="col right">
-                                本周总运动时间：8小时8分
+                                本周总运动时间：1小时18分
                             </view>
                         </view>
 
@@ -64,7 +64,7 @@
                                 <image src="../assets/imgs/icon_run.png"/> 步数统计
                             </view>
                             <view class="col right">
-                                总步数：12345
+                                总步数：{{step}}
                             </view>
                         </view>
 
@@ -77,7 +77,7 @@
                                 <image src="../assets/imgs/icon_time.png"/> 时间统计
                             </view>
                             <view class="col right">
-                                总运动时间：8小时8分
+                                总运动时间：1小时18分
                             </view>
                         </view>
 
