@@ -24,11 +24,11 @@
                 <view class="item">
                     <view class="col">
                         订单数量
-                        <text style="color: #fa9d3b; margin-left: 50rpx;">{{branchStat.times}}</text>
+                        <text style="color: #FA9D3B; margin-left: 50rpx;">{{branchStat.times}}</text>
                     </view>
                     <view class="col">
                         退款次数
-                        <text style="color: #e64340; margin-left: 50rpx;">{{branchStat.refund_times}}</text>
+                        <text style="color: #FA9D3B; margin-left: 50rpx;">{{branchStat.refund_times}}</text>
                     </view>
                 </view>
 

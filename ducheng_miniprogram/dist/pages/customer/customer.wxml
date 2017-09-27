@@ -23,7 +23,7 @@
                 <text bindtap="handleGiveButtonClick">转赠</text>
             </view>
 
-            <image src="../../assets/imgs/login_logo.png" class="logo"/>
+            <image src="../../assets/imgs/home_logo.png" class="logo"/>
 
         </view>
 

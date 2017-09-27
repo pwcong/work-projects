@@ -22,7 +22,8 @@
         line-height: 160rpx;
         background-color: white;
         font-size: 22px;
-
+        border: 1px solid #D30A0A;
+        box-sizing: border-box;
         font-weight: bold;
         border-radius: 8rpx;
         box-shadow: 0 0 1px #aaa;

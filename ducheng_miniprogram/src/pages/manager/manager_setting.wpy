@@ -71,18 +71,18 @@
             width: 360rpx;
             height: 70rpx;
 
-            border: 1px solid #09bb07;
+            border: 1px solid #D30A0A;
             border-radius: 8rpx;
             line-height: 70rpx;
             text-align: center;
 
-            color: #09bb07;
+            color: #D30A0A;
 
             transition: background-color 0.1s, color 0.1s;
 
             &:active {
                 color: white;
-                background-color: #09bb07;
+                background-color: #D30A0A;
             }
         }
     }

@@ -50,10 +50,10 @@
         justify-content: center;
         align-items: center;
 
-        color: #09bb07;
+        color: #D30A0A;
         font-size: 16px;
         border-radius: 8rpx;
-        border: 1px solid #09bb07;
+        border: 1px solid #D30A0A;
 
         margin-left: 24rpx;
         width: 110rpx;
@@ -61,7 +61,7 @@
         transition: color 0.1s, background-color 0.1s;
 
         &:active {
-            background-color: #09bb07;
+            background-color: #D30A0A;
             color: white;
         }
     }

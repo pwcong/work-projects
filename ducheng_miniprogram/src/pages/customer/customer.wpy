@@ -42,14 +42,14 @@
         text-align: center;
         line-height: 60rpx;
         font-size: 14px;
-        color: #09BB07;
-        border: 1px solid #09BB07;
+        color: #D30A0A;
+        border: 1px solid #D30A0A;
         border-radius: 8rpx;
 
         transition: background-color 0.1s, color 0.1s;
 
         &:active {
-            background-color: #09BB07;
+            background-color: #D30A0A;
             color: white;
         }
     }
@@ -120,8 +120,8 @@
     }
 
     .logo{
-        width: 152rpx;
-        height: 48rpx;
+        width: 292rpx;
+        height: 88rpx;
         position: absolute;
         bottom: 30rpx;
         left: 50%;
@@ -154,7 +154,7 @@
                 <text @tap="handleGiveButtonClick">转赠</text>
             </view>
 
-            <image src="../../assets/imgs/login_logo.png" class="logo"></image>
+            <image src="../../assets/imgs/home_logo.png" class="logo"></image>
 
         </view>
 

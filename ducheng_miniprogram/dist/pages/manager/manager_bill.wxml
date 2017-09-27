@@ -53,7 +53,7 @@
 
                 <view class="wrap" style="background-color: white;">
 
-                    <view class="sec" style="padding: 20rpx 0; justify-content: center; font-size: 19px; color: #1AAD19;">
+                    <view class="sec" style="padding: 20rpx 0; justify-content: center; font-size: 19px; color: #D30A0A;">
                         <view>实收款：{{record.money}}元</view>
                     </view>
                     <view class="sec pandect">
@@ -83,13 +83,13 @@
                                     <view>{{item.time}}</view>
                                     <view>{{item.date}}</view>
                                 </view>
-                                <view class="col" style="color: {{item.status == 1 ? '#1aad19' : '#e64340'}}">
+                                <view class="col" style="color: {{item.status == 1 ? '#D30A0A' : '#61749B'}}">
                                     {{item.money}}
                                 </view>
                                 <view class="col">
                                     {{item.cashier}}
                                 </view>
-                                <view class="col" style="color: {{item.status == 1 ? '#b2b2b2' : '#e64340'}}">
+                                <view class="col" style="color: {{item.status == 1 ? '#898989' : '#E64340'}}">
                                     {{item.status == 1 ? '完成' : '已退'}}
                                 </view>
                             </view>

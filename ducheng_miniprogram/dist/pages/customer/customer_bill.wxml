@@ -38,7 +38,7 @@
                             <view>{{item.datetime}}</view>
                         </view>
 
-                        <view class="col middle" style="color: {{item.inout[0] == '-' ? '#d30a0a' : '#1aad19'}}">
+                        <view class="col middle" style="color: {{item.inout[0] == '-' ? '#61749B' : '#d30a0a'}}">
                             {{item.inout}}
                         </view>
 
