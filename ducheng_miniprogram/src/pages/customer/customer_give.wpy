@@ -241,7 +241,7 @@ export default class Customer_Give extends wepy.page {
         } catch (err) {
 
             wepy.navigateTo({
-                url: `../result?msg=转增失败&content=${err}&type=warn&color=#61749B&fontsize=13&delta=2`
+                url: `../result?msg=转赠失败&content=${err}&type=warn&color=#61749B&fontsize=13&delta=2`
             });
 
             return;

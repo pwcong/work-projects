@@ -279,11 +279,42 @@ export default class CustomerBillAll extends wepy.page {
 
                 let t = order.type == '充值' || order.type == '退款' || order.type == '团餐客户拨款' || order.type == '受赠';
 
+                let action = null;
+
+                switch (order.type) {
+                    case '转赠':
+                        try {
+                            let tt = JSON.parse(order.payload);
+                            action = order.type + '(' + (tt.toUsername || tt.toUserId || '未知') + ')';
+                        } catch (err) {
+                            action = order.branch_name || order.type;
+                        } finally { }
+                        break;
+
+                    case '受赠':
+
+                        try {
+                            let tt = JSON.parse(order.payload);
+                            action = order.type + '(' + (tt.fromUsername || tt.fromUserId || '未知') + ')';
+                        } catch (err) {
+                            action = order.branch_name || order.type;
+                        } finally { }
+
+
+                        break;
+
+                    default:
+
+                        action = order.branch_name || order.type;
+
+                        break;
+                }
+
                 return {
                     datetime: order.created_at.substring(5, 16),
                     inout: t ? '+' + order.amount : '-' + order.amount,
                     balance: order.balance_after || '-',
-                    action: order.branch_name || order.type
+                    action
                 }
             })
         ];

@@ -271,8 +271,20 @@ export default class Index extends wepy.page {
         return;
       }
 
+      wepy.showLoading({
+          title: '自动登陆中',
+          mask: true
+      });
+
       // 校验token
-      await authApi.status(token);
+      try{
+        await authApi.status(token);
+      }catch(err){
+        return;
+      }finally{
+        wepy.hideLoading();
+      }
+
 
       ctx.$parent.globalData.user = user;
       ctx.$parent.globalData.token = token;

@@ -151,21 +151,81 @@
     }
 
 
-    function getSessionId(url, onSuccess, onError, onComplete) {
+    // function getSessionId(url, onSuccess, onError, onComplete) {
+
+    //     $.ajax({
+    //         url: API.auth.url(url),
+    //         method: API.auth.method,
+    //         success: function (data) {
+    //             onSuccess && onSuccess(data);
+    //         },
+    //         error: function (err) {
+    //             onError && onError(err);
+    //         },
+    //         complete: function (data) {
+    //             onComplete && onComplete();
+    //         }
+    //     });
+    // }
+
+    function getSessionId(url, onSuccess, onFail, onComplete) {
+
+        var loading = weui.loading('登陆中', {
+            className: 'loading'
+        });
 
         $.ajax({
             url: API.auth.url(url),
             method: API.auth.method,
             success: function (data) {
-                onSuccess && onSuccess(data);
+
+                onSuccess && onSuccess();
+
+                window.location.href = data;
+
+                window.SESSION_CHECKED = true;
+
+                weui.loading('正在进入登陆页面', {
+                    className: 'loading'
+                });
             },
             error: function (err) {
-                onError && onError(err);
+
+                onFail && onFail();
+
+                weui.dialog('登陆失败', {
+                    className: 'dialog'
+                });
             },
             complete: function (data) {
                 onComplete && onComplete();
+                loading.hide();
             }
         });
+
+    }
+
+    function handleResponseCode(code) {
+
+        switch (code) {
+
+            case 'SESSIONID_VALIDATE_ERROR':
+
+                window.SESSION_CHECKED = false;
+
+                getSessionId(
+                    // 'http://www.ppfix.cn/activity/piano_rank/enter.html',
+                    window.location.href
+                    // 'http://localhost:3000/home.html'
+                );
+
+
+                break;
+            default:
+                break;
+
+        }
+
     }
 
     function getSign(onSuccess, onError, onComplete) {
@@ -174,7 +234,14 @@
             url: API.sign.url(),
             method: API.sign.method,
             success: function (data) {
-                onSuccess && onSuccess(data);
+                if (data.code == 'SUCCESS') {
+                    onSuccess && onSuccess(data);
+                    return;
+                }
+
+                data = JSON.parse(data);
+                onError && onError(data.message);
+                handleResponseCode(data.code);
             },
             error: function (err) {
                 onError && onError(err);
@@ -193,7 +260,14 @@
             method: API.userInfo.method,
             headers: API.userInfo.headers(sessionId),
             success: function (data) {
-                onSuccess && onSuccess(data);
+                if (data.code == 'SUCCESS') {
+                    onSuccess && onSuccess(data);
+                    return;
+                }
+
+                data = JSON.parse(data);
+                onError && onError(data.message);
+                handleResponseCode(data.code);
             },
             error: function (err) {
                 onError && onError(err);
@@ -213,7 +287,14 @@
             method: API.uploadRecord.method,
             headers: API.uploadRecord.headers(sessionId),
             success: function (data) {
-                onSuccess && onSuccess(data);
+                if (data.code == 'SUCCESS') {
+                    onSuccess && onSuccess(data);
+                    return;
+                }
+
+                data = JSON.parse(data);
+                onError && onError(data.message);
+                handleResponseCode(data.code);
             },
             error: function (err) {
                 onError && onError(err);
@@ -234,7 +315,14 @@
             method: API.modifyUserInfo.method,
             headers: API.modifyUserInfo.headers(sessionId),
             success: function (data) {
-                onSuccess && onSuccess(data);
+                if (data.code == 'SUCCESS') {
+                    onSuccess && onSuccess(data);
+                    return;
+                }
+
+                data = JSON.parse(data);
+                onError && onError(data.message);
+                handleResponseCode(data.code);
             },
             error: function (err) {
                 onError && onError(err);
@@ -254,7 +342,14 @@
             method: API.allRecords.method,
             headers: API.allRecords.headers(sessionId),
             success: function (data) {
-                onSuccess && onSuccess(data);
+                if (data.code == 'SUCCESS') {
+                    onSuccess && onSuccess(data);
+                    return;
+                }
+
+                data = JSON.parse(data);
+                onError && onError(data.message);
+                handleResponseCode(data.code);
             },
             error: function (err) {
                 onError && onError(err);
@@ -275,7 +370,14 @@
             method: API.dayRecords.method,
             headers: API.dayRecords.headers(sessionId),
             success: function (data) {
-                onSuccess && onSuccess(data);
+                if (data.code == 'SUCCESS') {
+                    onSuccess && onSuccess(data);
+                    return;
+                }
+
+                data = JSON.parse(data);
+                onError && onError(data.message);
+                handleResponseCode(data.code);
             },
             error: function (err) {
                 onError && onError(err);
@@ -297,7 +399,14 @@
             method: API.monthRecords.method,
             headers: API.monthRecords.headers(sessionId),
             success: function (data) {
-                onSuccess && onSuccess(data);
+                if (data.code == 'SUCCESS') {
+                    onSuccess && onSuccess(data);
+                    return;
+                }
+
+                data = JSON.parse(data);
+                onError && onError(data.message);
+                handleResponseCode(data.code);
             },
             error: function (err) {
                 onError && onError(err);
@@ -318,7 +427,14 @@
             url: API.allDaysRank.url(pageNo, pageSize),
             method: API.allDaysRank.method,
             success: function (data) {
-                onSuccess && onSuccess(data);
+                if (data.code == 'SUCCESS') {
+                    onSuccess && onSuccess(data);
+                    return;
+                }
+
+                data = JSON.parse(data);
+                onError && onError(data.message);
+                handleResponseCode(data.code);
             },
             error: function (err) {
                 onError && onError(err);
@@ -339,7 +455,14 @@
             url: API.allRecordsRank.url(pageNo, pageSize),
             method: API.allRecordsRank.method,
             success: function (data) {
-                onSuccess && onSuccess(data);
+                if (data.code == 'SUCCESS') {
+                    onSuccess && onSuccess(data);
+                    return;
+                }
+
+                data = JSON.parse(data);
+                onError && onError(data.message);
+                handleResponseCode(data.code);
             },
             error: function (err) {
                 onError && onError(err);
@@ -352,7 +475,7 @@
         });
 
     }
-    
+
     function getClass(sessionId, onSuccess, onError, onComplete) {
 
         $.ajax({
@@ -361,7 +484,14 @@
             method: API.getClass.method,
             headers: API.getClass.headers(sessionId),
             success: function (data) {
-                onSuccess && onSuccess(data);
+                if (data.code == 'SUCCESS') {
+                    onSuccess && onSuccess(data);
+                    return;
+                }
+
+                data = JSON.parse(data);
+                onError && onError(data.message);
+                handleResponseCode(data.code);
             },
             error: function (err) {
                 onError && onError(err);

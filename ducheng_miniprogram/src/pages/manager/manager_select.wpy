@@ -329,7 +329,7 @@ export default class ManagerSwitch extends wepy.page {
 
         ctx._cashiers = finalCashiers.map(cashier => ({
             checked: false,
-            name: cashier.account_status === 0 ? cashier.nickname : cashier.nickname + '（已删除）',
+            name: cashier.account_status === 0 ? cashier.nickname : cashier.nickname + '(已删除)',
             id: cashier.id
         }));
 

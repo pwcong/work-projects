@@ -75,9 +75,9 @@ gulp.task('js-prod', function (cb) {
     pump(
         [
             gulp.src('app/js/**/*.js'),
-            sourcemaps.init(),
+            // sourcemaps.init(),
             uglify(),
-            sourcemaps.write('.'),
+            // sourcemaps.write('.'),
             gulp.dest('dist/js')
         ],
         cb

@@ -40,12 +40,8 @@ $(document).ready(function () {
             // window.location.href,
             // 'http://localhost:3000/home.html',
             function (data) {
-                window.location.href = data;
             },
             function (err) {
-                weui.dialog('登陆成功！', {
-                    className: 'dialog'
-                });
             },
             function (data) {
                 ctx.html('登陆');
