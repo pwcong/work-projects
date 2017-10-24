@@ -33,7 +33,7 @@
     background-color: white;
 
     box-sizing: border-box;
-    padding: 76rpx 40rpx 94rpx 40rpx;
+    padding: 0 0 76rpx 0;
 
     border-radius: 8rpx;
 
@@ -50,6 +50,9 @@
 
     .section-logo {
       text-align: center;
+      background-color: #d30a0a;
+      box-sizing: border-box;
+      padding: 48rpx 0 30rpx 0;
     }
 
     .section-username,
@@ -63,6 +66,7 @@
 
       box-sizing: border-box;
 
+      padding: 0 40rpx;
 
       input {
         flex: 1;
@@ -72,12 +76,17 @@
 
     .section-submit {
       height: 96rpx;
-      margin-top: 60rpx;
       background-color: #d30a0a;
       color: white;
       text-align: center;
       line-height: 96rpx;
       font-size: 20px;
+
+      box-sizing: border-box;
+
+      width: 600rpx;
+      margin: 0 auto;
+      margin-top: 60rpx;
 
       border-radius: 8rpx;
 
@@ -98,18 +107,18 @@
       <view class="form-login" bindsubmit="formSubmit">
 
         <view class="section section-logo">
-          <image style="width: 424rpx; height: 156rpx;" src="{{logoUrl}}"></image>
+          <image style="width: 500rpx; height: 182rpx;" src="{{logoUrl}}"></image>
         </view>
         <view class="section section-username" style="margin: 64rpx 0 40rpx 0;">
           <image src="{{peopleIconUrl}}" />
-          <input confirm-type="next" placeholder="请输入账号" @input="handleUsernameInput" />
+          <input confirm-type="next" placeholder="请输入账号" @input="handleUsernameInput" value="{{username}}"/>
         </view>
         <view class="section section-password">
           <image src="{{lockIconUrl}}" />
           <input bindconfirm="handleInputSubmit" confirm-type="go" placeholder="请输入密码" password="true" @input="handlePasswordInput" />
 
         </view>
-        <view class="section section-submit" @tap="handleSubmitButtonClick">登陆</view>
+        <view class="section section-submit" @tap="handleSubmitButtonClick">登录</view>
 
       </view>
 
@@ -169,6 +178,7 @@ export default class Index extends wepy.page {
 
   }
 
+  // 账号密码登陆
   async toLogin() {
     let ctx = this;
 
@@ -186,17 +196,17 @@ export default class Index extends wepy.page {
     }
 
     wepy.showLoading({
-      title: '登陆中',
+      title: '登录中',
       mask: true
     });
 
-    // 用户登陆
+    // 用户登录
     let res = null;
     try {
       res = await authApi.login(ctx.username, ctx.password);
     } catch (err) {
       wepy.showModal({
-        title: '登陆失败',
+        title: '登录失败',
         content: err,
         showCancel: false
       });
@@ -205,12 +215,13 @@ export default class Index extends wepy.page {
       wepy.hideLoading();
     }
 
-
     ctx.$parent.globalData.user = res.user;
     ctx.$parent.globalData.token = res.token;
     ctx.$parent.globalData.secret = res.secret;
     ctx.$parent.globalData.expires_in = res.expires_in;
     ctx.$parent.globalData.time_step = res.time_step;
+
+    wepy.setStorageSync('username', ctx.username);
 
     wepy.setStorageSync('user', JSON.stringify(res.user));
     wepy.setStorageSync('token', res.token);
@@ -220,11 +231,12 @@ export default class Index extends wepy.page {
 
     ctx.$apply();
 
-    // 登陆成功，判断用户类型进行路由跳转
+    // 登录成功，判断用户类型进行路由跳转
     ctx.handleRoutes(res.user.user_type);
 
   }
 
+  // 根绝用户类型进行路由跳转
   handleRoutes(user_type) {
 
     switch (user_type) {
@@ -249,6 +261,7 @@ export default class Index extends wepy.page {
 
   }
 
+  // 自动登陆
   async checkLoginState() {
 
     let ctx = this;
@@ -272,7 +285,7 @@ export default class Index extends wepy.page {
       }
 
       wepy.showLoading({
-          title: '自动登陆中',
+          title: '自动登录中',
           mask: true
       });
 
@@ -280,11 +293,18 @@ export default class Index extends wepy.page {
       try{
         await authApi.status(token);
       }catch(err){
+
+        ctx.$parent.clearLoginStat();
+
+        wepy.showModal({
+          title: '自动登录失败',
+          content: err,
+          showCancel: false
+        });
         return;
       }finally{
         wepy.hideLoading();
       }
-
 
       ctx.$parent.globalData.user = user;
       ctx.$parent.globalData.token = token;
@@ -300,11 +320,28 @@ export default class Index extends wepy.page {
 
   }
 
+  initLoginBox(){
+
+    const ctx = this;
+
+    const username = wepy.getStorageSync('username');
+
+    if(!username){
+      return;
+    }
+
+    ctx.username = username;
+
+    ctx.$apply();
+
+  }
 
   onLoad() {
 
+
     let ctx = this;
 
+    ctx.initLoginBox();
     ctx.checkLoginState();
 
 

@@ -4,9 +4,22 @@ function timeSpace(future) {
 
 }
 
+function checkTimeout(dateTime, timeout){
+
+  if(!dateTime || !timeout){
+    return false;
+  }
+
+  let t = Date.parse(dateTime);
+
+  return new Date() - t >= timeout;
+
+}
+
 
 export default {
 
-    timeSpace
+    timeSpace,
+    checkTimeout
 
 }

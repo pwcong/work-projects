@@ -136,11 +136,11 @@
 <template>
     <view class="container">
         <view class="toolbar">
-            <view class="section" style="font-size: 14px;">
+            <view class="section" style="font-size: 16px;">
                 {{record.year}}年{{record.month}}月
             </view>
 
-            <view class="section" style="color: #a4a4a4; font-size: 13px;">
+            <view class="section" style="color: #a4a4a4; font-size: 14px;">
                 本月消费：{{record.out}}元
                 <text style="margin: 0 23rpx;"></text>本月充值：{{record.in}}元
 

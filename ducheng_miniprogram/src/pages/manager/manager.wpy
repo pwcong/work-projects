@@ -22,7 +22,7 @@
         flex-flow: row nowrap;
         align-items: center;
 
-        font-size: 17px;
+        font-size: 20px;
         color: #4a4a4a;
 
         image{
@@ -42,7 +42,7 @@
         display: flex;
         align-items: center;
 
-        font-size: 14px;
+        font-size: 16px;
         color: #9B9B9B;
         letter-spacing: 0;
     }
@@ -126,7 +126,7 @@
                     align-items: center;
                     
 
-                    font-size: 14px;
+                    font-size: 16px;
 
                     box-sizing: border-box;
 
@@ -201,7 +201,7 @@
                     <view class="info">{{money}}</view>
                 </view>
 
-                <view class="item">
+                <view class="item" style="font-size: 16px;">
                     <view class="col">
                         订单数量
                         <text style="color: #FA9D3B; margin-left: 50rpx;">{{branchStat.times}}</text>
@@ -393,13 +393,13 @@ export default class Manager extends wepy.page {
 
         }
 
+        ctx.nickname = ctx.$parent.globalData.user.nickname || ctx.$parent.globalData.user.username;
     }
 
     onLoad() {
 
         let ctx = this;
 
-        ctx.nickname = ctx.$parent.globalData.user.nickname || ctx.$parent.globalData.user.username;
 
         ctx.initRenewTimer();
 

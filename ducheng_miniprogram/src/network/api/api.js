@@ -332,5 +332,18 @@ export default {
 
     },
 
-  }
+  },
+  system: {
+
+    getSystemRunningState: {
+
+      url: () => API_BASE + '/system/running',
+      method: 'GET',
+      data: () => ({}),
+      header: token => Object.assign({}, HEADER, {
+        token
+      })
+
+    },
+  },
 }

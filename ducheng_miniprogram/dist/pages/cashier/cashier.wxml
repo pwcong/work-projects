@@ -16,7 +16,7 @@
 
                 <view class="shop-name">{{shop.name}}</view>
 
-                <view class="shop-action-price">
+                <view class="shop-action-price"  wx:if="{{available}}">
                     <view>请输入收款金额</view>
                     <view class="shop-action-price-wrap">
                         <text>￥</text>
@@ -24,11 +24,17 @@
                     </view>
                 </view>
 
+                <view  wx:if="{{!available}}" style="padding: 36rpx; 72rpx; text-align: center; color: #D30A0A;">
+
+                    <text>{{reason}}</text>
+
+                </view>
+
             </view>
 
-            <view class="shop-action-scan" bindtap="handleScanButtonClick">扫码收款</view>
+            <view class="shop-action-scan" bindtap="handleScanButtonClick" wx:if="{{available}}">扫码收款</view>
 
-            <view class="shop-action-scan-code" bindtap="handleScanCodeButtonClick">
+            <view class="shop-action-scan-code" bindtap="handleScanCodeButtonClick" wx:if="{{available}}">
                 手动输入识别号 >
                 <text class="fa fa-angle-right"/>
             </view>

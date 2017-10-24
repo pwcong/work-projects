@@ -85,11 +85,11 @@
 <template>
     <view class="container">
         <view class="toolbar">
-            <view class="section" style="font-size: 14px;">
+            <view class="section" style="font-size: 16px;">
                 {{record.date}}
             </view>
 
-            <view class="section" style="color: #a4a4a4; font-size: 13px;">
+            <view class="section" style="color: #a4a4a4; font-size: 14px;">
                 本日收费：{{record.counts}}次
                 <text style="margin: 0 34rpx;"></text>总额：{{record.money}}元
 

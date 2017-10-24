@@ -21,7 +21,7 @@
                     <view class="info">{{money}}</view>
                 </view>
 
-                <view class="item">
+                <view class="item" style="font-size: 16px;">
                     <view class="col">
                         订单数量
                         <text style="color: #FA9D3B; margin-left: 50rpx;">{{branchStat.times}}</text>

@@ -31,9 +31,9 @@ export default class extends wepy.app {
     pages: [
       'pages/index',
       'pages/customer/customer',
+      'pages/customer/customer_bill',
       'pages/customer/customer_give',
       'pages/customer/customer_center',
-      'pages/customer/customer_bill',
       'pages/customer/customer_bill_all',
       'pages/manager/manager',
       'pages/manager/manager_setting',

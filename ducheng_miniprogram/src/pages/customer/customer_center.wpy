@@ -223,8 +223,6 @@
 <script>
 import wepy from 'wepy';
 
-import EventBus from '../../eventbus/eventbus';
-
 import * as userApi from '../../network/api/user';
 
 export default class CustomerCenter extends wepy.page {
@@ -255,6 +253,8 @@ export default class CustomerCenter extends wepy.page {
         quitIconUrl: '../../assets/imgs/icon_quit.png',
         optionPreIconUrl: '../../assets/imgs/option_pre.png',
         optionDoneIconUrl: '../../assets/imgs/option_done.png',
+
+        msg: ''
     }
 
     computed = {
@@ -408,8 +408,6 @@ export default class CustomerCenter extends wepy.page {
 
         ctx.$parent.globalData.user = Object.assign({}, ctx.$parent.globalData.user, userInfo);
 
-        EventBus.emit('customer-loaduserinfo');
-
         ctx.userInfo.nickName = userInfo.nickname;
         ctx.userInfo.birthday = userInfo.birthday;
         ctx.userInfo.sex = userInfo.gender;
@@ -444,9 +442,29 @@ export default class CustomerCenter extends wepy.page {
 
     }
 
+    onReady(){
+
+        let ctx = this;
+
+        if(ctx.msg){
+
+            wepy.showModal({
+                title: '提示',
+                content: ctx.msg,
+                showCancel: false
+            });
+
+        }
+
+    }
+
     onLoad() {
 
         let ctx = this;
+
+        for (let key in ctx.$wxpage.options) {
+            ctx[key] = ctx.$wxpage.options[key];
+        }
 
         ctx.loadUserInfo(
             () => {

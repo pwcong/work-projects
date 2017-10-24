@@ -242,7 +242,6 @@ export default class CashierCenter extends wepy.page {
                 ctx.userInfoChanged = false;
 
                 ctx.setUserInfo(res.user);
-                EventBus.emit('cashier-loaduserinfo');
 
             }
 

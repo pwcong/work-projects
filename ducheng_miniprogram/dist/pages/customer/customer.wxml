@@ -14,12 +14,18 @@
                 <view>￥{{user.balance}}</view>
             </view>
 
-            <view class="section qrcode">
+            <view class="section qrcode" style="display: {{available ? 'flex' : 'none'}}">
                 <canvas canvas-id="qrcode" style="width: 172px; height: 172px;"/>
                 <view class="qrcode-num">{{user.payCode}}</view>
             </view>
 
-            <view class="section action">
+            <view class="section"  wx:if="{{!available}}" style="padding: 36rpx; 72rpx; text-align: center; color: #D30A0A;">
+
+                <text>{{reason}}</text>
+
+            </view>
+
+            <view class="section action"  wx:if="{{available}}">
                 <text bindtap="handleGiveButtonClick">转赠</text>
             </view>
 
