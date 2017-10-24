@@ -39,16 +39,21 @@
 </style>
 
 <template>
-    <cover-view class="modal {{active ? 'modal-active' : ''}}">
+    <view class="modal {{active ? 'modal-active' : ''}}">
+        <view class="modal-wrap">
+            <slot name="main"></slot>
+        </view>
+    </view>
+    <!-- <cover-view class="modal {{active ? 'modal-active' : ''}}">
         <cover-view class="modal-wrap">
             <slot name="main"></slot>
         </cover-view>
-    </cover-view>
+    </cover-view> -->
 </template>
 
 <script>
 
-import wepy from 'wepy'
+import wepy from 'wepy';
 
 export default class Modal extends wepy.component {
 

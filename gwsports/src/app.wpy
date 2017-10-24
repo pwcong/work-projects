@@ -72,6 +72,7 @@ export default class extends wepy.app {
   config = {
     pages: [
       'pages/home',
+      'pages/timeline',
       'pages/rank',
       'pages/start',
       'pages/record',
@@ -118,6 +119,7 @@ export default class extends wepy.app {
         userInfo = await WXApiUtils.getUserInfo(true);
 
       } catch (err) {
+        
         reject(err);
         return;
 
@@ -128,6 +130,7 @@ export default class extends wepy.app {
         reject();
         return;
       }
+
 
       let res = null;
 

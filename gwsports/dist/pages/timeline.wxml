@@ -1,0 +1,207 @@
+
+    <view class="container">
+
+        <scroll-view class="main" scroll-y="true" bindscrolltolower="handleLoadMore" enable-back-to-top="true">
+            <!-- 
+                                                    <view class="item">
+
+                                                        <view class="item-header">
+                                                            <view class="item-header-sec">
+                                                                <image src="../assets/imgs/avatar.png" class="item-avatar" />
+                                                                <text class="item-name">Pwcong</text>
+                                                            </view>
+                                                            <view class="item-header-sec">
+                                                                <image src="../assets/imgs/icon_menu.png" class="item-menu" />
+                                                            </view>
+                                                        </view>
+
+                                                        <view class="item-main">
+                                                            <view class="item-content">
+                                                                今晚西区田径场，来和我大战20圈吧！
+                                                            </view>
+                                                            <view class="item-photo">
+                                                                <image mode="aspectFit" src="../assets/imgs/photo.png" />
+                                                            </view>
+                                                            <view class="item-details">
+
+                                                                <view class="item-details-sec item-details-sport">
+                                                                    跑步
+                                                                </view>
+                                                                <view class="item-details-sec item-details-time">
+                                                                    今天 20:30
+                                                                </view>
+                                                                <view class="item-details-sec item-details-duration">
+                                                                    1.5 小时
+                                                                </view>
+
+                                                            </view>
+
+                                                        </view>
+
+                                                        <bubble class="item-comments">
+
+                                                            <view slot="bubble-content">
+
+                                                                <view class="item-comments-item">
+                                                                    <view class="left">
+                                                                        <span>Pwcong</span>
+                                                                        回复
+                                                                        <span>Pliping</span>
+                                                                        :
+                                                                    </view>
+                                                                    <view class="right">
+                                                                        走起！
+                                                                    </view>
+                                                                </view>
+
+                                                            </view>
+
+                                                        </bubble>
+
+                                                    </view> -->
+
+            <block wx:for="{{timeline}}" wx:for-index="index" wx:for-item="item" wx:key="timeline">
+
+                <view class="item">
+
+                    <view class="item-header">
+                        <view class="item-header-sec">
+                            <image src="{{item.user.avatarUrl}}" class="item-avatar"/>
+                            <text class="item-name">{{item.user.name}}</text>
+                        </view>
+                        <view class="item-header-sec">
+                            <image src="../assets/imgs/icon_menu.png" class="item-menu"/>
+                        </view>
+                    </view>
+
+                    <view class="item-main">
+                        <view class="item-content">
+                            {{item.main.content}}
+                        </view>
+                        <view class="item-photo">
+                            <image mode="aspectFit" src="{{item.main.photoUrl}}"/>
+                        </view>
+                        <view class="item-details">
+
+                            <view class="item-details-sec item-details-sport">
+                                {{item.main.sport.type}}
+                            </view>
+                            <view class="item-details-sec item-details-time">
+                                {{item.main.sport.time}}
+                            </view>
+                            <view class="item-details-sec item-details-duration">
+                                {{item.main.sport.duration}}
+                            </view>
+
+                        </view>
+
+                    </view>
+
+                    
+    <view class="bubble item-comments">
+
+        <view class="bubble-sign">
+
+
+        </view>
+        
+        <view>
+
+                            <view class="item-comments-item"  wx:for="{{item.comments}}" wx:for-index="subindex" wx:key="comments" wx:for-item="subitem">
+
+                                <view class="left">
+                                    <text class="name">{{subitem.from}}</text>
+                                    <text wx:if="{{subitem.to}}" style="margin: 0 8rpx;">回复</text>
+                                    <text class="name">{{subitem.to}} : </text>
+                                </view>
+                                <view class="right">
+                                    {{subitem.content}}
+                                </view>
+
+                            </view>
+
+                            <!-- <repeat for="{{item.comments}}" index="subindex" item="subitem">
+
+                                                                <view class="item-comments-item">
+                                                                    <view class="left">
+                                                                        <span>{{subitem.from}}</span>
+                                                                        {{subitem.to ? '回复 <span>' + subitem.to + '</span>' : ''}}
+                                                                        :
+                                                                    </view>
+                                                                    <view class="right">
+                                                                        {{subitem.content}}
+                                                                    </view>
+                                                                </view>
+
+                                                            </repeat> -->
+
+                        </view>
+
+    </view>
+
+
+                </view>
+
+            </block>
+
+        </scroll-view>
+
+        <view class="btn-select" bindtap="handleSetModalActive" data-wepy-params-a="true">
+            筛选
+        </view>
+
+        
+    <view class="modal {{$modal$active ? 'modal-active' : ''}} modal-container">
+        <view class="modal-wrap">
+            <view class="modal-select">
+
+                <view class="modal-select-head">
+                    筛选
+                </view>
+
+
+                <view class="modal-select-main">
+
+                    <label>
+                        <text>类型</text>
+                        <picker bindchange="bindTypePickerChange" range="{{typeArray}}">
+                            <input disabled="true" placeholder="请选择类型" value="{{typeInputValue}}"/>
+                        </picker>
+                    </label>
+                    <label>
+                        <text>时间</text>
+                        <picker mode="date" bindchange="bindTimePickerChange">
+                            <input disabled="true" placeholder="请选择时间" value="{{timeInputValue}}"/>
+                        </picker>
+                    </label>
+                    <label>
+                        <text>时长</text>
+                        <picker mode="time" bindchange="bindMinDurationPickerChange">
+                            <input disabled="true" placeholder="最短时长" value="{{minDurationInputValue}}"/>
+                        </picker>
+                        <view>-</view>
+                        <picker mode="time" bindchange="bindMaxDurationPickerChange">
+                            <input disabled="true" placeholder="最长时长" value="{{maxDurationInputValue}}"/>
+                        </picker>
+                    </label>
+
+                </view>
+
+                <view class="modal-select-action">
+
+                    <button bindtap="handleSetModalActive" data-wepy-params-a="false">取消</button>
+                    <button style="color: #ffcc00;" bindtap="handleSubmitModal">确定</button>
+
+                </view>
+
+            </view>
+        </view>
+    </view>
+    <!-- <cover-view class="modal {{active ? 'modal-active' : ''}}">
+        <cover-view class="modal-wrap">
+            <slot name="main"></slot>
+        </cover-view>
+    </cover-view> -->
+
+
+    </view>
