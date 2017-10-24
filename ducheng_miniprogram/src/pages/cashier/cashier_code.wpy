@@ -112,7 +112,6 @@
             <view class="tips">
                 请正确输入识别码
             </view>
-
             <view class="code">
 
                 <repeat for="{{code}}" key="code">
@@ -121,14 +120,16 @@
 
             </view>
 
-            <view class="btn" @tap="handleCheckButtonClick('ok')">
+            <view class="btn" @tap="buttonClick">
+
                 确定
+
             </view>
 
             <view class="keys">
 
                 <repeat for="{{keys}}" key="index">
-                    <view class="key {{item.class}}" @tap="handleKeyButtonClick({{index}})">
+                    <view class="key {{item.class}}" @tap="keyClick({{index}})">
                         <image wx:if="{{item.icon}}" mode="aspectFit" src="{{item.icon}}"></image>
                         {{item.value}}
                     </view>
@@ -184,7 +185,7 @@ export default class CashierCode extends wepy.page {
 
     methods = {
 
-        handleCheckButtonClick() {
+        buttonClick() {
 
             let ctx = this;
 
@@ -208,7 +209,7 @@ export default class CashierCode extends wepy.page {
                 
 
         },
-        handleKeyButtonClick(index) {
+        keyClick(index) {
 
             let ctx = this;
             let key = ctx.keys[index];

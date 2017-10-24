@@ -471,6 +471,8 @@ export default class Customer extends wepy.page {
     this.loadUserInfo();
 
     this.initVerifyTimer();
+
+    this.initCode();
     this.initQRCodeTimer();
   }
 
@@ -480,7 +482,6 @@ export default class Customer extends wepy.page {
     ctx.canvasContext = wepy.createCanvasContext("qrcode");
 
     ctx.initRenewTimer();
-    ctx.initCode();
   }
 }
 </script>

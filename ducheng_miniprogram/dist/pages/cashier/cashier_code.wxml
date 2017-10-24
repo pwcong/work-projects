@@ -4,7 +4,6 @@
             <view class="tips">
                 请正确输入识别码
             </view>
-
             <view class="code">
 
                 <block wx:for="{{code}}" wx:for-index="index" wx:for-item="item" wx:key="code">
@@ -13,14 +12,16 @@
 
             </view>
 
-            <view class="btn" bindtap="handleCheckButtonClick" data-wepy-params-a="ok">
+            <view class="btn" bindtap="buttonClick">
+
                 确定
+
             </view>
 
             <view class="keys">
 
                 <block wx:for="{{keys}}" wx:for-index="index" wx:for-item="item" wx:key="index">
-                    <view class="key {{item.class}}" bindtap="handleKeyButtonClick" data-wepy-params-a="{{index}}">
+                    <view class="key {{item.class}}" bindtap="keyClick" data-wepy-params-a="{{index}}">
                         <image  wx:if="{{item.icon}}" mode="aspectFit" src="{{item.icon}}"/>
                         {{item.value}}
                     </view>
