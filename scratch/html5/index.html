@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!-- saved from url=(0129)https://sulfurous.aau.at/html/app.html?id=10128407&turbo=false&full-screen=true&aspect-x=4&aspect-y=3&resolution-x=&resolution-y= -->
+<html class="wf-permanentmarker-n4-active wf-gloriahallelujah-n4-active wf-mysteryquest-n4-active wf-donegalone-n4-active wf-active">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>Scratch Player</title>
+  <link rel="stylesheet" href="css/style.css" media="all">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="player">
+
+      <div id="loading">
+        <div class="load-wrapp">
+          <div class="load">
+            <div style="margin-bottom: 12px;">
+              加载中
+              <span id="progressBar">0</span>%
+            </div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+          </div>
+        </div>
+      </div>
+      <div id="error" style="display: none;">
+        <div>
+          加载失败啦 /(ㄒoㄒ)/~~
+          <p>
+            <a href="javascript: window.location.reload(true);">再试一次吧~</a>
+          </p>
+        </div>
+      </div>
+
+      <div id="tools" style="display: none;">
+        <button type="button" id="btnStart">
+          <img src="imgs/icon_flag.png" style="width: 32px; height: 32px;">
+        </button>
+      </div>
+
+    </div>
+
+    <div class="details active">
+      <div id="title"></div>
+      <div id="author"></div>
+    </div>
+
+    <div class="controller">
+
+      <div class="controller-bar">
+
+
+        <button id="btnRestart">
+          重新开始
+        </button>
+
+        <button id="btnStop">
+          <img src="imgs/icon_down.png">
+        </button>
+      </div>
+
+      <div class="controller-main">
+
+        <div class="col direction">
+
+          <button type="button" id="btnUp">↑</button>
+
+          <div>
+            <button type="button" id="btnLeft" style="margin-right: 24px;">←</button>
+            <button type="button" id="btnRight">→</button>
+          </div>
+          <button type="button" id="btnDown">↓</button>
+
+        </div>
+        <div class="col action">
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+  <script src="js/jquery.min.js" type="text/javascript"></script>
+  <script src="js/webfont.js" type="text/javascript" async=""></script>
+  <script src="js/fonts.js"></script>
+  <script src="js/jszip.js"></script>
+  <script src="js/gl-matrix-min.js"></script>
+  <script src="js/phosphorus.js"></script>
+  <script src="js/shaders.js"></script>
+  <script src="fonts/fonts.js"></script>
+
+  <script src="js/app.js"></script>
+
+</body>
+
+</html>
