@@ -137,16 +137,23 @@
 
     function initView() {
 
-        var size = calculateSize(container);
+        //禁用长按菜单
+        document.oncontextmenu=function(e){
+            //或者return false;
+            e.preventDefault();
+        };
 
+        // 初始化播放器和控制器尺寸
+        var size = calculateSize(container);
         player.style.height = size.h + 'px';
         player.style.width = size.w + 'px';
-
         controller.style.height = $(container).innerHeight() - size.h + 'px';
 
+        // 初始化项目详情
         $('#title').html(config.projectTitle);
         $('#author').html(config.projectAuthor);
 
+        // 初始化自定义按键
         for (var i = 0; i < config.keys.length; i++) {
             $(action).append($('<button type="button" data-code="' + config.keys[i].code + '">' + config.keys[i].name + '</button>'));
         }
