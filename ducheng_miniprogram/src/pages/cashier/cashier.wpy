@@ -1,149 +1,144 @@
 <style lang="scss">
 $toolbarHeight: 120rpx;
-
 .toolbar {
-  height: $toolbarHeight;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
-  width: 100%;
-
-  background-color: white;
-
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: center;
-
-  box-sizing: border-box;
-  padding: 0 30rpx;
-
-  .userinfo {
-    height: 100%;
-    line-height: $toolbarHeight;
+    height: $toolbarHeight;
+    -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
+    width: 100%;
+    background-color: white;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    color: #4a4a4a;
-    font-size: 20px;
-    text {
-      color: #d30a0a;
+    padding: 0 30rpx;
+    .userinfo {
+        height: 100%;
+        line-height: $toolbarHeight;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        color: #4a4a4a;
+        font-size: 20px;
+        text {
+            color: #d30a0a;
+        }
+        image {
+            position: relative;
+            bottom: -4rpx;
+            width: 38rpx;
+            height: 38rpx;
+        }
     }
-
-    image {
-      position: relative;
-      bottom: -4rpx;
-      width: 38rpx;
-      height: 38rpx;
+    .action {
+        width: 120rpx;
+        height: 60rpx;
+        line-height: 60rpx;
+        text-align: center;
+        border: 2rpx solid #d30a0a;
+        border-radius: 8rpx;
+        font-size: 16px;
+        color: #d30a0a;
+        -webkit-transition: color 0.1s, background-color 0.1s;
+        transition: color 0.1s, background-color 0.1s;
+        &:active {
+            color: white;
+            background-color: #d30a0a;
+        }
     }
-  }
-
-  .action {
-    width: 120rpx;
-    height: 60rpx;
-    line-height: 60rpx;
-    text-align: center;
-    border: 2rpx solid #d30a0a;
-    border-radius: 8rpx;
-    font-size: 16px;
-    color: #d30a0a;
-
-    transition: color 0.1s, background-color 0.1s;
-
-    &:active {
-      color: white;
-      background-color: #d30a0a;
-    }
-  }
 }
 
 .main {
-  flex: 1;
-  box-sizing: border-box;
-  overflow: auto;
-
-  padding: 60rpx 30rpx;
-
-  .main-wrap {
-    background-color: white;
-    margin-bottom: 60rpx;
-    .shop-name {
-      text-align: center;
-      padding: 32rpx 0 38rpx 0;
-      border-bottom: 1px solid #e5e5e5;
-
-      font-size: 18px;
-    }
-
-    .shop-action-price {
-      box-sizing: border-box;
-      padding: 40rpx;
-
-      color: #9b9b9b;
-
-      font-size: 18px;
-
-      .shop-action-price-wrap {
-        height: 160rpx;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        border-bottom: 1px solid #e5e5e5;
-
-        text {
-          font-size: 44px;
-          color: black;
-        }
-
-        input {
-          height: 120rpx;
-          font-size: 44px;
-          font-weight: bold;
-          color: black;
-
-          box-sizing: border-box;
-        }
-      }
-    }
-  }
-
-  .shop-action-scan {
+    height: calc(100% - $toolbarHeight);
     width: 100%;
-    height: 128rpx;
-    line-height: 130rpx;
-    background-color: #d30a0a;
-    border-radius: 8rpx;
-    text-align: center;
-
-    color: white;
-    font-size: 24px;
-
-    transition: background-color 0.1s;
-
-    &:active {
-      background-color: #a20909;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: auto;
+    padding: 60rpx 30rpx;
+    .main-wrap {
+        background-color: white;
+        margin-bottom: 60rpx;
+        .shop-name {
+            text-align: center;
+            padding: 32rpx 0 38rpx 0;
+            border-bottom: 1px solid #e5e5e5;
+            font-size: 18px;
+        }
+        .shop-action-price {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            padding: 40rpx;
+            color: #9b9b9b;
+            font-size: 18px;
+            .shop-action-price-wrap {
+                height: 160rpx;
+                width: 100%;
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                align-items: center;
+                border-bottom: 1px solid #e5e5e5;
+                text {
+                    font-size: 44px;
+                    color: black;
+                }
+                input {
+                    height: 120rpx;
+                    font-size: 44px;
+                    font-weight: bold;
+                    color: black;
+                    -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
+                }
+            }
+        }
     }
-  }
-
-  .shop-action-scan-code {
-    margin-top: 36rpx;
-    text-align: center;
-    font-size: 18px;
-    color: #9a9a9a;
-
-    text {
-      margin-left: 14rpx;
+    .shop-action-scan {
+        width: 100%;
+        height: 128rpx;
+        line-height: 130rpx;
+        background-color: #d30a0a;
+        border-radius: 8rpx;
+        text-align: center;
+        color: white;
+        font-size: 24px;
+        -webkit-transition: background-color 0.1s;
+        transition: background-color 0.1s;
+        &:active {
+            background-color: #a20909;
+        }
     }
-  }
-
-  .shop-details {
-    margin-top: 200rpx;
-    text-align: center;
-    color: #186ba0;
-
-    font-size: 16px;
-
-    text {
-      margin: 0 18rpx;
+    .shop-action-scan-code {
+        margin-top: 36rpx;
+        text-align: center;
+        font-size: 18px;
+        color: #9a9a9a;
+        text {
+            margin-left: 14rpx;
+        }
     }
-  }
+    .shop-details {
+        margin-top: 200rpx;
+        text-align: center;
+        color: #186ba0;
+        font-size: 16px;
+        text {
+            margin: 0 18rpx;
+        }
+    }
 }
+
 </style>
 <template>
     <view class="container">

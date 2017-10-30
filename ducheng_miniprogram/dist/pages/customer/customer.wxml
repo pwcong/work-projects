@@ -14,8 +14,10 @@
                 <view>￥{{user.balance}}</view>
             </view>
 
-            <view class="section qrcode" style="display: {{available ? 'flex' : 'none'}}">
-                <canvas canvas-id="qrcode" style="width: 172px; height: 172px;"/>
+            <view class="section qrcode" style="display: {{available ? 'block' : 'none'}};">
+                <view>
+                  <canvas canvas-id="qrcode" style="width: 172px; height: 172px; margin: 0 auto;"/>
+                </view>
                 <view class="qrcode-num">{{user.payCode}}</view>
             </view>
 
@@ -29,8 +31,9 @@
                 <text bindtap="handleGiveButtonClick">转赠</text>
             </view>
 
-            <image src="../../assets/imgs/home_logo.png" class="logo"/>
 
         </view>
+
+        <image src="../../assets/imgs/home_logo.png" class="logo"/>
 
     </view>

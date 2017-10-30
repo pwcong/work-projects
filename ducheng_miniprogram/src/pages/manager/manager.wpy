@@ -3,45 +3,55 @@
     height: 120rpx;
     width: 100%;
     background-color: white;
-
+    -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
-
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row nowrap;
     flex-flow: row nowrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
-
     padding: 0 34rpx;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
-
     position: relative;
-
     .actor {
-
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-flow: row nowrap;
         flex-flow: row nowrap;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
         align-items: center;
-
         font-size: 20px;
         color: #4a4a4a;
-
-        image{
+        image {
             margin-right: 16rpx;
             width: 40rpx;
             height: 40rpx;
         }
     }
-
     .action {
-
         position: absolute;
         right: 30rpx;
         top: 0;
-
         height: 100%;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
         align-items: center;
-
         font-size: 16px;
         color: #9B9B9B;
         letter-spacing: 0;
@@ -49,21 +59,19 @@
 }
 
 .main {
-
-    flex: 1;
+    height: calc(100% - 120rpx);
+    width: 100%;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     overflow: auto;
-
     position: relative;
-
     padding: 60rpx 30rpx;
-
     .section {
         width: 100%;
         background-color: white;
+        -webkit-box-sizing: border-box;
         box-sizing: border-box;
     }
-
     .shopname {
         height: 120rpx;
         line-height: 120rpx;
@@ -71,71 +79,69 @@
         border-bottom: 1px solid #e5e5e5;
         font-size: 18px;
     }
-
     .details {
+        -webkit-box-sizing: border-box;
         box-sizing: border-box;
         margin-bottom: 80rpx;
-
         .item {
             width: 100%;
             background-color: white;
-
             &:not(:last-child) {
                 border-bottom: 1px solid #e5e5e5;
             }
-
             &:nth-child(1) {
-
                 text-align: center;
                 height: 120rpx;
                 color: black;
                 line-height: 120rpx;
                 font-size: 18px;
             }
-
             &:nth-child(2) {
-
                 text-align: center;
                 height: 300rpx;
-
                 view:nth-child(1) {
-
                     font-size: 14px;
                     color: #4a4a4a;
                     margin: 30rpx 0 20rpx 0;
                 }
-
                 view:nth-child(2) {
                     color: #D30A0A;
                     font-size: 44px;
                 }
             }
-
             &:nth-child(3) {
                 height: 106rpx;
-
+                display: -webkit-box;
+                display: -ms-flexbox;
                 display: flex;
+                -webkit-box-orient: horizontal;
+                -webkit-box-direction: normal;
+                -ms-flex-flow: row wrap;
                 flex-flow: row wrap;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
                 align-items: center;
-
                 .col {
+                    -webkit-box-flex: 1;
+                    -ms-flex: 1;
                     flex: 1;
-
+                    display: -webkit-box;
+                    display: -ms-flexbox;
                     display: flex;
+                    -webkit-box-orient: horizontal;
+                    -webkit-box-direction: normal;
+                    -ms-flex-flow: row nowrap;
                     flex-flow: row nowrap;
+                    -webkit-box-align: center;
+                    -ms-flex-align: center;
                     align-items: center;
-                    
-
                     font-size: 16px;
-
+                    -webkit-box-sizing: border-box;
                     box-sizing: border-box;
-
                     padding: 0 40rpx;
-
                     &:not(:last-child) {
                         border-right: 1px solid #e5e5e5;
                     }
-
                     text {
                         font-size: 16px;
                     }
@@ -143,9 +149,7 @@
             }
         }
     }
-
     .btn {
-
         height: 100rpx;
         text-align: center;
         font-size: 22px;
@@ -154,24 +158,19 @@
         border: 1px solid #e64340;
     }
     .btn-1 {
-
         color: white;
         background-color: #e64340;
     }
-
     .btn-2 {
-
         background-color: white;
         color: #e64340;
     }
-
     .tips {
         color: #4e4e4e;
         font-size: 16px;
         text-align: center;
         padding: 60rpx 40rpx;
         border-radius: 8rpx;
-
         icon {
             margin-bottom: 60rpx;
         }
@@ -183,7 +182,7 @@
         <view class="toolbar">
             <view class="actor" @tap="handleSettingButtonClick">
                 <image src="{{peopleIconUrl}}"/>
-                {{nickname}}
+                {{username}}
             </view>
             <view class="action" @tap="handleSwitchButtonClick">切换分店 ></view>
         </view>
@@ -248,6 +247,7 @@ export default class Manager extends wepy.page {
 
     data = {
         nickname: '',
+        username: '',
         branchStat: null,
         money: null,
         branch: null,
@@ -393,7 +393,8 @@ export default class Manager extends wepy.page {
 
         }
 
-        ctx.nickname = ctx.$parent.globalData.user.nickname || ctx.$parent.globalData.user.username;
+        ctx.nickname = ctx.$parent.globalData.user.nickname;
+        ctx.username = ctx.$parent.globalData.user.username;
     }
 
     onLoad() {

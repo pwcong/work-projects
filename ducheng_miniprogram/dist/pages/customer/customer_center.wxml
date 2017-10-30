@@ -9,7 +9,13 @@
             </view>
             <view class="row row-2">
                 <view class="row-2-wrap">
-                    用户昵称
+                    账号
+                    <text style="color: #8b8b8b;">{{userInfo.username}}</text>
+                </view>
+            </view>
+            <view class="row row-2">
+                <view class="row-2-wrap">
+                    昵称
                     <input value="{{userInfo.nickName}}" bindinput="handleNickNameChange"/>
                 </view>
             </view>

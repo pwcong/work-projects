@@ -7,6 +7,12 @@
                 <image src="{{peopleIconUrl}}"/>
                 基本信息
             </view>
+            <view class="row row-2">
+                <view class="row-2-wrap">
+                    账号
+                    <text style="color: #8b8b8b;">{{userInfo.username}}</text>
+                </view>
+            </view>
             <view class="row row-2" style="margin-bottom: 40rpx;">
                 <view class="row-2-wrap">
                     姓名

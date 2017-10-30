@@ -26,7 +26,7 @@
 }
 
 .modal-active{
-
+    display: -webkit-flex;
     display: flex;
 
     opacity: 1;
