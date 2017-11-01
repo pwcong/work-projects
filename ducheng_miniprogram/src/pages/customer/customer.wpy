@@ -482,6 +482,10 @@ export default class Customer extends wepy.page {
     ctx.canvasContext = wepy.createCanvasContext("qrcode");
 
     ctx.initRenewTimer();
+
+    // var res = wepy.getSystemInfoSync();
+    // console.log(res);
+
   }
 }
 </script>

@@ -211,7 +211,7 @@ export default class ManagerSwitch extends wepy.page {
         ],
         _cashiers: [],
         branch_id: null,
-        branch_name: null,
+        branch_name: null
 
     }
 
@@ -337,7 +337,7 @@ export default class ManagerSwitch extends wepy.page {
             wepy.hideLoading();
         }
 
-        let temp = res.branch.staffs.filter(cashier => cashier.user_type == 2);
+        let temp = res.branch.staffs.filter(cashier => cashier.user_type === 2);
 
         let deletedCashiers = temp.filter(cashier => cashier.account_status !== 0);
         let normalCashiers = temp.filter(cashier => cashier.account_status === 0);

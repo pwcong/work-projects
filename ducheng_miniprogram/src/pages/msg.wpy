@@ -75,7 +75,7 @@ export default class Msg extends wepy.page {
 
             let ctx = this;
 
-            if (ctx.delta == -1) {
+            if (ctx.delta === -1) {
                 wepy.reLaunch({
                     url: 'index'
                 });

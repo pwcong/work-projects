@@ -33,7 +33,7 @@
 
                 </block>
 
-                <view class="record" style="height: 80rpx; justify-content: center; font-size: 15px; color: #9b9b9b;">
+                <view class="record-tips" style="height: 80rpx; line-height: 80rpx; text-align: center; font-size: 15px; color: #9b9b9b;">
 
                     <view  wx:if="{{loadingMore}}">加载中...</view>
                     <view  wx:else>

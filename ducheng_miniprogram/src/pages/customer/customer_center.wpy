@@ -158,7 +158,7 @@
             <view class="row row-2">
                 <view class="row-2-wrap">
                     生日
-                    <picker mode="date" bindchange="handleBirthdayChange">
+                    <picker mode="date" value="1990-01-01" bindchange="handleBirthdayChange">
                         <text>{{ userInfo.birthday || '请选择日期'}}</text>
                     </picker>
                 </view>

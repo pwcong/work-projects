@@ -88,3 +88,14 @@ export function deleteUsers(token, user_ids) {
   );
 
 }
+
+export function giveawayList(token, page, limit) {
+
+  return request(
+    api.user.giveawayList.url(),
+    api.user.giveawayList.method,
+    api.user.giveawayList.data(page, limit),
+    api.user.giveawayList.header(token)
+  );
+
+}

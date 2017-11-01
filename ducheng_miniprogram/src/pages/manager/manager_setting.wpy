@@ -158,8 +158,8 @@
             <view class="btn-logout">
                 <view @tap="handleLogoutButtonClick">
                     <image src="{{quitIconUrl}}" style="width: 40rpx; height: 40rpx; margin-right: 30rpx;">
-                        </text>
-                        退出登录
+                    </image>
+                    退出登录
                 </view>
             </view>
 
@@ -212,7 +212,7 @@ export default class ManagerSetting extends wepy.page {
                 return;
             }
 
-            if (ctx.newPassword != ctx.newCheckPassword) {
+            if (ctx.newPassword !== ctx.newCheckPassword) {
                 wepy.showModal({
                     title: '两次密码输入不一致',
                     showCancel: false

@@ -78,7 +78,21 @@
                 color: black;
                 letter-spacing: 0.84px;
             }
-            button {
+
+            view.recently{
+
+                font-size: 12px;
+                background-color: #D30A0A;
+                color: white;
+                padding: 16rpx 24rpx;
+                border-radius: 8rpx;
+
+                &:active{
+                    background: #c20909;
+                }
+            }
+
+            button.submit {
                 height: 96rpx;
                 width: 100%;
                 line-height: 96rpx;
@@ -113,7 +127,8 @@
 
                 <view class="form-item" style="box-shadow: inset 0 -1px 0 0 rgba(224, 224, 224, 0.50);">
                     <text>账号</text>
-                    <input @input="handleAccountChange" placeholder="输入会员账号" />
+                    <input @input="handleAccountChange" placeholder="输入会员账号" value="{{account}}"/>
+                    <view class="recently" @tap="handleToGivenList">最近记录</view>
                 </view>
 
                 <view class="form-item" style="margin-top: 38rpx; box-shadow: inset 0 -1px 0 0 rgba(224, 224, 224, 0.50);">
@@ -124,7 +139,7 @@
                 <view class="form-item" style="margin: 38rpx 0 94rpx 0;">提示：转账金额不能大于本账户余额</view>
 
                 <view class="form-item">
-                    <button @tap="handleGiveButtonClick">转赠</button>
+                    <button @tap="handleGiveButtonClick" class="submit">转赠</button>
                 </view>
 
             </view>
@@ -143,7 +158,9 @@ import StringUtils from '../../utils/string';
 import * as userApi from '../../network/api/user';
 import * as tradeApi from '../../network/api/trade';
 
-export default class Customer_Give extends wepy.page {
+import EventBus from '../../eventbus/eventbus';
+
+export default class CustomerGive extends wepy.page {
     config = {
         navigationBarTitleText: '转赠',
         disableScroll: true
@@ -218,6 +235,13 @@ export default class Customer_Give extends wepy.page {
         handleAmountChange(e) {
 
             this.amount = e.detail.value;
+
+        },
+        handleToGivenList(e){
+
+            wepy.navigateTo({
+                url: 'customer_givenlist'
+            });
 
         }
 
@@ -323,8 +347,16 @@ export default class Customer_Give extends wepy.page {
 
     onLoad() {
 
+        let ctx = this;
 
+        for (let key in ctx.$wxpage.options) {
+            ctx[key] = ctx.$wxpage.options[key];
+        }
 
+        EventBus.subscribe('customer_givenlist-settarget', (account) => {
+            ctx.account = account;
+            ctx.$apply();
+        });
 
     }
 

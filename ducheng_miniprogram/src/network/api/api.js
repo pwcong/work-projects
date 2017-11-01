@@ -153,6 +153,19 @@ export default {
         token
       })
 
+    },
+    giveawayList: {
+
+      url: () => API_BASE + '/user/self/recent-giveaway',
+      method: 'GET',
+      data: (page = 1, limit = 20) => ({
+        page,
+        limit
+      }),
+      header: token => Object.assign({}, HEADER, {
+        token
+      })
+
     }
 
   },

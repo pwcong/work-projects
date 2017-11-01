@@ -155,12 +155,12 @@ export default class ManagerModify extends wepy.page {
 
     methods = {
 
-        handleNewPasswordChange(e){
+        handleNewPasswordChange(e) {
             this.newPassword = e.detail.value;
         },
-        handleNewCheckPasswordChange(e){
+        handleNewCheckPasswordChange(e) {
             this.newCheckPassword = e.detail.value;
-            
+
         },
         async handleSubmitButtonClick() {
 
@@ -174,7 +174,7 @@ export default class ManagerModify extends wepy.page {
                 return;
             }
 
-            if (ctx.newPassword != ctx.newCheckPassword) {
+            if (ctx.newPassword !== ctx.newCheckPassword) {
                 wepy.showModal({
                     title: '两次密码输入不一致',
                     showCancel: false

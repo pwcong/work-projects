@@ -52,9 +52,9 @@
 
             <view class="btn-logout">
                 <view bindtap="handleLogoutButtonClick">
-                    <image src="{{quitIconUrl}}" style="width: 40rpx; height: 40rpx; margin-right: 30rpx;"/>
-                        
-                        退出登录
+                    <image src="{{quitIconUrl}}" style="width: 40rpx; height: 40rpx; margin-right: 30rpx;">
+                    </image>
+                    退出登录
                 </view>
             </view>
 

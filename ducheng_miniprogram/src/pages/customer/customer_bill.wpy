@@ -122,8 +122,13 @@
             }
             .col {}
             .left {
-                width: 45%;
+                width: 40%;
                 font-size: 16px;
+                view{
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
                 view:nth-child(2) {
                     font-size: 13px;
                     color: #a4a4a4;
@@ -134,13 +139,17 @@
                 -ms-flex: 1;
                 flex: 1;
                 text-align: left;
-                font-size: 20px;
+                font-size: 19px;
             }
             .right {
                 width: 30%;
                 text-align: right;
-                font-size: 20px;
+                font-size: 19px;
                 color: #4a4a4a;
+            }
+
+            &:active{
+                background-color: #f5f5f5;
             }
         }
     }
@@ -159,7 +168,7 @@
 
             </view>
 
-            <picker bindchange="handleCalendarChange" mode="date" fields="month">
+            <picker bindchange="handleCalendarChange" mode="date" fields="month" value="{{defaultDate}}">
                 <view class="action" @tap="handleCalendarButtonClick">
                     <image src="{{calendarIconUrl}}" />
                 </view>
@@ -179,7 +188,7 @@
 
                 <repeat for="{{record.details}}">
 
-                    <view class="record">
+                    <view class="record" @tap="handleGiveMoney({{item}})">
 
                         <view class="col left">
                             <view>{{item.action}}</view>
@@ -197,7 +206,7 @@
                     </view>
                 </repeat>
 
-                <view class="record" style="height: 80rpx; justify-content: center; font-size: 15px; color: #9b9b9b;">
+                <view class="record-tips" style="height: 80rpx; line-height: 80rpx; text-align: center; font-size: 15px; color: #9b9b9b;">
 
                     <view wx:if="{{loadingMore}}">加载中...</view>
                     <view wx:else>
@@ -254,7 +263,8 @@ export default class CustomerBill extends wepy.page {
                 //     action: '珠江新城二店'
                 // },
             ]
-        }
+        },
+        defaultDate: ''
     }
 
     computed = {
@@ -298,6 +308,13 @@ export default class CustomerBill extends wepy.page {
                 ctx.loadRecords(ctx.record.year, ctx.record.month);
             }
 
+        },
+        handleGiveMoney(item){
+            if(item.target){
+                wepy.navigateTo({
+                    url: `customer_give?account=${item.target}`
+                });
+            }
         }
     }
 
@@ -313,6 +330,9 @@ export default class CustomerBill extends wepy.page {
 
         ctx.record.year = date.getFullYear();
         ctx.record.month = date.getMonth() + 1;
+
+        ctx.defaultDate = date.getFullYear() + '-' + DateUtils.format(date.getMonth() + 1);
+
         ctx.$apply();
 
     }
@@ -353,11 +373,14 @@ export default class CustomerBill extends wepy.page {
 
                 let action = null;
 
+                let target = null;
+
                 switch (order.type) {
                     case '转赠':
                         try {
                             let tt = JSON.parse(order.payload);
                             action = order.type + '(' + (tt.toUsername || tt.toUserId || '未知') + ')';
+                            target = tt.toUsername;
                         } catch (err) {
                             action = order.branch_name || order.type;
                         } finally { }
@@ -368,6 +391,7 @@ export default class CustomerBill extends wepy.page {
                         try {
                             let tt = JSON.parse(order.payload);
                             action = order.type + '(' + (tt.fromUsername || tt.fromUserId || '未知') + ')';
+                            target = tt.fromUsername;
                         } catch (err) {
                             action = order.branch_name || order.type;
                         } finally { }
@@ -386,7 +410,8 @@ export default class CustomerBill extends wepy.page {
                     datetime: order.created_at.substring(5, 16),
                     inout: t ? '+' + order.amount : '-' + order.amount,
                     balance: order.balance_after || '-',
-                    action
+                    action,
+                    target
                 }
             })
         ];
@@ -453,7 +478,6 @@ export default class CustomerBill extends wepy.page {
     }
 
     onShow() {
-
     }
 
     onLoad() {
@@ -463,6 +487,7 @@ export default class CustomerBill extends wepy.page {
 
         ctx.loadStat(ctx.record.year, ctx.record.month);
         ctx.loadRecords(ctx.record.year, ctx.record.month);
+
     }
 }
 </script>

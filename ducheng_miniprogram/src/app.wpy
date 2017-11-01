@@ -25,8 +25,9 @@ export default class extends wepy.app {
     pages: [
       'pages/index',
       'pages/customer/customer',
-      'pages/customer/customer_bill',
       'pages/customer/customer_give',
+      'pages/customer/customer_givenlist',
+      'pages/customer/customer_bill',
       'pages/customer/customer_center',
       'pages/customer/customer_bill_all',
       'pages/manager/manager',
@@ -93,42 +94,45 @@ export default class extends wepy.app {
 
     // this.globalData = {
     //   "user": {
-    //     "last_transaction_time": "2017-09-14 10:42:25",
-    //     "birthday": "2017-08-25",
-    //     "last_topup_time": "2017-09-11 12:01:00",
-    //     "balance": "515.66",
-    //     "created_at": "2017-08-22 09:44:39",
-    //     "updated_at": "2017-09-17 11:03:36",
-    //     "id": 5,
-    //     "username": "gzyunyi01",
-    //     "user_type": 4,
-    //     "nickname": "gzyy",
-    //     "account_status": 0,
-    //     "override_discount": true,
-    //     "override_payment_behavior": true,
-    //     "account_type": 1,
-    //     "department_remark": null,
-    //     "payment_behavior": 2,
-    //     "gender": 1,
-    //     "identity_number": null,
-    //     "email_address": "gzyy@qq.com",
-    //     "phone_number": null,
-    //     "topup_options": null,
-    //     "remark": null,
-    //     "purchased": true,
-    //     "topuped": false,
-    //     "branch_id": null,
-    //     "company_id": 1,
-    //     "company": {
-    //       "name": "广州云翊",
-    //       "remark": "广州云翊信息科技有限公司"
-    //     },
-    //     "branch": null
+    //       "last_transaction_time": "2017-10-31 17:19:38",
+    //       "birthday": "2017-10-29",
+    //       "last_topup_time": "2017-09-30 12:35:35",
+    //       "balance": "441.00",
+    //       "created_at": "2017-09-22 17:30:44",
+    //       "updated_at": "2017-11-01 10:06:53",
+    //       "id": 3,
+    //       "username": "1stdcl",
+    //       "user_type": 4,
+    //       "nickname": "邓成龙",
+    //       "account_status": 0,
+    //       "override_discount": false,
+    //       "account_type": 1,
+    //       "department_remark": null,
+    //       "payment_behavior": 0,
+    //       "gender": 1,
+    //       "identity_number": null,
+    //       "email_address": "dcl@dcl.cn",
+    //       "phone_number": null,
+    //       "remark": "测试",
+    //       "purchased": true,
+    //       "topuped": true,
+    //       "password_expired": false,
+    //       "branch_id": null,
+    //       "company_id": 1,
+    //       "company": {
+    //           "name": "测试",
+    //           "remark": "123456"
+    //       },
+    //       "branch": null
     //   },
-    //   "token": "gzyunyi01:307e3fc771a64c6c5747d387a5f5938cf0da99ed5c1e38d9d24910fd4530f981",
-    //   "secret": "MjM0MzQzMjMwMzUzMTM1MzAzNTM2MzUzMTMyMzUzMDM2MzYzMzM=",
-    //   "expires_in": 1506256050663,
-    //   "time_step": 30
+    //   "token": "1stdcl:8043606fc1cacb76b4c9e92bfcc4f9778e10fa658505954f0e3c6814c9448b31",
+    //   "secret": "MjM2MzYzMDMzMzMzMTM1MzAzOTM1MzAzMjMyMzYzMDM3MzczNzM=",
+    //   "expires_in": 1510107060777,
+    //   "time_step": 30,
+    //   "system": {
+    //       "running": true,
+    //       "running_hint": ""
+    //   }
     // }
 
     //   var key;

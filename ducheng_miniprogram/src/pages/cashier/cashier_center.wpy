@@ -139,7 +139,7 @@
             <view class="row row-2" style="margin-bottom: 40rpx;">
                 <view class="row-2-wrap">
                     姓名
-                    <input @input="handleNickNameChange" value="{{userInfo.nickName}}">
+                    <input @input="handleNickNameChange" value="{{userInfo.nickName}}"/>
                 </view>
             </view>
 
@@ -176,8 +176,8 @@
             <view class="btn-logout">
                 <view @tap="handleLogoutButtonClick">
                     <image src="{{quitIconUrl}}" style="width: 40rpx; height: 40rpx; margin-right: 30rpx;">
-                        </text>
-                        退出登录
+                    </image>
+                    退出登录
                 </view>
             </view>
 
