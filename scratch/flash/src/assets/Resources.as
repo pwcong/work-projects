@@ -102,6 +102,7 @@ public class Resources {
 	[Embed(source='UI/topbar/cutTool.png')] private static const cutTool:Class;
 	[Embed(source='UI/topbar/growTool.png')] private static const growTool:Class;
 	[Embed(source='UI/topbar/helpTool.png')] private static const helpTool:Class;
+	[Embed(source='UI/topbar/uploadTool.png')] private static const uploadTool:Class;
 	[Embed(source='UI/topbar/languageButtonOff.png')] private static const languageButtonOff:Class;
 	[Embed(source='UI/topbar/languageButtonOn.png')] private static const languageButtonOn:Class;
 	[Embed(source='UI/topbar/myStuffOff.gif')] private static const myStuffOff:Class;

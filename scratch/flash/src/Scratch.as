@@ -56,6 +56,8 @@ import flash.text.TextFormat;
 import flash.utils.ByteArray;
 import flash.utils.getTimer;
 
+import flash.net.*;
+
 import mx.utils.URLUtil;
 
 import blocks.Block;
@@ -111,6 +113,7 @@ import util.GestureHandler;
 import util.ProjectIO;
 import util.Server;
 import util.Transition;
+import util.UploadPostHelper
 
 import watchers.ListWatcher;
 
@@ -1068,17 +1071,27 @@ public class Scratch extends Sprite {
 		}
 	}
 
+	/** Pwcong
+	 * 点击Logo调用函数
+	 */
 	public function logoButtonPressed(b:IconButton):void {
 
-		/** Pwcong
-		 * 点击Logo调用函数
-		 */
 		externalCall('function(){alert("Hello World!");}');
 
 
 		if (isExtensionDevMode) {
 			externalCall('showPage', null, 'home');
 		}
+	}
+
+	public function uploadButtonPressed(b:IconButton):void {
+
+		uploadProjectToServer(false, function(){
+			
+			externalCall('function(){alert("OK");}');
+		
+		});
+
 	}
 
 	// -----------------------------
@@ -1251,6 +1264,50 @@ public class Scratch extends Sprite {
 		d.addButton('Cancel', cancel);
 		d.showOnStage(stage);
 	}
+
+	/** Pwcong
+	 * 上传文件
+	 */
+	public function uploadProjectToServer(fromJS:Boolean = false, callBack:Function = null):void {
+		function squeakSoundsConverted():void {
+			scriptsPane.saveScripts(false);
+			var projectType:String = extensionManager.hasExperimentalExtensions() ? '.sbx' : '.sb2';
+			var defaultName:String = StringUtil.trim(projectName());
+			defaultName = ((defaultName.length > 0) ? defaultName : 'Untitled-Unknown') + projectType;
+			var zipData:ByteArray = projIO.encodeProjectAsZipFile(stagePane);
+
+
+			var urlRequest:URLRequest = new URLRequest();
+			urlRequest.url = "/api/v1/project";
+			urlRequest.contentType = 'multipart/form-data; boundary=' + UploadPostHelper.getBoundary();
+			urlRequest.method = URLRequestMethod.POST;
+			urlRequest.data = UploadPostHelper.getPostData(defaultName, zipData);
+			urlRequest.requestHeaders.push( new URLRequestHeader( 'Cache-Control', 'no-cache' ) );
+			
+			var urlLoader:URLLoader = new URLLoader();
+			urlLoader.dataFormat = URLLoaderDataFormat.BINARY;
+			urlLoader.addEventListener(Event.COMPLETE, function(){
+				externalCall('function(){handleUploadComplete && handleUploadComplete();}');
+			
+			});
+			urlLoader.addEventListener(IOErrorEvent.IO_ERROR, function(){
+				
+				externalCall('function(){handleUploadError && handleUploadError();}');
+			});
+			urlLoader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, function(){
+				externalCall('function(){handleUploadError && handleUploadError();}');
+				
+			});
+			
+			externalCall('function(){handleUploadStart && handleUploadStart();}');
+			urlLoader.load(urlRequest);
+		}
+
+		if (loadInProgress) return;
+		var projIO:ProjectIO = new ProjectIO(this);
+		projIO.convertSqueakSounds(stagePane, squeakSoundsConverted);
+	}
+
 
 	public function exportProjectToFile(fromJS:Boolean = false, saveCallback:Function = null):void {
 		function squeakSoundsConverted():void {

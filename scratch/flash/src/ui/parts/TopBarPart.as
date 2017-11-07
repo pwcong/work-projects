@@ -23,17 +23,25 @@
 // This part holds the Scratch Logo, cursor tools, screen mode buttons, and more.
 
 package ui.parts {
+import flash.display.Bitmap;
+import flash.display.Graphics;
+import flash.display.Shape;
+import flash.display.Sprite;
+import flash.events.MouseEvent;
+import flash.text.TextField;
+import flash.text.TextFormat;
+
 import assets.Resources;
 
 import extensions.ExtensionDevManager;
 
-import flash.display.*;
-import flash.events.MouseEvent;
-import flash.text.*;
-
 import translation.Translator;
 
-import uiwidgets.*;
+import uiwidgets.Button;
+import uiwidgets.CursorTool;
+import uiwidgets.IconButton;
+import uiwidgets.Menu;
+import uiwidgets.SimpleTooltips;
 
 public class TopBarPart extends UIPart {
 
@@ -43,6 +51,11 @@ public class TopBarPart extends UIPart {
 
 	protected var fileMenu:IconButton;
 	protected var editMenu:IconButton;
+
+	/** Pwcong
+	 * 添加自定义按钮
+	 */
+	private var uploadTool:IconButton;
 
 	private var copyTool:IconButton;
 	private var cutTool:IconButton;
@@ -71,11 +84,12 @@ public class TopBarPart extends UIPart {
 		languageButton.isMomentary = true;
 		addTextButtons();
 		addToolButtons();
+		addCustomButtons();
 
 		/** Pwcong
 		 * 添加Logo按钮
 		 */
-		addChild(logoButton = new IconButton(app.logoButtonPressed, Resources.createBmp('scratchxlogo')));
+		addChild(logoButton = new IconButton(app.logoButtonPressed, Resources.createBmp('scratchlogoOn')));
 		const _desiredButtonHeight:Number = 20;
 		logoButton.scaleX = logoButton.scaleY = 1;
 		var scale:Number = _desiredButtonHeight / logoButton.height;
@@ -161,6 +175,7 @@ public class TopBarPart extends UIPart {
 		editMenu.y = buttonY;
 		nextX += editMenu.width + buttonSpace;
 
+
 		// cursor tool buttons
 		var space:int = 3;
 		copyTool.x = app.isOffline ? 493 : 427;
@@ -168,7 +183,14 @@ public class TopBarPart extends UIPart {
 		growTool.x = cutTool.right() + space;
 		shrinkTool.x = growTool.right() + space;
 		helpTool.x = shrinkTool.right() + space;
-		copyTool.y = cutTool.y = shrinkTool.y = growTool.y = helpTool.y = buttonY - 3;
+
+		/** Pwcong
+		 * 设置自定义菜单坐标
+		 */
+		uploadTool.x = helpTool.right() + space * 30;
+
+		copyTool.y = cutTool.y = shrinkTool.y = growTool.y = helpTool.y = uploadTool.y = buttonY - 3;
+
 
 		if (offlineNotice) {
 			offlineNotice.x = w - offlineNotice.width - 5;
@@ -248,11 +270,21 @@ public class TopBarPart extends UIPart {
 				addChild(b);
 			}
 		}
-		SimpleTooltips.add(copyTool, {text: 'Duplicate', direction: 'bottom'});
-		SimpleTooltips.add(cutTool, {text: 'Delete', direction: 'bottom'});
-		SimpleTooltips.add(growTool, {text: 'Grow', direction: 'bottom'});
-		SimpleTooltips.add(shrinkTool, {text: 'Shrink', direction: 'bottom'});
-		SimpleTooltips.add(helpTool, {text: 'Block help', direction: 'bottom'});
+
+
+	}
+
+	/** Pwcong
+ 	 * 设置自定义菜单按钮
+	 */
+	private function addCustomButtons():void {
+		
+		toolButtons.push(uploadTool = makeCustomButton('uploadTool', app.uploadButtonPressed));
+		if(!app.isMicroworld){
+			addChild(uploadTool);
+		}
+		SimpleTooltips.add(uploadTool, {text: 'Upload', direction: 'bottom'});
+
 	}
 
 	public function clearToolButtons():void {
@@ -276,6 +308,18 @@ public class TopBarPart extends UIPart {
 		b.actOnMouseUp();
 		b.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown); // capture tool on mouse down to support deselecting
 		return b;
+	}
+
+	private function makeCustomButton(iconName:String, fcn:Function):IconButton {
+		
+		var onImage:Sprite = toolButtonImage(iconName, 0, 0);
+		var offImage:Sprite = toolButtonImage(iconName, 0, 0);
+		var b:IconButton = new IconButton(fcn, onImage, offImage);
+		
+		b.actOnMouseUp();
+		b.addEventListener(MouseEvent.MOUSE_DOWN, fcn); // capture tool on mouse down to support deselecting
+		return b;
+		
 	}
 
 	private function toolButtonImage(iconName:String, color:int, alpha:Number):Sprite {
