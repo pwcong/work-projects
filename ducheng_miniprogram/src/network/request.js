@@ -19,14 +19,12 @@ export default function request(url, method, data, header) {
             reject(res.data.message);
           }
         }else{
-
-          console.log(JSON.stringify(res));
-
           reject(res.errMsg);
         }
       },
       fail(err) {
-        reject(err.errMsg);
+      	// reject(err.errMsg);
+        reject('发送请求失败，请稍后重试');
       }
 
     });
