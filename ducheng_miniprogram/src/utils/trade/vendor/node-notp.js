@@ -125,7 +125,7 @@ var totp = {};
 totp.gen = function (key, opt) {
   opt = opt || {};
   var time = opt.time || 30;
-  var _t = new Date().getTime();;
+  var _t = new Date().getTime() + (opt.timeOffset || 0);
 
   // Time has been overwritten.
   if (opt._t) {
@@ -176,7 +176,7 @@ totp.gen = function (key, opt) {
 totp.verify = function (token, key, opt) {
   opt = opt || {};
   var time = opt.time || 30;
-  var _t = new Date().getTime();
+  var _t = new Date().getTime() + (opt.timeOffset || 0);
 
   // Time has been overwritten.
   if (opt._t) {

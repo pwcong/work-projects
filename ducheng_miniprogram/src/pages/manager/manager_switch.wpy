@@ -1,132 +1,132 @@
 <style lang="scss">
 .toolbar {
-    height: 120rpx;
+  height: 120rpx;
+  width: 100%;
+  background-color: white;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 24rpx 30rpx;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
+  .wrap {
     width: 100%;
-    background-color: white;
+    height: 100%;
+    background-color: #e5e5e5;
+    border: 1px solid #e5e5e5;
+    border-radius: 8rpx;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    padding: 24rpx 30rpx;
-    -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
-    .wrap {
-        width: 100%;
-        height: 100%;
-        background-color: #e5e5e5;
-        border: 1px solid #e5e5e5;
-        border-radius: 8rpx;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-        flex-flow: row nowrap;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        padding: 0 30rpx;
-        -webkit-transition: background-color 0.1s;
-        transition: background-color 0.1s;
-        image {
-            margin-right: 8rpx;
-            width: 40rpx;
-            height: 40rpx;
-        }
-        input {
-            -webkit-box-flex: 1;
-            -ms-flex: 1;
-            flex: 1;
-            font-size: 14px;
-            width: 100%;
-        }
+    padding: 0 30rpx;
+    -webkit-transition: background-color 0.1s;
+    transition: background-color 0.1s;
+    image {
+      margin-right: 8rpx;
+      width: 40rpx;
+      height: 40rpx;
     }
+    input {
+      -webkit-box-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      font-size: 14px;
+      width: 100%;
+    }
+  }
 }
 
 .main {
-    height: calc(100% - 120rpx);
-    width: 100%;
+  height: calc(100% - 120rpx);
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: auto;
+  position: relative;
+  .info {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    overflow: auto;
-    position: relative;
-    .info {
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        padding: 30rpx 40rpx;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: normal;
-        -ms-flex-flow: row wrap;
-        flex-flow: row wrap;
-        .tips {
-            width: 100%;
-            font-size: 16px;
-            color: #9b9b9b;
-            margin-bottom: 20rpx;
-        }
-        .location {
-            padding: 18rpx 34rpx;
-            font-size: 16px;
-            border: 1px solid #9B9B9B;
-            border-radius: 8rpx;
-            background-color: white;
-        }
+    padding: 30rpx 40rpx;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    .tips {
+      width: 100%;
+      font-size: 16px;
+      color: #9b9b9b;
+      margin-bottom: 20rpx;
     }
-    .shops {
-        background-color: white;
-        .tips {
-            width: 100%;
-            height: 94rpx;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            padding: 0 40rpx;
-            line-height: 94rpx;
-            font-size: 16px;
-            border-top: 1px solid #e5e5e5;
-            border-bottom: 1px solid #e5e5e5;
-        }
-        .wrap {
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            padding: 0 40rpx;
-            width: 100%;
-            .item {
-                height: 120rpx;
-                width: 100%;
-                line-height: 120rpx;
-                font-size: 15px;
-                &:not(:last-child) {
-                    border-bottom: 1px solid #e5e5e5;
-                }
-            }
-        }
+    .location {
+      padding: 18rpx 34rpx;
+      font-size: 16px;
+      border: 1px solid #9b9b9b;
+      border-radius: 8rpx;
+      background-color: white;
     }
+  }
+  .shops {
+    background-color: white;
+    .tips {
+      width: 100%;
+      height: 94rpx;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      padding: 0 40rpx;
+      line-height: 94rpx;
+      font-size: 16px;
+      border-top: 1px solid #e5e5e5;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .wrap {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      padding: 0 40rpx;
+      width: 100%;
+      .item {
+        height: 120rpx;
+        width: 100%;
+        line-height: 120rpx;
+        font-size: 15px;
+        &:not(:last-child) {
+          border-bottom: 1px solid #e5e5e5;
+        }
+      }
+    }
+  }
 }
 </style>
 <template>
-    <view class="container">
-        <view class="toolbar">
-            <view class="wrap {{searchInputFocused ? 'active' : ''}}" style="{{searchInputFocused ? 'background-color: white;' : ''}}">
-                <image src="{{searchInputFocused ? searchIconUrl : searchGreyIconUrl}}"/>
-                <input placeholder="请输入分店名" bindfocus="handleSearchInputFocus" bindblur="handleSearchInputBlur" confirm-type="search" @input="handleSearchInputChange" />
-            </view>
-        </view>
-        <view class="main">
-
-            <view class="shops">
-                <view class="tips">全部分店</view>
-                <view class="wrap">
-                    <repeat for="{{branches}}">
-                        <view class="item" @tap="handleBranchSelect({{item}})">{{item.name}}</view>
-                    </repeat>
-                </view>
-            </view>
-        </view>
+  <view class="container">
+    <view class="toolbar">
+      <view class="wrap {{searchInputFocused ? 'active' : ''}}" style="{{searchInputFocused ? 'background-color: white;' : ''}}">
+        <image src="{{searchInputFocused ? searchIconUrl : searchGreyIconUrl}}" />
+        <input placeholder="请输入分店名" bindfocus="handleSearchInputFocus" bindblur="handleSearchInputBlur" confirm-type="search" @input="handleSearchInputChange" />
+      </view>
     </view>
+    <view class="main">
+
+      <view class="shops">
+        <view class="tips">全部分店</view>
+        <view class="wrap">
+          <repeat for="{{branches}}">
+            <view class="item" @tap="handleBranchSelect({{item}})">{{item.name}}</view>
+          </repeat>
+        </view>
+      </view>
+    </view>
+  </view>
 </template>
 
 <script>
@@ -137,152 +137,130 @@ import EventBus from '../../eventbus/eventbus';
 import * as branchApi from '../../network/api/branch';
 
 export default class ManagerSwitch extends wepy.page {
+  config = {
+    navigationBarTitleText: '切换分店',
+    enablePullDownRefresh: false,
+    backgroundTextStyle: 'dark'
+  };
+  components = {};
 
-    config = {
-        navigationBarTitleText: '切换分店',
-        enablePullDownRefresh: false,
-        backgroundTextStyle: 'dark'
-    }
-    components = {
+  data = {
+    searchIconUrl: '../../assets/imgs/icon_search.png',
+    searchGreyIconUrl: '../../assets/imgs/icon_search_grey.png',
+    searchInputFocused: false,
 
+    location: '自动定位',
+    located: false,
 
-    }
+    _branches: [],
+    branches: []
+  };
 
-    data = {
-        searchIconUrl: '../../assets/imgs/icon_search.png',
-        searchGreyIconUrl: '../../assets/imgs/icon_search_grey.png',
-        searchInputFocused: false,
+  computed = {};
 
-        location: '自动定位',
-        located: false,
-
-        _branches: [
-
-        ],
-        branches: [
-
-        ]
-    }
-
-    computed = {
-
-    }
-
-    methods = {
-        handleSearchInputFocus(e) {
-            this.searchInputFocused = true;
-        },
-        handleSearchInputBlur(e) {
-            this.searchInputFocused = false;
-
-        },
-        handleSearchInputChange(e) {
-
-            this.branches = this._branches.filter(branch => branch.name.indexOf(e.detail.value) > -1);
-
-        },
-        // handleRelocation(e) {
-        //     let ctx = this;
-
-        //     // 判断是否定位成功，定位成功按钮点击跳转
-        //     if (ctx.located) {
-
-        //     } else {
-        //         this.relocation();
-        //     }
-        // },
-        handleBranchSelect(branch) {
-
-            EventBus.emit('manager-loadbranch', branch);
-
-            wepy.navigateBack({
-                delta: 1
-            });
-
-        }
-    }
-
-    onPullDownRefresh() {
-    }
-
-    // relocation() {
-
+  methods = {
+    handleSearchInputFocus(e) {
+      this.searchInputFocused = true;
+    },
+    handleSearchInputBlur(e) {
+      this.searchInputFocused = false;
+    },
+    handleSearchInputChange(e) {
+      this.branches = this._branches.filter(branch => branch.name.indexOf(e.detail.value) > -1);
+    },
+    // handleRelocation(e) {
     //     let ctx = this;
 
-    //     ctx.location = '定位中...';
+    //     // 判断是否定位成功，定位成功按钮点击跳转
+    //     if (ctx.located) {
 
-    //     wepy.getLocation({
-    //         success(res) {
-    //             // res数据内容
-    //             // {
-    //             //     accuracy: 65,
-    //             //     altitude: 0,
-    //             //     errMsg: "getLocation:ok",
-    //             //     horizontalAccuracy: 65,
-    //             //     latitude: 23.129163,
-    //             //     longitude: 113.264435,
-    //             //     speed: -1,
-    //             //     verticalAccuracy: 65
-    //             // }
+    //     } else {
+    //         this.relocation();
+    //     }
+    // },
+    handleBranchSelect(branch) {
+      EventBus.emit('manager-loadbranch', branch);
 
-    //             // 调用接口获取
-    //             ctx.location = '自动定位';
-    //             ctx.$apply();
-    //         },
-    //         fail(err) {
-    //             ctx.$apply();
-    //         },
-    //         complete(res) {
-    //             ctx.$apply();
-    //         }
-    //     })
+      wepy.navigateBack({
+        delta: 1
+      });
+    }
+  };
 
-    // }
+  onPullDownRefresh() {}
 
-    async searchBranches(keyword) {
+  // relocation() {
 
+  //     let ctx = this;
 
-        let ctx = this;
+  //     ctx.location = '定位中...';
 
-        let res = null;
+  //     wepy.getLocation({
+  //         success(res) {
+  //             // res数据内容
+  //             // {
+  //             //     accuracy: 65,
+  //             //     altitude: 0,
+  //             //     errMsg: "getLocation:ok",
+  //             //     horizontalAccuracy: 65,
+  //             //     latitude: 23.129163,
+  //             //     longitude: 113.264435,
+  //             //     speed: -1,
+  //             //     verticalAccuracy: 65
+  //             // }
 
-        wepy.showLoading({
-            title: '搜索中',
-            mask: true
-        });
+  //             // 调用接口获取
+  //             ctx.location = '自动定位';
+  //             ctx.$apply();
+  //         },
+  //         fail(err) {
+  //             ctx.$apply();
+  //         },
+  //         complete(res) {
+  //             ctx.$apply();
+  //         }
+  //     })
 
-        try {
-            res = await branchApi.search(ctx.$parent.globalData.token, keyword);
-        } catch (err) {
-            wepy.showModal({
-                title: '获取失败',
-                content: err,
-                showCancel: false
-            });
-            ctx._branches = [];
-            return;
-        } finally {
-            wepy.hideLoading();
-        }
+  // }
 
-        ctx._branches = res.branches;
-        ctx.branches = ctx._branches;
+  async searchBranches(keyword) {
+    let ctx = this;
 
-        ctx.$apply();
+    let res = null;
 
+    wepy.showLoading({
+      title: '搜索中',
+      mask: true
+    });
 
+    try {
+      res = await branchApi.search(wepy.getStorageSync('token'), keyword);
+    } catch (err) {
+      wepy.showModal({
+        title: '获取失败',
+        content: err,
+        confirmColor: '#d30a0a',
+        showCancel: false
+      });
+      ctx._branches = [];
+      return;
+    } finally {
+      wepy.hideLoading();
     }
 
-    events = {
+    ctx._branches = res.branches;
+    ctx.branches = ctx._branches;
 
-    }
+    ctx.$apply();
+  }
 
-    onLoad() {
-        let ctx = this;
+  events = {};
 
-        // ctx.relocation();
-        ctx.searchBranches();
+  onLoad() {
+    let ctx = this;
 
-    }
+    // ctx.relocation();
+    ctx.searchBranches();
+  }
 }
 </script>

@@ -1,105 +1,92 @@
 <style lang="scss">
 .main {
-    height: 100%;
-    width: 100%;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    overflow: auto;
-    position: relative;
-    view {
-        text-align: center;
-        font-weight: bold;
-        .btn {
-            margin: 0 auto;
-            width: 360rpx;
-            height: 70rpx;
-            border: 1px solid #D30A0A;
-            border-radius: 8rpx;
-            line-height: 70rpx;
-            color: #D30A0A;
-            &:active {
-                color: white;
-                background-color: #D30A0A;
-            }
-            font-weight: normal;
-            -webkit-transition: color 0.1s,
-            background-color 0.1s;
-            transition: color 0.1s,
-            background-color 0.1s;
-        }
+  height: 100%;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: auto;
+  position: relative;
+  view {
+    text-align: center;
+    font-weight: bold;
+    .btn {
+      margin: 0 auto;
+      width: 360rpx;
+      height: 70rpx;
+      border: 1px solid #d30a0a;
+      border-radius: 8rpx;
+      line-height: 70rpx;
+      color: #d30a0a;
+      &:active {
+        color: white;
+        background-color: #d30a0a;
+      }
+      font-weight: normal;
+      -webkit-transition: color 0.1s, background-color 0.1s;
+      transition: color 0.1s, background-color 0.1s;
     }
+  }
 }
 </style>
 <template>
-    <view class="container">
-        <view class="main">
-            <view style="margin: 160rpx 0 60rpx 0;">
-                <icon type="{{type}}" size="70" />
-            </view>
-            <view>
-                {{msg}}
-            </view>
+  <view class="container">
+    <view class="main">
+      <view style="margin: 160rpx 0 60rpx 0;">
+        <icon type="{{type}}" size="70" />
+      </view>
+      <view>
+        {{msg}}
+      </view>
 
-            <view style="margin-top: 470rpx;">
-                <view class="btn" @tap="handleCheckButtonClick">确认</view>
-            </view>
-        </view>
+      <view style="margin-top: 470rpx;">
+        <view class="btn" @tap="handleCheckButtonClick">确认</view>
+      </view>
     </view>
+  </view>
 </template>
 
 <script>
 import wepy from 'wepy';
 
 export default class Msg extends wepy.page {
+  config = {
+    navigationBarTitleText: '操作详情',
+    disableScroll: true
+  };
+  components = {};
 
-    config = {
-        navigationBarTitleText: '操作详情',
-        disableScroll: true
+  data = {
+    msg: '',
+    type: '',
+    delta: 1
+  };
+
+  computed = {};
+
+  methods = {
+    handleCheckButtonClick() {
+      let ctx = this;
+
+      if (ctx.delta === -1) {
+        wepy.reLaunch({
+          url: 'index'
+        });
+      } else {
+        wepy.navigateBack({
+          delta: parseInt(ctx.delta)
+        });
+      }
     }
-    components = {
+  };
 
+  events = {};
+
+  onLoad() {
+    let ctx = this;
+
+    for (let key in ctx.$wxpage.options) {
+      ctx[key] = ctx.$wxpage.options[key];
     }
-
-    data = {
-        msg: "",
-        type: "",
-        delta: 1
-    }
-
-    computed = {
-
-    }
-
-    methods = {
-        handleCheckButtonClick() {
-
-            let ctx = this;
-
-            if (ctx.delta === -1) {
-                wepy.reLaunch({
-                    url: 'index'
-                });
-            } else {
-                wepy.navigateBack({
-                    delta: parseInt(ctx.delta)
-                });
-            }
-
-
-        }
-    }
-
-    events = {
-
-    }
-
-    onLoad() {
-
-        let ctx = this;
-
-        for (let key in ctx.$wxpage.options) {
-            ctx[key] = ctx.$wxpage.options[key];
-        }
-    }
+  }
 }
 </script>

@@ -1,91 +1,94 @@
 
-    <view class="container">
+  <view class="container">
 
-        <view class="main">
+    <view class="main">
 
-            <view class="row row-1">
-                <image src="{{peopleIconUrl}}"/>
-                基本信息
-            </view>
-            <view class="row row-2">
-                <view class="row-2-wrap">
-                    账号
-                    <text style="color: #8b8b8b;">{{userInfo.username}}</text>
-                </view>
-            </view>
-            <view class="row row-2">
-                <view class="row-2-wrap">
-                    昵称
-                    <input value="{{userInfo.nickName}}" bindinput="handleNickNameChange"/>
-                </view>
-            </view>
-            <view class="row row-2">
-                <view class="row-2-wrap">
-                    生日
-                    <picker mode="date" value="1990-01-01" bindchange="handleBirthdayChange">
-                        <text>{{ userInfo.birthday || '请选择日期'}}</text>
-                    </picker>
-                </view>
-            </view>
-            <view class="row row-2">
-                <view class="row-2-wrap">
-                    性别
-                    <radio-group bindchange="handleSexChange">
-                        <label class="radio">
-                            <image src="{{userInfo.sex == 1 ? optionDoneIconUrl : optionPreIconUrl}}"/>
-                            <radio value="1" checked="{{userInfo.sex == 1}}"/>男
-                        </label>
-                        <label class="radio">
-                            <image src="{{userInfo.sex == 2 ? optionDoneIconUrl : optionPreIconUrl}}"/>
-                            <radio value="2" checked="{{userInfo.sex == 2}}"/>女
-                        </label>
-                    </radio-group>
-                </view>
-            </view>
-            <view class="row row-2" style="margin-bottom: 40rpx;">
-                <view class="row-2-wrap">
-                    邮箱
-                    <input value="{{userInfo.email}}" placeholder="请输入邮箱" bindinput="handleEmailChange"/>
-                </view>
-            </view>
+      <view class="row row-1">
+        <image src="{{peopleIconUrl}}"/> 基本信息
+      </view>
+      <view class="row row-2">
+        <view class="row-2-wrap">
+          账号
+          <text style="color: #8b8b8b;">{{userInfo.username}}</text>
+        </view>
+      </view>
+      <view class="row row-2" bindtap="handleTimeoutClick">
+        <view class="row-2-wrap">
+          账户有效期
+          <text style="color: #8b8b8b;">{{userInfo.timeout}}</text>
+        </view>
+      </view>
+      <view class="row row-2">
+        <view class="row-2-wrap">
+          昵称
+          <input value="{{userInfo.nickName}}" bindinput="handleNickNameChange"/>
+        </view>
+      </view>
+      <view class="row row-2">
+        <view class="row-2-wrap">
+          生日
+          <picker mode="date" value="1990-01-01" bindchange="handleBirthdayChange">
+            <text>{{ userInfo.birthday || '请选择日期'}}</text>
+          </picker>
+        </view>
+      </view>
+      <view class="row row-2">
+        <view class="row-2-wrap">
+          性别
+          <radio-group bindchange="handleSexChange">
+            <label class="radio">
+              <image src="{{userInfo.sex == 1 ? optionDoneIconUrl : optionPreIconUrl}}"/>
+              <radio value="1" checked="{{userInfo.sex == 1}}"/>男
+            </label>
+            <label class="radio">
+              <image src="{{userInfo.sex == 2 ? optionDoneIconUrl : optionPreIconUrl}}"/>
+              <radio value="2" checked="{{userInfo.sex == 2}}"/>女
+            </label>
+          </radio-group>
+        </view>
+      </view>
+      <view class="row row-2" style="margin-bottom: 40rpx;">
+        <view class="row-2-wrap">
+          邮箱
+          <input value="{{userInfo.email}}" placeholder="请输入邮箱" bindinput="handleEmailChange"/>
+        </view>
+      </view>
 
-            <view class="row row-1">
-                <image src="{{lockIconUrl}}"/>
-                修改密码
-            </view>
-            <view class="row row-2">
-                <view class="row-2-wrap">
-                    原始密码
-                    <input placeholder="请输入原始密码" password="true" bindinput="handleOldPasswordChange"/>
-                </view>
-            </view>
-            <view class="row row-2">
-                <view class="row-2-wrap">
-                    新密码
-                    <input placeholder="请输入新密码" password="true" bindinput="handleNewPasswordChange"/>
-                </view>
-            </view>
-            <view class="row row-2">
-                <view class="row-2-wrap">
-                    重复新密码
-                    <input placeholder="请再次输入新密码" password="true" bindinput="handleNewCheckPasswordChange"/>
-                </view>
-
-            </view>
-
-            <view class="btn-submit" bindtap="handleSubmitButtonClick">
-                <view>
-                    确认
-                </view>
-            </view>
-
-            <view class="btn-logout">
-                <view bindtap="handleLogoutButtonClick">
-                    <image src="{{quitIconUrl}}" style="width: 40rpx; height: 40rpx; margin-right: 30rpx;"/>
-                        退出登录
-                </view>
-            </view>
-
+      <view class="row row-1">
+        <image src="{{lockIconUrl}}"/> 修改密码
+      </view>
+      <view class="row row-2">
+        <view class="row-2-wrap">
+          原始密码
+          <input placeholder="请输入原始密码" password="true" bindinput="handleOldPasswordChange"/>
+        </view>
+      </view>
+      <view class="row row-2">
+        <view class="row-2-wrap">
+          新密码
+          <input placeholder="请输入新密码" password="true" bindinput="handleNewPasswordChange"/>
+        </view>
+      </view>
+      <view class="row row-2">
+        <view class="row-2-wrap">
+          重复新密码
+          <input placeholder="请再次输入新密码" password="true" bindinput="handleNewCheckPasswordChange"/>
         </view>
 
+      </view>
+
+      <view class="btn-submit" bindtap="handleSubmitButtonClick">
+        <view>
+          确认
+        </view>
+      </view>
+
+      <view class="btn-logout">
+        <view bindtap="handleLogoutButtonClick">
+          <image src="{{quitIconUrl}}" style="width: 40rpx; height: 40rpx; margin-right: 30rpx;"/> 退出登录
+        </view>
+      </view>
+
     </view>
+
+  </view>

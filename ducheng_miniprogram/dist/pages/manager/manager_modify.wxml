@@ -1,33 +1,32 @@
 
-    <view class="container">
+  <view class="container">
 
-        <view class="main">
+    <view class="main">
 
-            <view class="row row-1">
-                <image src="{{lockIconUrl}}"/>
-                修改密码
-            </view>
+      <view class="row row-1">
+        <image src="{{lockIconUrl}}"/> 修改密码
+      </view>
 
-            <view class="row row-2">
-                <view class="row-2-wrap">
-                    新密码
-                    <input placeholder="请输入新密码" password="true" bindinput="handleNewPasswordChange"/>
-                </view>
-            </view>
-            <view class="row row-2">
-                <view class="row-2-wrap">
-                    重复新密码
-                    <input placeholder="请再次输入新密码" password="true" bindinput="handleNewCheckPasswordChange"/>
-                </view>
-
-            </view>
-
-            <view class="btn-submit" bindtap="handleSubmitButtonClick">
-                <view>
-                    确认
-                </view>
-            </view>
-
+      <view class="row row-2">
+        <view class="row-2-wrap">
+          新密码
+          <input placeholder="请输入新密码" password="true" bindinput="handleNewPasswordChange"/>
+        </view>
+      </view>
+      <view class="row row-2">
+        <view class="row-2-wrap">
+          重复新密码
+          <input placeholder="请再次输入新密码" password="true" bindinput="handleNewCheckPasswordChange"/>
         </view>
 
+      </view>
+
+      <view class="btn-submit" bindtap="handleSubmitButtonClick">
+        <view>
+          确认
+        </view>
+      </view>
+
     </view>
+
+  </view>

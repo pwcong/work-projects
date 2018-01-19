@@ -1,58 +1,58 @@
 
-    <view class="container">
-        <view class="toolbar">
-            <view class="section" style="font-size: 16px;">
-                更新至{{record.year}}年{{record.month}}月
+  <view class="container">
+    <view class="toolbar">
+      <view class="section" style="font-size: 16px;">
+        更新至{{record.year}}年{{record.month}}月
+      </view>
+
+      <view class="section" style="color: #a4a4a4; font-size: 14px;">
+        总消费：{{record.out}}元
+        <text style="margin: 0 23rpx;"/>充值金额：{{record.in}}元
+
+      </view>
+
+    </view>
+    <scroll-view class="main" scroll-y="true" bindscrolltolower="handleLoadMore" enable-back-to-top="true" scroll-with-animation="true">
+
+      <view class="section header">
+        <view>
+          <image src="{{moneyIconUrl}}"/> 全部账单
+        </view>
+      </view>
+
+      <view class="section records">
+
+        <block wx:for="{{record.details}}" wx:for-index="index" wx:for-item="item" wx:key="key">
+
+          <view class="record" bindtap="handleGiveMoney" data-wpyhandlegivemoney-a="{{item}}">
+
+            <view class="col left">
+              <view>{{item.action}}</view>
+              <view>{{item.datetime}}</view>
             </view>
 
-            <view class="section" style="color: #a4a4a4; font-size: 14px;">
-                总消费：{{record.out}}元
-                <text style="margin: 0 23rpx;"/>充值金额：{{record.in}}元
-
+            <view class="col middle" style="color: {{item.inout[0] == '-' ? '#61749B' : '#d30a0a'}}">
+              {{item.inout}}
             </view>
+
+            <view class="col right">
+              {{item.balance}}
+            </view>
+
+          </view>
+        </block>
+
+        <view class="record-tips" style="height: 80rpx; line-height: 80rpx; text-align: center; font-size: 15px; color: #9b9b9b;">
+
+          <view  wx:if="{{loadingMore}}">加载中...</view>
+          <view  wx:else>
+            <text wx:if="{{hasMore}}">上拉加载更多</text>
+            <text wx:else>没有了~</text>
+
+          </view>
 
         </view>
-        <scroll-view class="main" scroll-y="true" bindscrolltolower="handleLoadMore" enable-back-to-top="true" scroll-with-animation="true">
+      </view>
 
-            <view class="section header">
-                <view>
-                    <image src="{{moneyIconUrl}}"/> 全部账单
-                </view>
-            </view>
-
-            <view class="section records">
-
-                <block wx:for="{{record.details}}" wx:for-index="index" wx:for-item="item" wx:key="key">
-
-                    <view class="record" bindtap="handleGiveMoney" data-wepy-params-a="{{item}}">
-
-                        <view class="col left">
-                            <view>{{item.action}}</view>
-                            <view>{{item.datetime}}</view>
-                        </view>
-
-                        <view class="col middle" style="color: {{item.inout[0] == '-' ? '#61749B' : '#d30a0a'}}">
-                            {{item.inout}}
-                        </view>
-
-                        <view class="col right">
-                            {{item.balance}}
-                        </view>
-
-                    </view>
-                </block>
-
-                <view class="record-tips" style="height: 80rpx; line-height: 80rpx; text-align: center; font-size: 15px; color: #9b9b9b;">
-
-                    <view  wx:if="{{loadingMore}}">加载中...</view>
-                    <view  wx:else>
-                        <text wx:if="{{hasMore}}">上拉加载更多</text>
-                        <text wx:else>没有了~</text>
-
-                    </view>
-
-                </view>
-            </view>
-
-        </scroll-view>
-    </view>
+    </scroll-view>
+  </view>

@@ -1,49 +1,49 @@
 
-    <view class="container">
-        <scroll-view class="main" scroll-y="true" bindscrolltolower="handleLoadMore" enable-back-to-top="true" scroll-with-animation="true">
-            <view class="section condition">
-                
+  <view class="container">
+    <scroll-view class="main" scroll-y="true" bindscrolltolower="handleLoadMore" enable-back-to-top="true" scroll-with-animation="true">
+      <view class="section condition">
+        
     <view class="cutline">
         <view class="line"/>
         <text>{{$cutline1$label}}</text>
         <view class="line"/>
     </view>
 
-                <view class="wrap">
-                    <view class="item">
-                        起始时间
-                        <picker bindchange="handleStartDateTimeChange" mode="multiSelector" range="{{range}}" range-key="key">
-                            <view class="info">
-                                {{startDateTime}}
-                                <image src="{{rightArrowIconUrl}}"/>
-                            </view>
-                        </picker>
+        <view class="wrap">
+          <view class="item">
+            起始时间
+            <picker bindchange="handleStartDateTimeChange" value="{{startTimeValue}}" mode="multiSelector" range="{{range}}" range-key="key">
+              <view class="info">
+                {{startDateTime}}
+                <image src="{{rightArrowIconUrl}}"/>
+              </view>
+            </picker>
 
-                    </view>
-                    <view class="item">
-                        结束时间
+          </view>
+          <view class="item">
+            结束时间
 
-                        <picker bindchange="handleEndDateTimeChange" mode="multiSelector" range="{{range}}" range-key="key">
-                            <view class="info">
-                                {{endDateTime}}
-                                <image src="{{rightArrowIconUrl}}"/>
-                            </view>
-                        </picker>
-                    </view>
+            <picker bindchange="handleEndDateTimeChange" value="{{endTimeValue}}" mode="multiSelector" range="{{range}}" range-key="key">
+              <view class="info">
+                {{endDateTime}}
+                <image src="{{rightArrowIconUrl}}"/>
+              </view>
+            </picker>
+          </view>
 
-                    <view class="item">
-                        收银员工
-                        <view class="info" bindtap="handleSelectCashierButtonClick">
-                            {{selectedCashiersAfterComputed}}
-                            <image src="{{rightArrowIconUrl}}"/>
-                        </view>
-
-                    </view>
-                </view>
+          <view class="item">
+            收银员工
+            <view class="info" bindtap="handleSelectCashierButtonClick">
+              {{selectedCashiersAfterComputed}}
+              <image src="{{rightArrowIconUrl}}"/>
             </view>
 
-            <view class="section details">
-                
+          </view>
+        </view>
+      </view>
+
+      <view class="section details">
+        
     <view class="cutline">
         <view class="line"/>
         <text>{{$cutline2$label}}</text>
@@ -51,66 +51,72 @@
     </view>
 
 
-                <view class="wrap" style="background-color: white;">
+        <view class="wrap" style="background-color: white;">
 
-                    <view class="sec" style="padding: 20rpx 0; justify-content: center; font-size: 19px; color: #D30A0A;">
-                        <view>实收款：{{record.money}}元</view>
-                    </view>
-                    <view class="sec pandect">
-                        <view class="col">
-                            <view style="margin-bottom: 10rpx;">当前收款：{{record.inCounts}}次</view>
-                            <view>总金额：{{record.inMoney}}元</view>
-                        </view>
-                        <view class="split"/>
-                        <view class="col">
-                            <view style="margin-bottom: 10rpx;">当前退款：{{record.outCounts}}次</view>
-                            <view>总金额：{{record.outMoney}}元</view>
-                        </view>
-                    </view>
+          <view class="sec" style="padding: 20rpx 0; justify-content: center; font-size: 19px; color: #D30A0A;">
+            <view>实收款：{{record.money}}元</view>
+          </view>
+          <view class="sec pandect">
+            <view class="col">
+              <view style="margin-bottom: 10rpx;">当前收款：{{record.inCounts}}次</view>
+              <view>总金额：{{record.inMoney}}元</view>
+            </view>
+            <view class="split"/>
+            <view class="col">
+              <view style="margin-bottom: 10rpx;">当前退款：{{record.outCounts}}次</view>
+              <view>总金额：{{record.outMoney}}元</view>
+            </view>
+          </view>
 
+          <view class="sec header">
+            <view class="col">时间</view>
+            <view class="col">金额</view>
+            <view class="col">收银员</view>
+            <view class="col">状态</view>
+          </view>
 
-                    <view class="sec header">
-                        <view class="col">时间</view>
-                        <view class="col">金额</view>
-                        <view class="col">收银员</view>
-                        <view class="col">状态</view>
-                    </view>
+          <view class="sec details">
+            <block wx:for="{{record.details}}" wx:for-index="index" wx:for-item="item" wx:key="key">
 
-                    <view class="sec details">
-                        <block wx:for="{{record.details}}" wx:for-index="index" wx:for-item="item" wx:key="key">
-                            <view class="detail">
-                                <view class="col">
-                                    <view>{{item.time}}</view>
-                                    <view>{{item.date}}</view>
-                                </view>
-                                <view class="col" style="color: {{item.status == 1 ? '#D30A0A' : '#61749B'}}">
-                                    {{item.money}}
-                                </view>
-                                <view class="col">
-                                    {{item.cashier}}
-                                </view>
-                                <view class="col" style="color: {{item.status == 1 ? '#898989' : '#E64340'}}">
-                                    {{item.status == 1 ? '完成' : '已退'}}
-                                </view>
-                            </view>
-                        </block>
-
-                        <view class="detail" style="height: 80rpx; text-align: center; font-size: 15px; color: #9b9b9b;">
-                            <view  wx:if="{{!loadingMore}}" style="flex: 1;">
-                                <text wx:if="{{hasMore}}">上拉加载更多</text>
-                                <text wx:else>没有了~</text>
-                            </view>
-                            <view  wx:else style="flex: 1;">
-                                <text>加载中...</text>
-                            </view>
-
-                        </view>
-
-                    </view>
-
+              <view style="width: 100%;">
+                <view class="detail" style="width: 100%;">
+                  <view class="col">
+                    <view>{{item.time}}</view>
+                    <view>{{item.date}}</view>
+                  </view>
+                  <view class="col" style="color: {{item.status == 1 ? '#D30A0A' : '#61749B'}}">
+                    {{item.money}}
+                  </view>
+                  <view class="col">
+                    {{item.cashier}}
+                  </view>
+                  <view class="col" style="color: {{item.status == 1 ? '#898989' : '#E64340'}}">
+                    {{item.status == 1 ? '完成' : '已退'}}
+                  </view>
                 </view>
+                <view style="width: 100%; padding: 8rpx 0 16rpx 0; border-bottom: 1px solid #e5e5e5; font-size: 13px; color: #666;">
+                  <text>订单号：</text>
+                  {{item.order_id}}
+                </view>
+              </view>
+            </block>
+
+            <view class="detail" style="height: 80rpx; text-align: center; font-size: 15px; color: #9b9b9b;">
+              <view  wx:if="{{!loadingMore}}" style="flex: 1;">
+                <text wx:if="{{hasMore}}">上拉加载更多</text>
+                <text wx:else>没有了~</text>
+              </view>
+              <view  wx:else style="flex: 1;">
+                <text>加载中...</text>
+              </view>
 
             </view>
 
-        </scroll-view>
-    </view>
+          </view>
+
+        </view>
+
+      </view>
+
+    </scroll-view>
+  </view>

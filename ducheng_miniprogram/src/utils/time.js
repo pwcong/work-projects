@@ -4,9 +4,9 @@ function timeSpace(future) {
 
 }
 
-function checkTimeout(dateTime, timeout){
+function checkTimeout(dateTime, timeout) {
 
-  if(!dateTime || !timeout){
+  if (!dateTime || !timeout) {
     return false;
   }
 
@@ -19,7 +19,7 @@ function checkTimeout(dateTime, timeout){
 
 export default {
 
-    timeSpace,
-    checkTimeout
+  timeSpace,
+  checkTimeout
 
 }

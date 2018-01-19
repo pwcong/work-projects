@@ -1,15 +1,15 @@
 
-    <view class="container">
-        <view class="main">
-            <view style="margin: 160rpx 0 60rpx 0;">
-                <icon type="{{type}}" size="70"/>
-            </view>
-            <view>
-                {{msg}}
-            </view>
+  <view class="container">
+    <view class="main">
+      <view style="margin: 160rpx 0 60rpx 0;">
+        <icon type="{{type}}" size="70"/>
+      </view>
+      <view>
+        {{msg}}
+      </view>
 
-            <view style="margin-top: 470rpx;">
-                <view class="btn" bindtap="handleCheckButtonClick">确认</view>
-            </view>
-        </view>
+      <view style="margin-top: 470rpx;">
+        <view class="btn" bindtap="handleCheckButtonClick">确认</view>
+      </view>
     </view>
+  </view>

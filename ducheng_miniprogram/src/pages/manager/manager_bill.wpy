@@ -1,284 +1,290 @@
 <style lang="scss">
 .main {
-    height: calc(100%);
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-    overflow: auto;
-    position: relative;
-    .section {
-        width: 100%;
-        .wrap {
-            -webkit-box-sizing: border-box;
-                    box-sizing: border-box;
-            padding: 0 30rpx;
-        }
+  height: calc(100%);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: auto;
+  position: relative;
+  .section {
+    width: 100%;
+    .wrap {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      padding: 0 30rpx;
     }
-    .condition {
-        .item {
-            background-color: white;
-            height: 150rpx;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-box-orient: horizontal;
-            -webkit-box-direction: normal;
-                -ms-flex-flow: row nowrap;
-                    flex-flow: row nowrap;
-            -webkit-box-align: center;
-                -ms-flex-align: center;
-                    align-items: center;
-            -webkit-box-pack: justify;
-                -ms-flex-pack: justify;
-                    justify-content: space-between;
-            -webkit-box-sizing: border-box;
-                    box-sizing: border-box;
-            padding: 0 20rpx 0 40rpx;
-            &:not(:last-child) {
-                border-bottom: 1px solid #e5e5e5;
-            }
-            font-size: 16px;
-            color: #4a4a4a;
-            .info {
-                color: #353535;
-                display: -webkit-box;
-                display: -ms-flexbox;
-                display: flex;
-                -webkit-box-align: center;
-                    -ms-flex-align: center;
-                        align-items: center;
-                -webkit-box-orient: horizontal;
-                -webkit-box-direction: normal;
-                    -ms-flex-flow: row nowrap;
-                        flex-flow: row nowrap;
-                height: 100%;
-                image {
-                    margin-left: 20rpx;
-                    width: 18rpx;
-                    height: 24rpx;
-                }
-            }
+  }
+  .condition {
+    .item {
+      background-color: white;
+      height: 150rpx;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+      flex-flow: row nowrap;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      padding: 0 20rpx 0 40rpx;
+      &:not(:last-child) {
+        border-bottom: 1px solid #e5e5e5;
+      }
+      font-size: 16px;
+      color: #4a4a4a;
+      .info {
+        color: #353535;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-flow: row nowrap;
+        flex-flow: row nowrap;
+        height: 100%;
+        image {
+          margin-left: 20rpx;
+          width: 18rpx;
+          height: 24rpx;
         }
+      }
+    }
+  }
+  .details {
+    .sec {
+      width: 100%;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+      flex-flow: row nowrap;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+    }
+    .pandect {
+      height: 140rpx;
+      font-size: 14px;
+      color: #186ba0;
+      border-bottom: 1px solid #e5e5e5;
+      .col {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        padding-left: 40rpx;
+        padding-right: 15rpx;
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+      }
+      .split {
+        height: 60%;
+        width: 1px;
+        background-color: #979797;
+      }
+    }
+    .header {
+      margin-top: 34rpx;
+      height: 80rpx;
+      border-radius: 8rpx;
+      background-color: #fee593;
+      font-size: 15px;
+      .col {
+        color: #9b9b9b;
+        font-size: 15px;
+        text-align: center;
+        &:nth-child(1) {
+          width: 180rpx;
+        }
+        &:nth-child(2) {
+          -webkit-box-flex: 1;
+          -ms-flex: 1;
+          flex: 1;
+        }
+        &:nth-child(3) {
+          width: 160rpx;
+        }
+        &:nth-child(4) {
+          width: 120rpx;
+        }
+      }
     }
     .details {
-        .sec {
-            width: 100%;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-box-sizing: border-box;
-                    box-sizing: border-box;
-            -webkit-box-orient: horizontal;
-            -webkit-box-direction: normal;
-                -ms-flex-flow: row nowrap;
-                    flex-flow: row nowrap;
-            -webkit-box-align: center;
-                -ms-flex-align: center;
-                    align-items: center;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+      flex-flow: row wrap;
+      .detail {
+        width: 100%;
+        height: 140rpx;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-flow: row nowrap;
+        flex-flow: row nowrap;
+        &:not(:last-child) {
+          // border-bottom: 1px solid #e5e5e5;
         }
-        .pandect {
-            height: 140rpx;
-            font-size: 14px;
-            color: #186ba0;
-            border-bottom: 1px solid #e5e5e5;
-            .col {
-                -webkit-box-sizing: border-box;
-                        box-sizing: border-box;
-                padding-left: 40rpx;
-                padding-right: 15rpx;
-                -webkit-box-flex: 1;
-                    -ms-flex: 1;
-                        flex: 1;
+        .col {
+          text-align: center;
+          &:nth-child(1) {
+            width: 180rpx;
+            view:nth-child(1) {
+              font-size: 18px;
             }
-            .split {
-                height: 60%;
-                width: 1px;
-                background-color: #979797;
+            view:nth-child(2) {
+              font-size: 13px;
+              color: #b2b2b2;
             }
+          }
+          &:nth-child(2) {
+            -webkit-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            font-size: 24px;
+          }
+          &:nth-child(3) {
+            width: 160rpx;
+            color: #4a4a4a;
+            font-size: 18px;
+          }
+          &:nth-child(4) {
+            width: 120rpx;
+            font-size: 18px;
+          }
         }
-        .header {
-            margin-top: 34rpx;
-            height: 80rpx;
-            border-radius: 8rpx;
-            background-color: #FEE593;
-            font-size: 15px;
-            .col {
-                color: #9b9b9b;
-                font-size: 15px;
-                text-align: center;
-                &:nth-child(1) {
-                    width: 180rpx;
-                }
-                &:nth-child(2) {
-                    -webkit-box-flex: 1;
-                        -ms-flex: 1;
-                            flex: 1;
-                }
-                &:nth-child(3) {
-                    width: 160rpx;
-                }
-                &:nth-child(4) {
-                    width: 120rpx;
-                }
-            }
-        }
-        .details {
-            -webkit-box-orient: horizontal;
-            -webkit-box-direction: normal;
-                -ms-flex-flow: row wrap;
-                    flex-flow: row wrap;
-            .detail {
-                width: 100%;
-                height: 140rpx;
-                display: -webkit-box;
-                display: -ms-flexbox;
-                display: flex;
-                -webkit-box-align: center;
-                    -ms-flex-align: center;
-                        align-items: center;
-                -webkit-box-orient: horizontal;
-                -webkit-box-direction: normal;
-                    -ms-flex-flow: row nowrap;
-                        flex-flow: row nowrap;
-                &:not(:last-child) {
-                    border-bottom: 1px solid #e5e5e5;
-                }
-                .col {
-                    text-align: center;
-                    &:nth-child(1) {
-                        width: 180rpx;
-                        view:nth-child(1) {
-                            font-size: 18px;
-                        }
-                        view:nth-child(2) {
-                            font-size: 13px;
-                            color: #b2b2b2;
-                        }
-                    }
-                    &:nth-child(2) {
-                        -webkit-box-flex: 1;
-                            -ms-flex: 1;
-                                flex: 1;
-                        font-size: 24px;
-                    }
-                    &:nth-child(3) {
-                        width: 160rpx;
-                        color: #4a4a4a;
-                        font-size: 18px;
-                    }
-                    &:nth-child(4) {
-                        width: 120rpx;
-                        font-size: 18px;
-                    }
-                }
-            }
-        }
+      }
     }
+  }
 }
 </style>
 <template>
-    <view class="container">
-        <scroll-view class="main" scroll-y="true" bindscrolltolower="handleLoadMore" enable-back-to-top="true" scroll-with-animation="true">
-            <view class="section condition">
-                <cutline1 label="选择条件" />
-                <view class="wrap">
-                    <view class="item">
-                        起始时间
-                        <picker bindchange="handleStartDateTimeChange" mode="multiSelector" range="{{range}}" range-key="key">
-                            <view class="info">
-                                {{startDateTime}}
-                                <image src="{{rightArrowIconUrl}}" />
-                            </view>
-                        </picker>
+  <view class="container">
+    <scroll-view class="main" scroll-y="true" bindscrolltolower="handleLoadMore" enable-back-to-top="true" scroll-with-animation="true">
+      <view class="section condition">
+        <cutline1 label="选择条件" />
+        <view class="wrap">
+          <view class="item">
+            起始时间
+            <picker bindchange="handleStartDateTimeChange" value="{{startTimeValue}}" mode="multiSelector" range="{{range}}" range-key="key">
+              <view class="info">
+                {{startDateTime}}
+                <image src="{{rightArrowIconUrl}}" />
+              </view>
+            </picker>
 
-                    </view>
-                    <view class="item">
-                        结束时间
+          </view>
+          <view class="item">
+            结束时间
 
-                        <picker bindchange="handleEndDateTimeChange" mode="multiSelector" range="{{range}}" range-key="key">
-                            <view class="info">
-                                {{endDateTime}}
-                                <image src="{{rightArrowIconUrl}}" />
-                            </view>
-                        </picker>
-                    </view>
+            <picker bindchange="handleEndDateTimeChange" value="{{endTimeValue}}" mode="multiSelector" range="{{range}}" range-key="key">
+              <view class="info">
+                {{endDateTime}}
+                <image src="{{rightArrowIconUrl}}" />
+              </view>
+            </picker>
+          </view>
 
-                    <view class="item">
-                        收银员工
-                        <view class="info" @tap="handleSelectCashierButtonClick">
-                            {{selectedCashiersAfterComputed}}
-                            <image src="{{rightArrowIconUrl}}" />
-                        </view>
-
-                    </view>
-                </view>
+          <view class="item">
+            收银员工
+            <view class="info" @tap="handleSelectCashierButtonClick">
+              {{selectedCashiersAfterComputed}}
+              <image src="{{rightArrowIconUrl}}" />
             </view>
 
-            <view class="section details">
-                <cutline2 label="账单明细" />
+          </view>
+        </view>
+      </view>
 
-                <view class="wrap" style="background-color: white;">
+      <view class="section details">
+        <cutline2 label="账单明细" />
 
-                    <view class="sec" style="padding: 20rpx 0; justify-content: center; font-size: 19px; color: #D30A0A;">
-                        <view>实收款：{{record.money}}元</view>
-                    </view>
-                    <view class="sec pandect">
-                        <view class="col">
-                            <view style="margin-bottom: 10rpx;">当前收款：{{record.inCounts}}次</view>
-                            <view>总金额：{{record.inMoney}}元</view>
-                        </view>
-                        <view class="split"></view>
-                        <view class="col">
-                            <view style="margin-bottom: 10rpx;">当前退款：{{record.outCounts}}次</view>
-                            <view>总金额：{{record.outMoney}}元</view>
-                        </view>
-                    </view>
+        <view class="wrap" style="background-color: white;">
 
+          <view class="sec" style="padding: 20rpx 0; justify-content: center; font-size: 19px; color: #D30A0A;">
+            <view>实收款：{{record.money}}元</view>
+          </view>
+          <view class="sec pandect">
+            <view class="col">
+              <view style="margin-bottom: 10rpx;">当前收款：{{record.inCounts}}次</view>
+              <view>总金额：{{record.inMoney}}元</view>
+            </view>
+            <view class="split"></view>
+            <view class="col">
+              <view style="margin-bottom: 10rpx;">当前退款：{{record.outCounts}}次</view>
+              <view>总金额：{{record.outMoney}}元</view>
+            </view>
+          </view>
 
-                    <view class="sec header">
-                        <view class="col">时间</view>
-                        <view class="col">金额</view>
-                        <view class="col">收银员</view>
-                        <view class="col">状态</view>
-                    </view>
+          <view class="sec header">
+            <view class="col">时间</view>
+            <view class="col">金额</view>
+            <view class="col">收银员</view>
+            <view class="col">状态</view>
+          </view>
 
-                    <view class="sec details">
-                        <repeat for="{{record.details}}">
-                            <view class="detail">
-                                <view class="col">
-                                    <view>{{item.time}}</view>
-                                    <view>{{item.date}}</view>
-                                </view>
-                                <view class="col" style="color: {{item.status == 1 ? '#D30A0A' : '#61749B'}}">
-                                    {{item.money}}
-                                </view>
-                                <view class="col">
-                                    {{item.cashier}}
-                                </view>
-                                <view class="col" style="color: {{item.status == 1 ? '#898989' : '#E64340'}}">
-                                    {{item.status == 1 ? '完成' : '已退'}}
-                                </view>
-                            </view>
-                        </repeat>
+          <view class="sec details">
+            <repeat for="{{record.details}}">
 
-                        <view class="detail" style="height: 80rpx; text-align: center; font-size: 15px; color: #9b9b9b;">
-                            <view wx:if="{{!loadingMore}}" style="flex: 1;">
-                                <text wx:if="{{hasMore}}">上拉加载更多</text>
-                                <text wx:else>没有了~</text>
-                            </view>
-                            <view wx:else style="flex: 1;">
-                                <text>加载中...</text>
-                            </view>
-
-                        </view>
-
-                    </view>
-
+              <view style="width: 100%;">
+                <view class="detail" style="width: 100%;">
+                  <view class="col">
+                    <view>{{item.time}}</view>
+                    <view>{{item.date}}</view>
+                  </view>
+                  <view class="col" style="color: {{item.status == 1 ? '#D30A0A' : '#61749B'}}">
+                    {{item.money}}
+                  </view>
+                  <view class="col">
+                    {{item.cashier}}
+                  </view>
+                  <view class="col" style="color: {{item.status == 1 ? '#898989' : '#E64340'}}">
+                    {{item.status == 1 ? '完成' : '已退'}}
+                  </view>
                 </view>
+                <view style="width: 100%; padding: 8rpx 0 16rpx 0; border-bottom: 1px solid #e5e5e5; font-size: 13px; color: #666;">
+                  <text>订单号：</text>
+                  {{item.order_id}}
+                </view>
+              </view>
+            </repeat>
+
+            <view class="detail" style="height: 80rpx; text-align: center; font-size: 15px; color: #9b9b9b;">
+              <view wx:if="{{!loadingMore}}" style="flex: 1;">
+                <text wx:if="{{hasMore}}">上拉加载更多</text>
+                <text wx:else>没有了~</text>
+              </view>
+              <view wx:else style="flex: 1;">
+                <text>加载中...</text>
+              </view>
 
             </view>
 
-        </scroll-view>
-    </view>
+          </view>
+
+        </view>
+
+      </view>
+
+    </scroll-view>
+  </view>
 </template>
 
 <script>
@@ -299,505 +305,460 @@ import * as statApi from '../../network/api/stat';
 const PAGE_LIMIT = 20;
 
 export default class ManagerBill extends wepy.page {
+  config = {
+    navigationBarTitleText: '对账',
+    disableScroll: true
+  };
 
-    config = {
-        navigationBarTitleText: '对账',
-        disableScroll: true
+  components = {
+    cutline1: Cutline,
+    cutline2: Cutline
+  };
+
+  data = {
+    ready: false,
+    loadingMore: false,
+    hasMore: false,
+    currentPage: 1,
+
+    range: [consts.YEARS, consts.MONTHS, consts.DATES, consts.HOURS, consts.MINUTES],
+
+    rightArrowIconUrl: '../../assets/imgs/nav_icon_back.png',
+
+    startTimeValue: [0, 0, 0, 0, 0],
+    endTimeValue: [0, 0, 0, 0, 0],
+
+    condition: {
+      start: {
+        year: 2017,
+        month: 1,
+        date: 1,
+        hour: 0,
+        minute: 0
+      },
+      end: {
+        year: 2017,
+        month: 1,
+        date: 1,
+        hour: 0,
+        minute: 0
+      },
+      selectedCashiers: [],
+      selectType: 1
+    },
+    record: {
+      inCounts: '-',
+      inMoney: '-',
+      outCounts: '-',
+      outMoney: '-',
+      money: '-',
+      details: []
+    },
+
+    branch_name: null,
+    branch_id: null
+  };
+
+  getDateTime(key) {
+    let startOrEnd = this.condition[key];
+
+    let year = startOrEnd.year;
+    let month = DateUtils.format(startOrEnd.month);
+    let date = DateUtils.format(startOrEnd.date);
+    let hour = DateUtils.format(startOrEnd.hour);
+    let minute = DateUtils.format(startOrEnd.minute);
+
+    return year + '/' + month + '/' + date + ' ' + hour + ':' + minute;
+  }
+
+  formatDateTime(year, month, date, hour, minute, second) {
+    return (
+      year +
+      '-' +
+      DateUtils.format(month) +
+      '-' +
+      DateUtils.format(date) +
+      ' ' +
+      DateUtils.format(hour) +
+      ':' +
+      DateUtils.format(minute) +
+      ':' +
+      DateUtils.format(second)
+    );
+  }
+
+  computed = {
+    startDateTime() {
+      let ctx = this;
+      return ctx.getDateTime('start');
+    },
+    endDateTime() {
+      let ctx = this;
+      return ctx.getDateTime('end');
+    },
+    selectedCashiersAfterComputed() {
+      let res = '';
+
+      switch (this.condition.selectType) {
+        case 1:
+          res = '全部员工';
+          break;
+        case 2:
+          res = '部分员工';
+          break;
+      }
+
+      return res;
     }
-
-
-    components = {
-        cutline1: Cutline,
-        cutline2: Cutline,
-    }
-
-    data = {
-
-        ready: false,
-        loadingMore: false,
-        hasMore: false,
-        currentPage: 1,
-
-        range: [
-            consts.YEARS,
-            consts.MONTHS,
-            consts.DATES,
-            consts.HOURS,
-            consts.MINUTES
-        ],
-
-        rightArrowIconUrl: '../../assets/imgs/nav_icon_back.png',
-        condition: {
-            start: {
-                year: 2017,
-                month: 1,
-                date: 1,
-                hour: 0,
-                minute: 0
-            },
-            end: {
-                year: 2017,
-                month: 1,
-                date: 1,
-                hour: 0,
-                minute: 0
-            },
-            selectedCashiers: [],
-            selectType: 1
-        },
-        record: {
-
-            inCounts: '-',
-            inMoney: '-',
-            outCounts: '-',
-            outMoney: '-',
-            money: '-',
-            details: [
-            ]
-
-        },
-
-        branch_name: null,
-        branch_id: null
-
-
-    }
-
-    getDateTime(key) {
-
-        let startOrEnd = this.condition[key];
-
-        let year = startOrEnd.year;
-        let month = DateUtils.format(startOrEnd.month);
-        let date = DateUtils.format(startOrEnd.date);
-        let hour = DateUtils.format(startOrEnd.hour);
-        let minute = DateUtils.format(startOrEnd.minute);
-
-        return year + '/' + month + '/' + date + ' ' + hour + ':' + minute;
-
-    }
-
-    formatDateTime(year, month, date, hour, minute, second) {
-
-        return year +
-            '-' + DateUtils.format(month) +
-            '-' + DateUtils.format(date) +
-            ' ' + DateUtils.format(hour) +
-            ':' + DateUtils.format(minute) +
-            ':' + DateUtils.format(second);
-
-    }
-
-
-
-    computed = {
-
-
-        startDateTime() {
-            let ctx = this;
-            return ctx.getDateTime('start');
-        },
-        endDateTime() {
-            let ctx = this;
-            return ctx.getDateTime('end');
-
-        },
-        selectedCashiersAfterComputed() {
-
-            let res = '';
-
-            switch (this.condition.selectType) {
-
-                case 1:
-                    res = '全部员工';
-                    break;
-                case 2:
-                    res = '部分员工';
-                    break;
-            }
-
-            return res;
-
-        }
-    }
-
-
-    methods = {
-        handleStartDateTimeChange(e) {
-
-
-            this.condition.start.year = consts.YEARS[e.detail.value[0]].value;
-            this.condition.start.month = consts.MONTHS[e.detail.value[1]].value;
-            this.condition.start.date = consts.DATES[e.detail.value[2]].value;
-            this.condition.start.hour = consts.HOURS[e.detail.value[3]].value;
-            this.condition.start.minute = consts.MINUTES[e.detail.value[4]].value;
-
-            this.record.details = [];
-            this.currentPage = 1;
-
-            if (!DateUtils.check(this.condition.start.year, this.condition.start.month, this.condition.start.date)) {
-
-                wepy.showModal({
-                    title: '提示',
-                    content: '起始时间无效',
-                    showCancel: false
-                });
-
-                return;
-            }
-
-            this.loadCashiersStat();
-            this.loadCashiersOrders(this.currentPage);
-
-
-        },
-        handleEndDateTimeChange(e) {
-
-
-            this.condition.end.year = consts.YEARS[e.detail.value[0]].value;
-            this.condition.end.month = consts.MONTHS[e.detail.value[1]].value;
-            this.condition.end.date = consts.DATES[e.detail.value[2]].value;
-            this.condition.end.hour = consts.HOURS[e.detail.value[3]].value;
-            this.condition.end.minute = consts.MINUTES[e.detail.value[4]].value;
-
-            this.record.details = [];
-            this.currentPage = 1;
-
-            if (!DateUtils.check(this.condition.start.year, this.condition.start.month, this.condition.start.date)) {
-
-                wepy.showModal({
-                    title: '提示',
-                    content: '起始时间无效',
-                    showCancel: false
-                });
-
-                return;
-            }
-
-            this.loadCashiersStat();
-            this.loadCashiersOrders(this.currentPage);
-
-
-        },
-        handleSelectCashierButtonClick(e) {
-
-            let ctx = this;
-
-            wepy.navigateTo({
-                url: `manager_select?branch_id=${ctx.branch_id}&branch_name=${ctx.branch_name}`
-            });
-        },
-        handleLoadMore(e) {
-            let ctx = this;
-
-            if (!ctx.loadingMore && ctx.hasMore) {
-
-                ctx.loadingMore = true;
-                ctx.$apply();
-
-                ctx.loadCashiersOrders(ctx.currentPage);
-            }
-        }
-    }
-
-    events = {
-
-    }
-
-    loadCashiers() {
-
-        let ctx = this;
-
-        return new Promise(async function(resolve, reject) {
-
-            let res = null;
-
-            wepy.showLoading({
-                title: '获取中',
-                mask: true
-            });
-
-            try {
-                res = await branchApi.getInfo(ctx.$parent.globalData.token, ctx.branch_id);
-            } catch (err) {
-
-                wepy.showModal({
-                    title: '获取失败',
-                    content: err,
-                    showCancel: false
-                });
-
-                reject();
-                return;
-
-            } finally {
-                wepy.hideLoading();
-            }
-
-            let temp = res.branch.staffs.filter(cashier => cashier.user_type === 2);
-
-            ctx.condition.selectedCashiers = temp.map(t => t.id);
-
-            ctx.$apply();
-
-            resolve();
+  };
+
+  methods = {
+    handleStartDateTimeChange(e) {
+      this.condition.start.year = consts.YEARS[e.detail.value[0]].value;
+      this.condition.start.month = consts.MONTHS[e.detail.value[1]].value;
+      this.condition.start.date = consts.DATES[e.detail.value[2]].value;
+      this.condition.start.hour = consts.HOURS[e.detail.value[3]].value;
+      this.condition.start.minute = consts.MINUTES[e.detail.value[4]].value;
+
+      this.record.details = [];
+      this.currentPage = 1;
+
+      if (
+        !DateUtils.check(this.condition.start.year, this.condition.start.month, this.condition.start.date)
+      ) {
+        wepy.showModal({
+          title: '提示',
+          content: '起始时间无效',
+          confirmColor: '#d30a0a',
+          showCancel: false
         });
 
-    }
+        return;
+      }
 
+      this.loadCashiersStat();
+      this.loadCashiersOrders(this.currentPage);
+    },
+    handleEndDateTimeChange(e) {
+      this.condition.end.year = consts.YEARS[e.detail.value[0]].value;
+      this.condition.end.month = consts.MONTHS[e.detail.value[1]].value;
+      this.condition.end.date = consts.DATES[e.detail.value[2]].value;
+      this.condition.end.hour = consts.HOURS[e.detail.value[3]].value;
+      this.condition.end.minute = consts.MINUTES[e.detail.value[4]].value;
 
-    async loadCashiersStat() {
+      this.record.details = [];
+      this.currentPage = 1;
 
-        let ctx = this;
-
-        ctx.$apply();
-
-        let from_time = ctx.condition.start.year * 100000000 +
-            ctx.condition.start.month * 1000000 +
-            ctx.condition.start.date * 10000 +
-            ctx.condition.start.hour * 100 +
-            ctx.condition.start.month;
-
-        let to_time = ctx.condition.end.year * 100000000 +
-            ctx.condition.end.month * 1000000 +
-            ctx.condition.end.date * 10000 +
-            ctx.condition.end.hour * 100 +
-            ctx.condition.end.month;
-
-        if (to_time < from_time) {
-
-            return;
-
-        }
-
-
-        let res = null;
-
-        wepy.showLoading({
-            title: '获取中',
-            mask: true
+      if (
+        !DateUtils.check(this.condition.start.year, this.condition.start.month, this.condition.start.date)
+      ) {
+        wepy.showModal({
+          title: '提示',
+          content: '起始时间无效',
+          confirmColor: '#d30a0a',
+          showCancel: false
         });
 
-        try {
+        return;
+      }
 
-            res = await statApi.cashiersStat(
-                ctx.$parent.globalData.token,
-                ctx.condition.selectedCashiers.join(','),
-                ctx.formatDateTime(
-                    ctx.condition.start.year,
-                    ctx.condition.start.month,
-                    ctx.condition.start.date,
-                    ctx.condition.start.hour,
-                    ctx.condition.start.minute,
-                    0
-                ),
-                ctx.formatDateTime(
-                    ctx.condition.end.year,
-                    ctx.condition.end.month,
-                    ctx.condition.end.date,
-                    ctx.condition.end.hour,
-                    ctx.condition.end.minute,
-                    0
-                ),
-            );
+      this.loadCashiersStat();
+      this.loadCashiersOrders(this.currentPage);
+    },
+    handleSelectCashierButtonClick(e) {
+      let ctx = this;
 
-        } catch (err) {
-            wepy.showModal({
-                title: '获取失败',
-                content: err,
-                showCancel: false
-            });
+      wepy.navigateTo({
+        url: `manager_select?branch_id=${ctx.branch_id}&branch_name=${ctx.branch_name}`
+      });
+    },
+    handleLoadMore(e) {
+      let ctx = this;
 
-            return;
-
-        } finally {
-            wepy.hideLoading();
-        }
-
-        ctx.record.inCounts = res.stat.times;
-        ctx.record.inMoney = res.stat.total;
-        ctx.record.outCounts = res.stat.refund_times;
-        ctx.record.outMoney = res.stat.total_refunded;
-        ctx.record.money = StringUtils.formatPrice(parseFloat(res.stat.total) - parseFloat(res.stat.total_refunded), 2);
-
+      if (!ctx.loadingMore && ctx.hasMore) {
+        ctx.loadingMore = true;
         ctx.$apply();
 
+        ctx.loadCashiersOrders(ctx.currentPage);
+      }
     }
+  };
 
-    async loadCashiersOrders(page) {
+  events = {};
 
-        let ctx = this;
+  loadCashiers() {
+    let ctx = this;
 
-        let from_time = ctx.condition.start.year * 100000000 +
-            ctx.condition.start.month * 1000000 +
-            ctx.condition.start.date * 10000 +
-            ctx.condition.start.hour * 100 +
-            ctx.condition.start.month;
+    return new Promise(async function(resolve, reject) {
+      let res = null;
 
-        let to_time = ctx.condition.end.year * 100000000 +
-            ctx.condition.end.month * 1000000 +
-            ctx.condition.end.date * 10000 +
-            ctx.condition.end.hour * 100 +
-            ctx.condition.end.month;
+      wepy.showLoading({
+        title: '获取中',
+        mask: true
+      });
 
-        if (to_time < from_time) {
-
-            wepy.showModal({
-                title: '提示',
-                content: '请选择正确的时间区间',
-                showCancel: false
-            });
-
-            return;
-
-        }
-
-
-        let res = null;
-
-        try {
-
-            res = await statApi.cashiersOrder(
-                ctx.$parent.globalData.token,
-                ctx.condition.selectedCashiers.join(','),
-                ctx.formatDateTime(
-                    ctx.condition.start.year,
-                    ctx.condition.start.month,
-                    ctx.condition.start.date,
-                    ctx.condition.start.hour,
-                    ctx.condition.start.minute,
-                    0
-                ),
-                ctx.formatDateTime(
-                    ctx.condition.end.year,
-                    ctx.condition.end.month,
-                    ctx.condition.end.date,
-                    ctx.condition.end.hour,
-                    ctx.condition.end.minute,
-                    0
-                ),
-                page,
-                PAGE_LIMIT
-            );
-
-        } catch (err) {
-            // wepy.showModal({
-            //     title: '获取失败',
-            //     content: err.message || '未知错误',
-            //     showCancel: false
-            // });
-
-            return;
-
-        } finally {
-            ctx.loadingMore = false;
-        }
-
-        ctx.record.details = [
-            ...ctx.record.details,
-            ...res.orders.map(order => {
-
-                let datetime = order.created_at.split(' ');
-
-                return {
-                    date: datetime[0],
-                    time: datetime[1],
-                    money: order.amount,
-                    cashier: order.operator_nickname,
-                    status: order.has_refunded ? 0 : 1
-                };
-            })
-        ]
-
-        if (res.orders.length === PAGE_LIMIT) {
-            ctx.currentPage += 1;
-            ctx.hasMore = true;
-        } else {
-            ctx.hasMore = false;
-        }
-
-
-        ctx.$apply();
-    }
-
-    initTime() {
-
-        let ctx = this;
-
-        let today = new Date();
-
-        let year = today.getFullYear();
-        let month = today.getMonth() + 1;
-        let date = today.getDate();
-
-        ctx.condition.start.year = year;
-        ctx.condition.start.month = month;
-        ctx.condition.start.date = date;
-        ctx.condition.start.hour = 0;
-        ctx.condition.start.minute = 0;
-
-        ctx.condition.end.year = year;
-        ctx.condition.end.month = month;
-        ctx.condition.end.date = date;
-        ctx.condition.end.hour = today.getHours();
-        ctx.condition.end.minute = today.getMinutes();
-
-        ctx.$apply();
-
-    }
-
-    async onShow() {
-        let ctx = this;
-
-        try {
-
-            if (!ctx.ready) {
-                await ctx.loadCashiers();
-            }
-
-            ctx.record.details = [];
-            ctx.$apply();
-
-            ctx.loadCashiersStat();
-            ctx.loadCashiersOrders(ctx.currentPage);
-
-            ctx.ready = true;
-
-            ctx.$apply();
-
-        } catch (err) {
-
-        } finally { }
-
-    }
-
-    async onLoad() {
-
-        let ctx = this;
-
-        for (let key in ctx.$wxpage.options) {
-            ctx[key] = ctx.$wxpage.options[key];
-        }
-
-        ctx.initTime();
-
-
-
-        EventBus.subscribe('manager_bill-setcashiers', (res) => {
-
-            ctx.condition.selectedCashiers = res.cashiers;
-            ctx.condition.selectType = res.selectAll ? 1 : 2;
-
-            ctx.ready = true;
-
-            ctx.record.details = [];
-            ctx.currentPage = 1;
-
-
-            ctx.$apply();
-
+      try {
+        res = await branchApi.getInfo(wepy.getStorageSync('token'), ctx.branch_id);
+      } catch (err) {
+        wepy.showModal({
+          title: '获取失败',
+          content: err,
+          confirmColor: '#d30a0a',
+          showCancel: false
         });
 
+        reject();
+        return;
+      } finally {
+        wepy.hideLoading();
+      }
+
+      let temp = res.branch.staffs.filter(cashier => cashier.user_type === 2);
+
+      ctx.condition.selectedCashiers = temp.map(t => t.id);
+
+      ctx.$apply();
+
+      resolve();
+    });
+  }
+
+  async loadCashiersStat() {
+    let ctx = this;
+
+    ctx.$apply();
+
+    let from_time =
+      ctx.condition.start.year * 100000000 +
+      ctx.condition.start.month * 1000000 +
+      ctx.condition.start.date * 10000 +
+      ctx.condition.start.hour * 100 +
+      ctx.condition.start.month;
+
+    let to_time =
+      ctx.condition.end.year * 100000000 +
+      ctx.condition.end.month * 1000000 +
+      ctx.condition.end.date * 10000 +
+      ctx.condition.end.hour * 100 +
+      ctx.condition.end.month;
+
+    if (to_time < from_time) {
+      return;
     }
+
+    let res = null;
+
+    wepy.showLoading({
+      title: '获取中',
+      mask: true
+    });
+
+    try {
+      res = await statApi.cashiersStat(
+        wepy.getStorageSync('token'),
+        ctx.condition.selectedCashiers.join(','),
+        ctx.formatDateTime(
+          ctx.condition.start.year,
+          ctx.condition.start.month,
+          ctx.condition.start.date,
+          ctx.condition.start.hour,
+          ctx.condition.start.minute,
+          0
+        ),
+        ctx.formatDateTime(
+          ctx.condition.end.year,
+          ctx.condition.end.month,
+          ctx.condition.end.date,
+          ctx.condition.end.hour,
+          ctx.condition.end.minute,
+          0
+        )
+      );
+    } catch (err) {
+      wepy.showModal({
+        title: '获取失败',
+        content: err,
+        confirmColor: '#d30a0a',
+        showCancel: false
+      });
+
+      return;
+    } finally {
+      wepy.hideLoading();
+    }
+
+    ctx.record.inCounts = res.stat.times;
+    ctx.record.inMoney = res.stat.total;
+    ctx.record.outCounts = res.stat.refund_times;
+    ctx.record.outMoney = res.stat.total_refunded;
+    ctx.record.money = StringUtils.formatPrice(
+      parseFloat(res.stat.total) - parseFloat(res.stat.total_refunded),
+      2
+    );
+
+    ctx.$apply();
+  }
+
+  async loadCashiersOrders(page) {
+    let ctx = this;
+
+    let from_time =
+      ctx.condition.start.year * 100000000 +
+      ctx.condition.start.month * 1000000 +
+      ctx.condition.start.date * 10000 +
+      ctx.condition.start.hour * 100 +
+      ctx.condition.start.month;
+
+    let to_time =
+      ctx.condition.end.year * 100000000 +
+      ctx.condition.end.month * 1000000 +
+      ctx.condition.end.date * 10000 +
+      ctx.condition.end.hour * 100 +
+      ctx.condition.end.month;
+
+    if (to_time < from_time) {
+      wepy.showModal({
+        title: '提示',
+        content: '请选择正确的时间区间',
+        confirmColor: '#d30a0a',
+        showCancel: false
+      });
+
+      return;
+    }
+
+    let res = null;
+
+    try {
+      res = await statApi.cashiersOrder(
+        wepy.getStorageSync('token'),
+        ctx.condition.selectedCashiers.join(','),
+        ctx.formatDateTime(
+          ctx.condition.start.year,
+          ctx.condition.start.month,
+          ctx.condition.start.date,
+          ctx.condition.start.hour,
+          ctx.condition.start.minute,
+          0
+        ),
+        ctx.formatDateTime(
+          ctx.condition.end.year,
+          ctx.condition.end.month,
+          ctx.condition.end.date,
+          ctx.condition.end.hour,
+          ctx.condition.end.minute,
+          0
+        ),
+        page,
+        PAGE_LIMIT
+      );
+    } catch (err) {
+      // wepy.showModal({
+      //     title: '获取失败',
+      //     content: err.message || '未知错误',
+      //     showCancel: false
+      // });
+
+      return;
+    } finally {
+      ctx.loadingMore = false;
+    }
+
+    ctx.record.details = [
+      ...ctx.record.details,
+      ...res.orders.map(order => {
+        let datetime = order.created_at.split(' ');
+
+        return {
+          date: datetime[0],
+          time: datetime[1],
+          money: order.amount,
+          cashier: order.operator_nickname,
+          status: order.has_refunded ? 0 : 1,
+          order_id: order.order_id
+        };
+      })
+    ];
+
+    if (res.orders.length === PAGE_LIMIT) {
+      ctx.currentPage += 1;
+      ctx.hasMore = true;
+    } else {
+      ctx.hasMore = false;
+    }
+
+    ctx.$apply();
+  }
+
+  initTime() {
+    let ctx = this;
+
+    let today = new Date();
+
+    let year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    let date = today.getDate();
+
+    ctx.startTimeValue = [year-2017, month-1, date-1, 0, 0];
+    ctx.endTimeValue = [year-2017, month-1, date-1, today.getHours(), today.getMinutes()];
+
+    ctx.condition.start.year = year;
+    ctx.condition.start.month = month;
+    ctx.condition.start.date = date;
+    ctx.condition.start.hour = 0;
+    ctx.condition.start.minute = 0;
+
+    ctx.condition.end.year = year;
+    ctx.condition.end.month = month;
+    ctx.condition.end.date = date;
+    ctx.condition.end.hour = today.getHours();
+    ctx.condition.end.minute = today.getMinutes();
+
+    ctx.$apply();
+  }
+
+  async onShow() {
+    let ctx = this;
+
+    try {
+      if (!ctx.ready) {
+        await ctx.loadCashiers();
+      }
+
+      ctx.record.details = [];
+      ctx.$apply();
+
+      ctx.loadCashiersStat();
+      ctx.loadCashiersOrders(ctx.currentPage);
+
+      ctx.ready = true;
+
+      ctx.$apply();
+    } catch (err) {
+    } finally {
+    }
+  }
+
+  async onLoad() {
+    let ctx = this;
+
+    for (let key in ctx.$wxpage.options) {
+      ctx[key] = ctx.$wxpage.options[key];
+    }
+
+    ctx.initTime();
+
+    EventBus.subscribe('manager_bill-setcashiers', res => {
+      ctx.condition.selectedCashiers = res.cashiers;
+      ctx.condition.selectType = res.selectAll ? 1 : 2;
+
+      ctx.ready = true;
+
+      ctx.record.details = [];
+      ctx.currentPage = 1;
+
+      ctx.$apply();
+    });
+  }
 }
 </script>

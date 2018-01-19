@@ -1,21 +1,21 @@
 
-    <view class="container">
-        <view class="main">
-            <image class="result" src="{{bgUrl}}" style="margin: 100rpx 0 200rpx 0;">
-                <view class="result-wrap">
-                    <view>
-                        <icon type="{{type}}" size="70"/>
-                    </view>
-                    <view class="result-msg {{type == 'success' ? 'result-msg-success' : 'result-msg-warn'}}">{{msg}}</view>
-                    <view class="result-content" style="font-size: {{fontsize ? fontsize + 'px' : (type == 'success' ? '32px' : '18px')}};{{color ? 'color: ' + color : ''}}">
-                        {{content}}
-                    </view>
-                </view>
-
-            </image>
-    
-            <view>
-                <view class="btn" bindtap="handleCheckButtonClick">确认</view>
-            </view>
+  <view class="container">
+    <view class="main">
+      <image class="result" src="{{bgUrl}}" style="margin: 100rpx 0 200rpx 0;">
+        <view class="result-wrap">
+          <view>
+            <icon type="{{type}}" size="70"/>
+          </view>
+          <view class="result-msg {{type == 'success' ? 'result-msg-success' : 'result-msg-warn'}}">{{msg}}</view>
+          <view class="result-content" style="font-size: {{fontsize ? fontsize + 'px' : (type == 'success' ? '32px' : '18px')}};{{color ? 'color: ' + color : ''}}">
+            {{content}}
+          </view>
         </view>
+
+      </image>
+
+      <view>
+        <view class="btn" bindtap="handleCheckButtonClick">确认</view>
+      </view>
     </view>
+  </view>

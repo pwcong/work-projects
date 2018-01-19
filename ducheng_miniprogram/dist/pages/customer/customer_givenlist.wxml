@@ -1,19 +1,19 @@
 
-    <view class="container">
+  <view class="container">
 
-        <view class="main">
-            
-            <block wx:for="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="key">
-                <view class="item" bindtap="handleItemClick" data-wepy-params-a="{{item}}">
-                    <image src="{{peopleIconUrl}}"/>
-                    <text>{{item}}</text>
-                </view>
-            </block>
+    <view class="main">
 
-            <view  wx:if="{{isEmpty}}" class="item tips">
-                <icon type="info" size="24"/>没有记录
-            </view>
-
+      <block wx:for="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="key">
+        <view class="item" bindtap="handleItemClick" data-wpyhandleitemclick-a="{{item}}">
+          <image src="{{peopleIconUrl}}"/>
+          <text>{{item}}</text>
         </view>
+      </block>
+
+      <view  wx:if="{{isEmpty}}" class="item tips">
+        <icon type="info" size="24"/>没有记录
+      </view>
 
     </view>
+
+  </view>

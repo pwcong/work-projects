@@ -1,24 +1,24 @@
 <style lang="scss">
 .cutline {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 20rpx 0;
-    display: -webkit-flex;
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20rpx 0;
+  display: -webkit-flex;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
 
-    .line {
-        flex: 1;
-        height: 1px;
-        background-color: #e5e5e5;
-    }
+  .line {
+    flex: 1;
+    height: 1px;
+    background-color: #e5e5e5;
+  }
 
-    text {
-        margin: 0 10rpx;
-        font-size: 15px;
-        color: #9b9b9b;
-    }
+  text {
+    margin: 0 10rpx;
+    font-size: 15px;
+    color: #9b9b9b;
+  }
 }
 </style>
 
@@ -31,35 +31,23 @@
 </template>
 
 <script>
-
-import wepy from 'wepy'
+import wepy from 'wepy';
 
 export default class Cutline extends wepy.component {
-    
-    props = {
-        label: {
-            type: [String],
-            default: 'Label'
-        }
+  props = {
+    label: {
+      type: [String],
+      default: 'Label'
     }
+  };
 
-    components = {
+  components = {};
 
-    }
+  data = {};
 
-    data = {
+  methods = {};
 
-    }
-
-    methods = {
-
-    }
-
-    events = {
-
-
-    }
-
+  events = {};
 }
 </script>
 

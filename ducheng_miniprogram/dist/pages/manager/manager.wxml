@@ -1,46 +1,45 @@
 
-    <view class="container">
-        <view class="toolbar">
-            <view class="actor" bindtap="handleSettingButtonClick">
-                <image src="{{peopleIconUrl}}"/>
-                {{username}}
-            </view>
-            <view class="action" bindtap="handleSwitchButtonClick">切换分店 ></view>
-        </view>
-
-        <view class="main">
-
-            <view  wx:if="{{branchStat && branch}}" class="section details">
-
-                <view class="item shopname">
-                    {{branch.name}}
-                </view>
-
-                <view class="item">
-                    <view>今日实收</view>
-                    <view class="info">{{money}}</view>
-                </view>
-
-                <view class="item" style="font-size: 16px;">
-                    <view class="col">
-                        订单数量
-                        <text style="color: #FA9D3B; margin-left: 50rpx;">{{branchStat.times}}</text>
-                    </view>
-                    <view class="col">
-                        退款次数
-                        <text style="color: #FA9D3B; margin-left: 50rpx;">{{branchStat.refund_times}}</text>
-                    </view>
-                </view>
-
-            </view>
-
-            <view  wx:if="{{branch}}" class="section btn btn-1" style="margin-bottom: 40rpx;" bindtap="handleBillButtonClick">账单</view>
-            <view wx:if="{{branch}}" class="section btn btn-2" bindtap="handleManageButtonClick">收银员管理</view>
-
-            <view class="section tips" wx:if="{{!branch}}">
-                <icon type="info" size="70"/>
-                <view>请点击右上角切换分店</view>
-            </view>
-
-        </view>
+  <view class="container">
+    <view class="toolbar">
+      <view class="actor" bindtap="handleSettingButtonClick">
+        <image src="{{peopleIconUrl}}"/> {{username}}
+      </view>
+      <view class="action" bindtap="handleSwitchButtonClick">切换分店 ></view>
     </view>
+
+    <view class="main">
+
+      <view  wx:if="{{branchStat && branch}}" class="section details">
+
+        <view class="item shopname">
+          {{branch.name}}
+        </view>
+
+        <view class="item">
+          <view>今日实收</view>
+          <view class="info">{{money}}</view>
+        </view>
+
+        <view class="item" style="font-size: 16px;">
+          <view class="col">
+            订单数量
+            <text style="color: #FA9D3B; margin-left: 50rpx;">{{branchStat.times}}</text>
+          </view>
+          <view class="col">
+            退款次数
+            <text style="color: #FA9D3B; margin-left: 50rpx;">{{branchStat.refund_times}}</text>
+          </view>
+        </view>
+
+      </view>
+
+      <view  wx:if="{{branch}}" class="section btn btn-1" style="margin-bottom: 40rpx;" bindtap="handleBillButtonClick">账单</view>
+      <view wx:if="{{branch}}" class="section btn btn-2" bindtap="handleManageButtonClick">收银员管理</view>
+
+      <view class="section tips" wx:if="{{!branch}}">
+        <icon type="info" size="70"/>
+        <view>请点击右上角切换分店</view>
+      </view>
+
+    </view>
+  </view>

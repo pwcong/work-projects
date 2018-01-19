@@ -1,206 +1,207 @@
 <style lang="scss">
 .toolbar {
-    position: relative;
-    height: 120rpx;
+  position: relative;
+  height: 120rpx;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 20rpx 30rpx;
+  background-color: white;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: column nowrap;
+  flex-flow: column nowrap;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  .section {
     width: 100%;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 20rpx 30rpx;
-    background-color: white;
-    -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
+    -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
-    -ms-flex-flow: column nowrap;
-    flex-flow: column nowrap;
-    -ms-flex-pack: distribute;
-    justify-content: space-around;
-    .section {
-        width: 100%;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-        flex-flow: row nowrap;
-        font-size: 14px;
-    }
-    .action {
-        position: absolute;
-        right: 0;
-        top: 0;
-        height: 100%;
-        width: 100rpx;
-        background-size: 50rpx 50rpx;
-        background-position: center;
-        background-repeat: no-repeat;
-    }
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    font-size: 14px;
+  }
+  .action {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 100rpx;
+    background-size: 50rpx 50rpx;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 }
 
 .main {
-    height: calc(100% - 120rpx);
+  height: calc(100% - 120rpx);
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: auto;
+  position: relative;
+  .section {
     width: 100%;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    overflow: auto;
-    position: relative;
-    .section {
-        width: 100%;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
+  }
+  .header {
+    height: 92rpx;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 0 30rpx;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    view:nth-child(1) {
+      font-size: 16px;
+      color: #353535;
+      image {
+        margin-right: 6rpx;
+        width: 32rpx;
+        height: 32rpx;
+      }
     }
-    .header {
-        height: 92rpx;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        padding: 0 30rpx;
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-        flex-flow: row nowrap;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-        justify-content: space-between;
-        view:nth-child(1) {
-            font-size: 16px;
-            color: #353535;
-            image {
-                margin-right: 6rpx;
-                width: 32rpx;
-                height: 32rpx;
-            }
+    view:nth-child(2) {
+      font-size: 14px;
+      color: #a4a4a4;
+    }
+  }
+  .records {
+    background-color: white;
+    -webkit-box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.11);
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.11);
+    padding: 0 30rpx;
+    .record {
+      height: 140rpx;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+      flex-flow: row nowrap;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      &:not(:last-child) {
+        border-bottom: 1px solid #e5e5e5;
+      }
+      .col {
+      }
+      .left {
+        width: 40%;
+        font-size: 16px;
+
+        view {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
+
         view:nth-child(2) {
-            font-size: 14px;
-            color: #a4a4a4;
+          font-size: 13px;
+          color: #a4a4a4;
         }
+      }
+      .middle {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        text-align: left;
+        font-size: 19px;
+      }
+      .right {
+        width: 30%;
+        text-align: right;
+        font-size: 19px;
+        color: #4a4a4a;
+      }
+
+      &:active {
+        background-color: #f5f5f5;
+      }
     }
-    .records {
-        background-color: white;
-        -webkit-box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.11);
-        box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.11);
-        padding: 0 30rpx;
-        .record {
-            height: 140rpx;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
-            -webkit-box-orient: horizontal;
-            -webkit-box-direction: normal;
-            -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
-            -webkit-box-pack: justify;
-            -ms-flex-pack: justify;
-            justify-content: space-between;
-            &:not(:last-child) {
-                border-bottom: 1px solid #e5e5e5;
-            }
-            .col {}
-            .left {
-                width: 40%;
-                font-size: 16px;
-
-                view{
-                    overflow: hidden;
-                    white-space: nowrap;
-                    text-overflow: ellipsis;
-                }
-
-                view:nth-child(2) {
-                    font-size: 13px;
-                    color: #a4a4a4;
-                }
-            }
-            .middle {
-                -webkit-box-flex: 1;
-                -ms-flex: 1;
-                flex: 1;
-                text-align: left;
-                font-size: 19px;
-            }
-            .right {
-                width: 30%;
-                text-align: right;
-                font-size: 19px;
-                color: #4a4a4a;
-            }
-
-            &:active{
-                background-color: #f5f5f5;
-            }
-        }
-    }
+  }
 }
 </style>
 <template>
-    <view class="container">
-        <view class="toolbar">
-            <view class="section" style="font-size: 16px;">
-                更新至{{record.year}}年{{record.month}}月
+  <view class="container">
+    <view class="toolbar">
+      <view class="section" style="font-size: 16px;">
+        更新至{{record.year}}年{{record.month}}月
+      </view>
+
+      <view class="section" style="color: #a4a4a4; font-size: 14px;">
+        总消费：{{record.out}}元
+        <text style="margin: 0 23rpx;"></text>充值金额：{{record.in}}元
+
+      </view>
+
+    </view>
+    <scroll-view class="main" scroll-y="true" bindscrolltolower="handleLoadMore" enable-back-to-top="true" scroll-with-animation="true">
+
+      <view class="section header">
+        <view>
+          <image src="{{moneyIconUrl}}" /> 全部账单
+        </view>
+      </view>
+
+      <view class="section records">
+
+        <repeat for="{{record.details}}">
+
+          <view class="record" @tap="handleGiveMoney({{item}})">
+
+            <view class="col left">
+              <view>{{item.action}}</view>
+              <view>{{item.datetime}}</view>
             </view>
 
-            <view class="section" style="color: #a4a4a4; font-size: 14px;">
-                总消费：{{record.out}}元
-                <text style="margin: 0 23rpx;"></text>充值金额：{{record.in}}元
-
+            <view class="col middle" style="color: {{item.inout[0] == '-' ? '#61749B' : '#d30a0a'}}">
+              {{item.inout}}
             </view>
+
+            <view class="col right">
+              {{item.balance}}
+            </view>
+
+          </view>
+        </repeat>
+
+        <view class="record-tips" style="height: 80rpx; line-height: 80rpx; text-align: center; font-size: 15px; color: #9b9b9b;">
+
+          <view wx:if="{{loadingMore}}">加载中...</view>
+          <view wx:else>
+            <text wx:if="{{hasMore}}">上拉加载更多</text>
+            <text wx:else>没有了~</text>
+
+          </view>
 
         </view>
-        <scroll-view class="main" scroll-y="true" bindscrolltolower="handleLoadMore" enable-back-to-top="true" scroll-with-animation="true">
+      </view>
 
-            <view class="section header">
-                <view>
-                    <image src="{{moneyIconUrl}}" /> 全部账单
-                </view>
-            </view>
-
-            <view class="section records">
-
-                <repeat for="{{record.details}}">
-
-                    <view class="record" @tap="handleGiveMoney({{item}})">
-
-                        <view class="col left">
-                            <view>{{item.action}}</view>
-                            <view>{{item.datetime}}</view>
-                        </view>
-
-                        <view class="col middle" style="color: {{item.inout[0] == '-' ? '#61749B' : '#d30a0a'}}">
-                            {{item.inout}}
-                        </view>
-
-                        <view class="col right">
-                            {{item.balance}}
-                        </view>
-
-                    </view>
-                </repeat>
-
-                <view class="record-tips" style="height: 80rpx; line-height: 80rpx; text-align: center; font-size: 15px; color: #9b9b9b;">
-
-                    <view wx:if="{{loadingMore}}">加载中...</view>
-                    <view wx:else>
-                        <text wx:if="{{hasMore}}">上拉加载更多</text>
-                        <text wx:else>没有了~</text>
-
-                    </view>
-
-                </view>
-            </view>
-
-        </scroll-view>
-    </view>
+    </scroll-view>
+  </view>
 </template>
 
 <script>
@@ -213,236 +214,219 @@ import * as statApi from '../../network/api/stat';
 const PAGE_LIMIT = 20;
 
 export default class CustomerBillAll extends wepy.page {
+  config = {
+    navigationBarTitleText: '全部帐单',
+    enablePullDownRefresh: true,
+    backgroundTextStyle: 'dark'
+  };
+  components = {};
 
-    config = {
-        navigationBarTitleText: '全部帐单',
-        enablePullDownRefresh: true,
-        backgroundTextStyle: 'dark'
+  data = {
+    moneyIconUrl: '../../assets/imgs/icon_home.png',
+
+    currentPage: 1,
+    loadingMore: false,
+    hasMore: false,
+
+    record: {
+      year: '-',
+      month: '-',
+      out: '-',
+      in: '-',
+      details: []
     }
-    components = {
+  };
 
-    }
+  computed = {};
 
-    data = {
+  methods = {
+    handleLoadMore(e) {
+      let ctx = this;
 
-        moneyIconUrl: '../../assets/imgs/icon_home.png',
-
-        currentPage: 1,
-        loadingMore: false,
-        hasMore: false,
-
-        record: {
-            year: '-',
-            month: '-',
-            out: '-',
-            in: '-',
-            details: [
-            ]
-        }
-    }
-
-    computed = {
-
-    }
-
-    methods = {
-        handleLoadMore(e) {
-            let ctx = this;
-
-            if (!ctx.loadingMore && ctx.hasMore) {
-                ctx.loadingMore = true;
-                ctx.$apply();
-                ctx.loadRecords();
-            }
-        },
-        handleGiveMoney(item){
-            if(item.target){
-                wepy.navigateTo({
-                    url: `customer_give?account=${item.target}`
-                });
-            }
-        }
-    }
-
-    events = {
-
-    }
-
-    async loadRecords() {
-
-        let ctx = this;
-
-        let now = new Date();
-        let to_time = now.getFullYear() + '-' +
-            DateUtils.format(now.getMonth() + 1) + '-' +
-            DateUtils.format(now.getDate()) + ' ' +
-            DateUtils.format(now.getHours()) + ':' +
-            DateUtils.format(now.getMinutes()) + ':' +
-            DateUtils.format(now.getSeconds());
-
-
-        let res = null;
-
-        try {
-            res = await statApi.customerOrder(
-                ctx.$parent.globalData.token,
-                '2017-01-01 00:00:00',
-                to_time,
-                ctx.currentPage,
-                PAGE_LIMIT);
-
-        } catch (err) {
-
-            return;
-        } finally {
-            wepy.stopPullDownRefresh();
-            ctx.loadingMore = false;
-            ctx.$apply();
-
-        }
-
-        ctx.record.details = [
-            ...ctx.record.details,
-            ...res.orders.map(order => {
-
-                let t = order.type == '充值' || order.type == '退款' || order.type == '团餐客户拨款' || order.type == '受赠';
-
-                let action = null;
-
-                let target = null;
-
-                switch (order.type) {
-                    case '转赠':
-                        try {
-                            let tt = JSON.parse(order.payload);
-                            action = order.type + '(' + (tt.toUsername || tt.toUserId || '未知') + ')';
-                            target = tt.toUsername;
-                        } catch (err) {
-                            action = order.branch_name || order.type;
-                        } finally { }
-                        break;
-
-                    case '受赠':
-
-                        try {
-                            let tt = JSON.parse(order.payload);
-                            action = order.type + '(' + (tt.fromUsername || tt.fromUserId || '未知') + ')';
-                            target = tt.fromUsername;
-                        } catch (err) {
-                            action = order.branch_name || order.type;
-                        } finally { }
-
-
-                        break;
-
-                    default:
-
-                        action = order.branch_name || order.type;
-
-                        break;
-                }
-
-                return {
-                    datetime: order.created_at.substring(5, 16),
-                    inout: t ? '+' + order.amount : '-' + order.amount,
-                    balance: order.balance_after || '-',
-                    action,
-                    target
-                }
-            })
-        ];
-
-        if (res.orders.length === PAGE_LIMIT) {
-            ctx.currentPage += 1;
-            ctx.hasMore = true;
-        } else {
-            ctx.hasMore = false;
-        }
-
+      if (!ctx.loadingMore && ctx.hasMore) {
+        ctx.loadingMore = true;
         ctx.$apply();
-
-    }
-
-    async loadStat() {
-
-        let ctx = this;
-
-        let now = new Date();
-        let to_time = now.getFullYear() + '-' +
-            DateUtils.format(now.getMonth() + 1) + '-' +
-            DateUtils.format(now.getDate()) + ' ' +
-            DateUtils.format(now.getHours()) + ':' +
-            DateUtils.format(now.getMinutes()) + ':' +
-            DateUtils.format(now.getSeconds());
-
-        wepy.showLoading({
-            title: '获取中',
-            mask: true
+        ctx.loadRecords();
+      }
+    },
+    handleGiveMoney(item) {
+      if (item.target) {
+        wepy.navigateTo({
+          url: `customer_give?account=${item.target}`
         });
+      }
+    }
+  };
 
-        let res = null;
+  events = {};
 
-        try {
-            res = await statApi.customerStat(
-                ctx.$parent.globalData.token,
-                '2017-01-01 00:00:00',
-                to_time);
-        } catch (err) {
+  async loadRecords() {
+    let ctx = this;
 
-            wepy.showModal({
-                title: '获取失败',
-                content: err,
-                showCancel: false
-            });
+    let now = new Date();
+    let to_time =
+      now.getFullYear() +
+      '-' +
+      DateUtils.format(now.getMonth() + 1) +
+      '-' +
+      DateUtils.format(now.getDate()) +
+      ' ' +
+      DateUtils.format(now.getHours()) +
+      ':' +
+      DateUtils.format(now.getMinutes()) +
+      ':' +
+      DateUtils.format(now.getSeconds());
 
-            return;
-        } finally {
-            wepy.hideLoading();
+    let res = null;
+
+    try {
+      res = await statApi.customerOrder(
+        wepy.getStorageSync('token'),
+        '2017-01-01 00:00:00',
+        to_time,
+        ctx.currentPage,
+        PAGE_LIMIT
+      );
+    } catch (err) {
+      return;
+    } finally {
+      wepy.stopPullDownRefresh();
+      ctx.loadingMore = false;
+      ctx.$apply();
+    }
+
+    ctx.record.details = [
+      ...ctx.record.details,
+      ...res.orders.map(order => {
+        let t = order.type == '充值' || order.type == '退款' || order.type == '团餐客户拨款' || order.type == '受赠';
+
+        let action = null;
+
+        let target = null;
+
+        switch (order.type) {
+          case '转赠':
+            try {
+              let tt = JSON.parse(order.payload);
+              action = order.type + '(' + (tt.toUsername || tt.toUserId || '未知') + ')';
+              target = tt.toUsername;
+            } catch (err) {
+              action = order.branch_name || order.type;
+            } finally {
+            }
+            break;
+
+          case '受赠':
+            try {
+              let tt = JSON.parse(order.payload);
+              action = order.type + '(' + (tt.fromUsername || tt.fromUserId || '未知') + ')';
+              target = tt.fromUsername;
+            } catch (err) {
+              action = order.branch_name || order.type;
+            } finally {
+            }
+
+            break;
+
+          default:
+            action = order.branch_name || order.type;
+
+            break;
         }
 
-        ctx.record.in = res.stat.total_topup;
-        ctx.record.out = res.stat.total_purchase;
+        return {
+          datetime: order.created_at.substring(5, 16),
+          inout: t ? '+' + order.amount : '-' + order.amount,
+          balance: order.balance_after || '-',
+          action,
+          target
+        };
+      })
+    ];
 
-        ctx.$apply();
-
+    if (res.orders.length === PAGE_LIMIT) {
+      ctx.currentPage += 1;
+      ctx.hasMore = true;
+    } else {
+      ctx.hasMore = false;
     }
 
-    initDate() {
+    ctx.$apply();
+  }
 
-        let ctx = this;
-        let date = new Date();
+  async loadStat() {
+    let ctx = this;
 
-        ctx.record.year = date.getFullYear();
-        ctx.record.month = date.getMonth() + 1;
+    let now = new Date();
+    let to_time =
+      now.getFullYear() +
+      '-' +
+      DateUtils.format(now.getMonth() + 1) +
+      '-' +
+      DateUtils.format(now.getDate()) +
+      ' ' +
+      DateUtils.format(now.getHours()) +
+      ':' +
+      DateUtils.format(now.getMinutes()) +
+      ':' +
+      DateUtils.format(now.getSeconds());
 
-        ctx.$apply();
+    wepy.showLoading({
+      title: '获取中',
+      mask: true
+    });
+
+    let res = null;
+
+    try {
+      res = await statApi.customerStat(wepy.getStorageSync('token'), '2017-01-01 00:00:00', to_time);
+    } catch (err) {
+      wepy.showModal({
+        title: '获取失败',
+        content: err,
+        confirmColor: '#d30a0a',
+        showCancel: false
+      });
+
+      return;
+    } finally {
+      wepy.hideLoading();
     }
 
-    onPullDownRefresh() {
+    ctx.record.in = res.stat.total_topup;
+    ctx.record.out = res.stat.total_purchase;
 
-        let ctx = this;
+    ctx.$apply();
+  }
 
-        ctx.currentPage = 1;
-        ctx.record.details = [];
+  initDate() {
+    let ctx = this;
+    let date = new Date();
 
-        ctx.loadStat();
-        ctx.loadRecords();
+    ctx.record.year = date.getFullYear();
+    ctx.record.month = date.getMonth() + 1;
 
-    }
+    ctx.$apply();
+  }
 
-    onShow(){
+  onPullDownRefresh() {
+    let ctx = this;
 
-    }
+    ctx.currentPage = 1;
+    ctx.record.details = [];
 
-    onLoad() {
-        
-        let ctx = this;
+    ctx.loadStat();
+    ctx.loadRecords();
+  }
 
-        ctx.initDate();
-        ctx.loadStat();
-        ctx.loadRecords();
+  onShow() {}
 
+  onLoad() {
+    let ctx = this;
 
-    }
+    ctx.initDate();
+    ctx.loadStat();
+    ctx.loadRecords();
+  }
 }
 </script>

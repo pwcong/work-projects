@@ -3,11 +3,12 @@ const notp = require('./vendor/node-notp');
 
 const InvalidSecret = new TypeError('secret is not correct.')
 
-const TradeCrypto = function TradeCryptoConstructor(secret, timeStep) {
+const TradeCrypto = function TradeCryptoConstructor(secret, timeStep, timeOffset = 0) {
   this.secret = secret;
   this.InvalidSecret = InvalidSecret;
   this.key = decryptTOTPKey(secret);
   this.timeStep = timeStep;
+  this.timeOffset = timeOffset;
 };
 
 /**
@@ -17,7 +18,7 @@ const TradeCrypto = function TradeCryptoConstructor(secret, timeStep) {
  * @return {string} 6位数字 token
  */
 TradeCrypto.prototype.generateToken = function (keyPayload = '') {
-  return notp.totp.gen(this.key + keyPayload, { time: this.timeStep });
+  return notp.totp.gen(this.key + keyPayload, { time: this.timeStep, timeOffset: this.timeOffset });
 }
 
 /**

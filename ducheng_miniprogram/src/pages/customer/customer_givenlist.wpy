@@ -1,93 +1,93 @@
 <style lang="scss">
 .main {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: auto;
+  position: relative;
+  padding-top: 30rpx;
+  padding-bottom: 30rpx;
+  .item {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    overflow: auto;
-    position: relative;
-    padding-top: 30rpx;
-    padding-bottom: 30rpx;
-    .item {
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        padding: 0 32rpx;
-        -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
-        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
-        background-color: white;
-        width: 100%;
-        height: 110rpx;
-        line-height: 110rpx;
-        image {
-            vertical-align: middle;
-            margin-right: 36rpx;
-            width: 36rpx;
-            height: 36rpx;
-            position: relative;
-            top: -6rpx;
-        }
-        text {
-            color: #333;
-            font-size: 18px;
-        }
-        &:active {
-            background-color: #f5f5f5;
-        }
-        &:not(:last-child) {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.11);
-        }
+    padding: 0 32rpx;
+    -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
+    background-color: white;
+    width: 100%;
+    height: 110rpx;
+    line-height: 110rpx;
+    image {
+      vertical-align: middle;
+      margin-right: 36rpx;
+      width: 36rpx;
+      height: 36rpx;
+      position: relative;
+      top: -6rpx;
     }
-    .tips {
-        font-size: 16px;
-        color: #666;
-        text-align: center;
-        icon {
-            line-height: 110rpx;
-            margin-right: 24rpx;
-            position: relative;
-            top: 16rpx;
-        }
+    text {
+      color: #333;
+      font-size: 18px;
     }
+    &:active {
+      background-color: #f5f5f5;
+    }
+    &:not(:last-child) {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.11);
+    }
+  }
+  .tips {
+    font-size: 16px;
+    color: #666;
+    text-align: center;
+    icon {
+      line-height: 110rpx;
+      margin-right: 24rpx;
+      position: relative;
+      top: 16rpx;
+    }
+  }
 }
 </style>
 <template>
-    <view class="container">
+  <view class="container">
 
-        <view class="main">
-            
-            <repeat for="{{list}}">
-                <view class="item"  @tap="handleItemClick({{item}})">
-                    <image src="{{peopleIconUrl}}"></image>
-                    <text>{{item}}</text>
-                </view>
-            </repeat>
+    <view class="main">
 
-            <view wx:if="{{isEmpty}}" class="item tips">
-                <icon type="info" size="24"/>没有记录
-            </view>
-
+      <repeat for="{{list}}">
+        <view class="item" @tap="handleItemClick({{item}})">
+          <image src="{{peopleIconUrl}}"></image>
+          <text>{{item}}</text>
         </view>
+      </repeat>
+
+      <view wx:if="{{isEmpty}}" class="item tips">
+        <icon type="info" size="24" />没有记录
+      </view>
 
     </view>
+
+  </view>
 </template>
 
 <script>
-import wepy from "wepy";
+import wepy from 'wepy';
 
-import * as userApi from "../../network/api/user";
+import * as userApi from '../../network/api/user';
 
 import EventBus from '../../eventbus/eventbus';
 
 export default class CustomerGivenList extends wepy.page {
   config = {
-    navigationBarTitleText: "最近转赠",
+    navigationBarTitleText: '最近转赠',
     disableScroll: true
   };
 
   components = {};
 
   data = {
-    peopleIconUrl: "../../assets/imgs/icon_people_fill.png",
+    peopleIconUrl: '../../assets/imgs/icon_people_fill.png',
 
     list: []
   };
@@ -100,10 +100,10 @@ export default class CustomerGivenList extends wepy.page {
 
   methods = {
     handleItemClick(username) {
-        EventBus.emit('customer_givenlist-settarget', username);
-        wepy.navigateBack({
-            delta: 1
-        });
+      EventBus.emit('customer_givenlist-settarget', username);
+      wepy.navigateBack({
+        delta: 1
+      });
     }
   };
 
@@ -115,16 +115,17 @@ export default class CustomerGivenList extends wepy.page {
     let res = null;
 
     wepy.showLoading({
-      title: "获取中",
+      title: '获取中',
       mask: true
     });
 
     try {
-      res = await userApi.giveawayList(ctx.$parent.globalData.token);
+      res = await userApi.giveawayList(wepy.getStorageSync('token'));
     } catch (err) {
       wepy.showModal({
-        title: "获取失败",
+        title: '获取失败',
         content: err,
+        confirmColor: '#d30a0a',
         showCancel: false
       });
       return;
@@ -138,7 +139,7 @@ export default class CustomerGivenList extends wepy.page {
 
     let list = [];
 
-    res.usernames.split(",").forEach(function(username) {
+    res.usernames.split(',').forEach(function(username) {
       list.push(username);
     });
 
@@ -156,7 +157,6 @@ export default class CustomerGivenList extends wepy.page {
     }
 
     ctx.getGiveAwayList();
-
   }
 }
 </script>

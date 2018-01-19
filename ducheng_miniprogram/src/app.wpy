@@ -1,15 +1,15 @@
 <style>
 .container {
-    position: absolute;
-    left: 0;
-    top: 0;
-    font-family: "Microsoft YaHei", sans-serif;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    background-color: #fff6d8;
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: 'Microsoft YaHei', sans-serif;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: #fff6d8;
 }
 </style>
 
@@ -17,8 +17,7 @@
 import wepy from 'wepy';
 import 'wepy-async-function';
 
-// import * as rsa from './utils/rsa/rsa';
-// import Base64 from './utils/base64';
+import * as systemApi from './network/api/system';
 
 export default class extends wepy.app {
   config = {
@@ -48,122 +47,48 @@ export default class extends wepy.app {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black',
+      navigationBarTextStyle: 'black'
     },
     networkTimeout: {
       request: 10000,
       downloadFile: 10000
     }
-  }
+  };
 
-  globalData = {
-    user: null,
-    token: null,
-    secret: null,
-    expires_in: null,
-    time_step: null,
-    key: null
-  }
+  globalData = {};
 
   constructor() {
     super();
     this.use('requestfix');
-
   }
 
   clearLoginStat() {
+    wepy.removeStorageSync('user');
+    wepy.removeStorageSync('token');
+    wepy.removeStorageSync('secret');
+    wepy.removeStorageSync('time_step');
+    wepy.removeStorageSync('branch');
+  }
 
+  async calcTimeOffset() {
     let ctx = this;
+    let res = null;
 
-    ctx.globalData.user = null;
-    ctx.globalData.token = null;
-    ctx.globalData.secret = null;
-    ctx.globalData.expires_in = null;
-    ctx.globalData.time_step = null;
+    try {
+      res = await systemApi.getSystemTime();
+    } catch (err) {
+    } finally {
+    }
 
-    wx.removeStorageSync('user');
-    wx.removeStorageSync('token');
-    wx.removeStorageSync('secret');
-    wx.removeStorageSync('expires_in');
-    wx.removeStorageSync('time_step');
-
+    if (res.timestamp) {
+      wepy.setStorageSync('time_offset', res.timestamp - new Date().getTime());
+    }
   }
 
-
-  onLaunch() {
-
-    // this.globalData = {
-    //   "user": {
-    //       "last_transaction_time": "2017-10-31 17:19:38",
-    //       "birthday": "2017-10-29",
-    //       "last_topup_time": "2017-09-30 12:35:35",
-    //       "balance": "441.00",
-    //       "created_at": "2017-09-22 17:30:44",
-    //       "updated_at": "2017-11-01 10:06:53",
-    //       "id": 3,
-    //       "username": "1stdcl",
-    //       "user_type": 4,
-    //       "nickname": "邓成龙",
-    //       "account_status": 0,
-    //       "override_discount": false,
-    //       "account_type": 1,
-    //       "department_remark": null,
-    //       "payment_behavior": 0,
-    //       "gender": 1,
-    //       "identity_number": null,
-    //       "email_address": "dcl@dcl.cn",
-    //       "phone_number": null,
-    //       "remark": "测试",
-    //       "purchased": true,
-    //       "topuped": true,
-    //       "password_expired": false,
-    //       "branch_id": null,
-    //       "company_id": 1,
-    //       "company": {
-    //           "name": "测试",
-    //           "remark": "123456"
-    //       },
-    //       "branch": null
-    //   },
-    //   "token": "1stdcl:8043606fc1cacb76b4c9e92bfcc4f9778e10fa658505954f0e3c6814c9448b31",
-    //   "secret": "MjM2MzYzMDMzMzMzMTM1MzAzOTM1MzAzMjMyMzYzMDM3MzczNzM=",
-    //   "expires_in": 1510107060777,
-    //   "time_step": 30,
-    //   "system": {
-    //       "running": true,
-    //       "running_hint": ""
-    //   }
-    // }
-
-    //   var key;
-
-    //   key = new rsa.RSAKeyPair(
-    //     // Public exponent extracted from private_key.pem using
-    //     // openssl rsa -inform PEM -text -noout < private_key.pem
-    //     // Or extracted from public key PEM file using
-    //     // openssl rsa -pubin -inform PEM -text -noout < public_key.pem
-    //     "186a1",
-
-    //     // Dummy decryption exponent -- actual value only kept on server.
-    //     "10001",
-
-    //     // Modulus extracted from private key PEM file using
-    //     // openssl rsa -inform PEM -modulus -noout < private_key.pem
-    //     // Or extracted from public key PEM file using
-    //     // openssl rsa -pubin -inform PEM -modulus -noout < public_key.pem
-    //     "CEB0CF121FE5D1F5CBEB413C3540320A9CFA36BCFBA7E19BD0044BA2A3755BD21F74CAA4B6D81F22502BA97422EED4E28C21176B69B4B6026311D7A7B3058ADF",
-
-    //     // Key size in bits.
-    //     512
-    //   );
-
-
-    //   var ciphertext = rsa.encryptedString(key, 'OKHeiHeiHei',
-    //     rsa.RSAAPP.PKCS1Padding, rsa.RSAAPP.RawEncoding);
-
-    //   console.log(Base64.btoa(ciphertext));
-
+  onShow() {
+    this.calcTimeOffset();
   }
 
+  onLaunch() {}
 }
 </script>

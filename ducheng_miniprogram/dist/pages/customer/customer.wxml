@@ -1,39 +1,38 @@
 
-    <view class="container">
-        <view class="toolbar">
-            <view bindtap="handleCenterButtonClick" class="user-name">
-                <image src="{{peopleIconUrl}}"/> {{user.nickName}}
-            </view>
-            <view bindtap="handleCenterButtonClick" class="user-company">{{user.company}}</view>
-            <view class="action" bindtap="handleBillButtonClick">账单</view>
+  <view class="container">
+    <view class="toolbar">
+      <view bindtap="handleCenterButtonClick" class="user-name">
+        <image src="{{peopleIconUrl}}"/> {{user.nickName}}
+      </view>
+      <view bindtap="handleCenterButtonClick" class="user-company">{{user.company}}</view>
+      <view class="action" bindtap="handleBillButtonClick">账单</view>
+    </view>
+
+    <view class="main">
+      <view class="section balance">
+        <view>当前余额</view>
+        <view>￥{{user.balance}}</view>
+      </view>
+
+      <view class="section qrcode" style="display: {{available ? 'block' : 'none'}};">
+        <view>
+          <canvas canvas-id="qrcode" style="width: 172px; height: 172px; margin: 0 auto;"/>
         </view>
+        <view class="qrcode-num">{{user.payCode}}</view>
+      </view>
 
-        <view class="main">
-            <view class="section balance">
-                <view>当前余额</view>
-                <view>￥{{user.balance}}</view>
-            </view>
+      <view class="section"  wx:if="{{!available}}" style="padding: 36rpx; 72rpx; text-align: center; color: #D30A0A;">
 
-            <view class="section qrcode" style="display: {{available ? 'block' : 'none'}};">
-                <view>
-                  <canvas canvas-id="qrcode" style="width: 172px; height: 172px; margin: 0 auto;"/>
-                </view>
-                <view class="qrcode-num">{{user.payCode}}</view>
-            </view>
+        <text>{{reason}}</text>
 
-            <view class="section"  wx:if="{{!available}}" style="padding: 36rpx; 72rpx; text-align: center; color: #D30A0A;">
+      </view>
 
-                <text>{{reason}}</text>
-
-            </view>
-
-            <view class="section action"  wx:if="{{available}}">
-                <text bindtap="handleGiveButtonClick">转赠</text>
-            </view>
-
-
-        </view>
-
-        <image src="../../assets/imgs/home_logo.png" class="logo"/>
+      <view class="section action"  wx:if="{{available}}">
+        <text bindtap="handleGiveButtonClick">转赠</text>
+      </view>
 
     </view>
+
+    <image src="../../assets/imgs/home_logo.png" class="logo"/>
+
+  </view>

@@ -1,152 +1,151 @@
 <style lang="scss">
 .main {
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: auto;
+  position: relative;
+  padding: 38rpx 30rpx;
+  .section {
     width: 100%;
-    height: 100%;
+    background-color: white;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    overflow: auto;
-    position: relative;
-    padding: 38rpx 30rpx;
-    .section {
+  }
+  .balance {
+    padding: 20rpx 0;
+    height: 200rpx;
+    border-bottom: 1px solid #e5e5e5;
+    view {
+      width: 100%;
+      text-align: center;
+    }
+    view:nth-child(1) {
+      font-size: 14px;
+      color: #4a4a4a;
+    }
+    view:nth-child(2) {
+      font-size: 36px;
+      color: #d30a0a;
+      letter-spacing: 0;
+    }
+  }
+  .form {
+    padding: 74rpx 50rpx 78rpx 50rpx;
+    .form-item {
+      width: 100%;
+      height: 90rpx;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+      flex-flow: row nowrap;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      font-size: 13px;
+      color: #61749b;
+      letter-spacing: 0;
+      text {
+        width: 124rpx;
+        font-size: 17px;
+        color: #4a4a4a;
+        letter-spacing: 0.84px;
+      }
+      input {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        font-size: 17px;
+        color: black;
+        letter-spacing: 0.84px;
+      }
+
+      view.recently {
+        font-size: 12px;
+        background-color: #d30a0a;
+        color: white;
+        padding: 16rpx 24rpx;
+        border-radius: 8rpx;
+
+        &:active {
+          background: #c20909;
+        }
+      }
+
+      button.submit {
+        height: 96rpx;
         width: 100%;
-        background-color: white;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        justify-content: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: normal;
-        -ms-flex-flow: row wrap;
-        flex-flow: row wrap;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
+        line-height: 96rpx;
+        font-size: 20px;
+        color: #ffffff;
+        letter-spacing: 0.99px;
+        background: #d30a0a;
+        border-radius: 3px;
+        -webkit-transition: background 0.1s;
+        transition: background 0.1s;
+        &:hover {
+          background: #e41b1b;
+        }
+        &:active {
+          background: #c20909;
+        }
+      }
     }
-    .balance {
-        padding: 20rpx 0;
-        height: 200rpx;
-        border-bottom: 1px solid #e5e5e5;
-        view {
-            width: 100%;
-            text-align: center;
-        }
-        view:nth-child(1) {
-            font-size: 14px;
-            color: #4A4A4A;
-        }
-        view:nth-child(2) {
-            font-size: 36px;
-            color: #D30A0A;
-            letter-spacing: 0;
-        }
-    }
-    .form {
-        padding: 74rpx 50rpx 78rpx 50rpx;
-        .form-item {
-            width: 100%;
-            height: 90rpx;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-box-orient: horizontal;
-            -webkit-box-direction: normal;
-            -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            font-size: 13px;
-            color: #61749B;
-            letter-spacing: 0;
-            text {
-                width: 124rpx;
-                font-size: 17px;
-                color: #4A4A4A;
-                letter-spacing: 0.84px;
-            }
-            input {
-                -webkit-box-flex: 1;
-                -ms-flex: 1;
-                flex: 1;
-                font-size: 17px;
-                color: black;
-                letter-spacing: 0.84px;
-            }
-
-            view.recently{
-
-                font-size: 12px;
-                background-color: #D30A0A;
-                color: white;
-                padding: 16rpx 24rpx;
-                border-radius: 8rpx;
-
-                &:active{
-                    background: #c20909;
-                }
-            }
-
-            button.submit {
-                height: 96rpx;
-                width: 100%;
-                line-height: 96rpx;
-                font-size: 20px;
-                color: #FFFFFF;
-                letter-spacing: 0.99px;
-                background: #D30A0A;
-                border-radius: 3px;
-                -webkit-transition: background 0.1s;
-                transition: background 0.1s;
-                &:hover {
-                    background: #e41b1b;
-                }
-                &:active {
-                    background: #c20909;
-                }
-            }
-        }
-    }
+  }
 }
 </style>
 <template>
-    <view class="container">
+  <view class="container">
 
-        <view class="main">
-            <view class="section balance">
-                <view>当前余额</view>
-                <view>￥{{balance || '-'}}</view>
-            </view>
+    <view class="main">
+      <view class="section balance">
+        <view>当前余额</view>
+        <view>￥{{balance || '-'}}</view>
+      </view>
 
-            <view class="section form">
+      <view class="section form">
 
-                <view class="form-item" style="box-shadow: inset 0 -1px 0 0 rgba(224, 224, 224, 0.50);">
-                    <text>账号</text>
-                    <input @input="handleAccountChange" placeholder="输入会员账号" value="{{account}}"/>
-                    <view class="recently" @tap="handleToGivenList">最近记录</view>
-                </view>
-
-                <view class="form-item" style="margin-top: 38rpx; box-shadow: inset 0 -1px 0 0 rgba(224, 224, 224, 0.50);">
-                    <text>金额</text>
-                    <input type="digit" @input="handleAmountChange" placeholder="输入转账金额" />
-                </view>
-
-                <view class="form-item" style="margin: 38rpx 0 94rpx 0;">提示：转账金额不能大于本账户余额</view>
-
-                <view class="form-item">
-                    <button @tap="handleGiveButtonClick" class="submit">转赠</button>
-                </view>
-
-            </view>
-
+        <view class="form-item" style="box-shadow: inset 0 -1px 0 0 rgba(224, 224, 224, 0.50);">
+          <text>账号</text>
+          <input @input="handleAccountChange" placeholder="输入会员账号" value="{{account}}" />
+          <view class="recently" @tap="handleToGivenList">最近记录</view>
         </view>
 
+        <view class="form-item" style="margin-top: 38rpx; box-shadow: inset 0 -1px 0 0 rgba(224, 224, 224, 0.50);">
+          <text>金额</text>
+          <input type="digit" @input="handleAmountChange" placeholder="输入转账金额" />
+        </view>
+
+        <view class="form-item" style="margin: 38rpx 0 94rpx 0;">提示：转账金额不能大于本账户余额</view>
+
+        <view class="form-item">
+          <button @tap="handleGiveButtonClick" class="submit">转赠</button>
+        </view>
+
+      </view>
+
     </view>
+
+  </view>
 </template>
 
 <script>
@@ -161,204 +160,169 @@ import * as tradeApi from '../../network/api/trade';
 import EventBus from '../../eventbus/eventbus';
 
 export default class CustomerGive extends wepy.page {
-    config = {
-        navigationBarTitleText: '转赠',
-        disableScroll: true
-    }
+  config = {
+    navigationBarTitleText: '转赠',
+    disableScroll: true
+  };
 
-    components = {
+  components = {};
 
-    }
+  data = {
+    balance: null,
+    account: null,
+    amount: null
+  };
 
-    data = {
-        balance: null,
-        account: null,
-        amount: null
-    }
+  computed = {};
 
-    computed = {
+  methods = {
+    handleGiveButtonClick(e) {
+      let ctx = this;
 
-    }
-
-    methods = {
-        handleGiveButtonClick(e) {
-
-            let ctx = this;
-
-            if (!ctx.account || !ctx.amount) {
-
-                wepy.showModal({
-                    title: '提示',
-                    content: '请输入账号和金额',
-                    showCancel: false
-                });
-
-                return;
-
-            }
-
-            if (!TradeUtils.checkAmount(ctx.amount)) {
-                wepy.showModal({
-                    title: '提示',
-                    content: '请输入正确的金额',
-                    showCancel: false
-                });
-                return;
-            }
-
-            if (ctx.account == ctx.$parent.globalData.user.username) {
-
-                wepy.showModal({
-                    title: '提示',
-                    content: '请输入正确的账号',
-                    showCancel: false
-                });
-                
-                return;
-            }
-
-            ctx.giveaway(ctx.account, ctx.amount);
-
-            // let msg = `提示：只能转赠到同一团餐客户下的其他会员，请确认账号输入无误`;
-
-            // wepy.navigateTo({
-            //     url: `../result?msg=转赠失败&content=${msg}&type=warn&color=#61749B&fontsize=13`
-            // });
-
-        },
-        handleAccountChange(e) {
-
-
-            this.account = e.detail.value;
-
-        },
-        handleAmountChange(e) {
-
-            this.amount = e.detail.value;
-
-        },
-        handleToGivenList(e){
-
-            wepy.navigateTo({
-                url: 'customer_givenlist'
-            });
-
-        }
-
-    }
-
-    events = {
-
-    }
-
-    async giveaway(username, amount) {
-
-        let ctx = this;
-
-        let res = null;
-
-        wepy.showLoading({
-            title: '转赠中',
-            mask: true
+      if (!ctx.account || !ctx.amount) {
+        wepy.showModal({
+          title: '提示',
+          content: '请输入账号和金额',
+          confirmColor: '#d30a0a',
+          showCancel: false
         });
 
-        try {
+        return;
+      }
 
-            res = await tradeApi.giveaway(ctx.$parent.globalData.token, username, TradeUtils.formatAmount(amount));
+      if (
+        !/^(([1-9][0-9]*)|(([0]\.\d{0,2}|[1-9][0-9]*\.\d{0,2})))$/.test(ctx.amount) ||
+        !TradeUtils.checkAmount(ctx.amount)
+      ) {
+        wepy.showModal({
+          title: '提示',
+          content: '请输入正确的金额',
+          confirmColor: '#d30a0a',
+          showCancel: false
+        });
+        return;
+      }
 
-        } catch (err) {
-
-            wepy.navigateTo({
-                url: `../result?msg=转赠失败&content=${err}&type=warn&color=#61749B&fontsize=13&delta=2`
-            });
-
-            return;
-        } finally {
-            wepy.hideLoading();
-        }
-
-        let displayAmount = StringUtils.formatPrice(amount);
-
-        wepy.navigateTo({
-            url: `../result?msg=转赠成功&content=￥${displayAmount}&delta=2`
+      if (ctx.account == JSON.parse(wepy.getStorageSync('user')).username) {
+        wepy.showModal({
+          title: '提示',
+          content: '请输入正确的账号',
+          confirmColor: '#d30a0a',
+          showCancel: false
         });
 
+        return;
+      }
 
+      ctx.giveaway(ctx.account, ctx.amount);
+
+      // let msg = `提示：只能转赠到同一团餐客户下的其他会员，请确认账号输入无误`;
+
+      // wepy.navigateTo({
+      //     url: `../result?msg=转赠失败&content=${msg}&type=warn&color=#61749B&fontsize=13`
+      // });
+    },
+    handleAccountChange(e) {
+      this.account = e.detail.value;
+    },
+    handleAmountChange(e) {
+      this.amount = e.detail.value;
+    },
+    handleToGivenList(e) {
+      wepy.navigateTo({
+        url: 'customer_givenlist'
+      });
+    }
+  };
+
+  events = {};
+
+  async giveaway(username, amount) {
+    let ctx = this;
+
+    let res = null;
+
+    wepy.showLoading({
+      title: '转赠中',
+      mask: true
+    });
+
+    try {
+      res = await tradeApi.giveaway(
+        wepy.getStorageSync('token'),
+        username,
+        TradeUtils.formatAmount(amount)
+      );
+    } catch (err) {
+      wepy.navigateTo({
+        url: `../result?msg=转赠失败&content=${err}&type=warn&color=#61749B&fontsize=13&delta=2`
+      });
+
+      return;
+    } finally {
+      wepy.hideLoading();
     }
 
+    let displayAmount = StringUtils.formatPrice(amount);
 
-    async reloadUserInfo() {
+    wepy.navigateTo({
+      url: `../result?msg=转赠成功&content=￥${displayAmount}&delta=2`
+    });
+  }
 
-        let ctx = this;
+  async loadUserInfo() {
+    let ctx = this;
 
-        let res = null;
+    let res = null;
 
-        wepy.showLoading({
-            title: '获取余额中',
-            mask: true
-        });
+    wepy.showLoading({
+      title: '获取余额中',
+      mask: true
+    });
 
-        try {
+    try {
+      res = await userApi.getInfo(wepy.getStorageSync('token'));
+    } catch (err) {
+      wepy.showModal({
+        title: '获取失败',
+        content: err,
+        confirmColor: '#d30a0a',
+        showCancel: false
+      });
 
-            res = await userApi.getInfo(ctx.$parent.globalData.token);
-
-        } catch (err) {
-
-            wepy.showModal({
-                title: '获取失败',
-                content: err,
-                showCancel: false
-            });
-
-            return;
-        } finally {
-            wepy.hideLoading();
-        }
-
-        ctx.$parent.globalData.user = res.user;
-
-        wepy.setStorageSync('user', JSON.stringify(res.user));
-
-        ctx.loadUserInfo();
-
+      return;
+    } finally {
+      wepy.hideLoading();
     }
 
-    loadUserInfo() {
+    if (res.user) {
+      ctx.balance = res.user.balance;
 
-        let ctx = this;
-
-        let globalData = ctx.$parent.globalData;
-
-        if (globalData.user) {
-            ctx.balance = globalData.user.balance;
-
-        }
-
-        ctx.$apply();
-
+      if (!ctx.account && res.user.username && res.user.username.split('#').length === 2) {
+        const companyPrefix = res.user.username.split('#')[0];
+        ctx.account = companyPrefix + '#';
+      }
     }
 
-    onShow() {
-        let ctx = this;
-        ctx.reloadUserInfo();
+    ctx.$apply();
+  }
 
+  onShow() {
+    let ctx = this;
+    ctx.loadUserInfo();
+  }
+
+  onLoad() {
+    let ctx = this;
+
+    for (let key in ctx.$wxpage.options) {
+      ctx[key] = ctx.$wxpage.options[key];
     }
 
-
-    onLoad() {
-
-        let ctx = this;
-
-        for (let key in ctx.$wxpage.options) {
-            ctx[key] = ctx.$wxpage.options[key];
-        }
-
-        EventBus.subscribe('customer_givenlist-settarget', (account) => {
-            ctx.account = account;
-            ctx.$apply();
-        });
-
-    }
-
+    EventBus.subscribe('customer_givenlist-settarget', account => {
+      ctx.account = account;
+      ctx.$apply();
+    });
+  }
 }
 </script>

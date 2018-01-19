@@ -1,236 +1,237 @@
 <style lang="scss">
 $toolbarHeight: 120rpx;
 .toolbar {
-    height: $toolbarHeight;
-    -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
-    width: 100%;
-    background-color: white;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -ms-flex-flow: row nowrap;
-    flex-flow: row nowrap;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+  height: $toolbarHeight;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
+  width: 100%;
+  background-color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row nowrap;
+  flex-flow: row nowrap;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  .userinfo {
+    height: 100%;
+    line-height: $toolbarHeight;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    padding: 0 30rpx;
-    .userinfo {
-        height: 100%;
-        line-height: $toolbarHeight;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        color: #4a4a4a;
-        font-size: 20px;
-        text {
-            color: #d30a0a;
-        }
-        image {
-            position: relative;
-            bottom: -4rpx;
-            width: 38rpx;
-            height: 38rpx;
-        }
+    color: #4a4a4a;
+    font-size: 20px;
+    text {
+      color: #d30a0a;
     }
-    .action {
-        width: 120rpx;
-        height: 60rpx;
-        line-height: 60rpx;
-        text-align: center;
-        border: 2rpx solid #d30a0a;
-        border-radius: 8rpx;
-        font-size: 16px;
-        color: #d30a0a;
-        -webkit-transition: color 0.1s, background-color 0.1s;
-        transition: color 0.1s, background-color 0.1s;
-        &:active {
-            color: white;
-            background-color: #d30a0a;
-        }
+    image {
+      position: relative;
+      bottom: -4rpx;
+      width: 38rpx;
+      height: 38rpx;
     }
+  }
+  .action {
+    width: 120rpx;
+    height: 60rpx;
+    line-height: 60rpx;
+    text-align: center;
+    border: 2rpx solid #d30a0a;
+    border-radius: 8rpx;
+    font-size: 16px;
+    color: #d30a0a;
+    -webkit-transition: color 0.1s, background-color 0.1s;
+    transition: color 0.1s, background-color 0.1s;
+    &:active {
+      color: white;
+      background-color: #d30a0a;
+    }
+  }
 }
 
 .main {
-    height: calc(100% - $toolbarHeight);
-    width: 100%;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    overflow: auto;
-    padding: 60rpx 30rpx;
-    .main-wrap {
-        background-color: white;
-        margin-bottom: 60rpx;
-        .shop-name {
-            text-align: center;
-            padding: 32rpx 0 38rpx 0;
-            border-bottom: 1px solid #e5e5e5;
-            font-size: 18px;
-        }
-        .shop-action-price {
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            padding: 40rpx;
-            color: #9b9b9b;
-            font-size: 18px;
-            .shop-action-price-wrap {
-                height: 160rpx;
-                width: 100%;
-                display: -webkit-box;
-                display: -ms-flexbox;
-                display: flex;
-                -webkit-box-align: center;
-                -ms-flex-align: center;
-                align-items: center;
-                border-bottom: 1px solid #e5e5e5;
-                text {
-                    font-size: 44px;
-                    color: black;
-                }
-                input {
-                    height: 120rpx;
-                    font-size: 44px;
-                    font-weight: bold;
-                    color: black;
-                    -webkit-box-sizing: border-box;
-                    box-sizing: border-box;
-                }
-            }
-        }
+  height: calc(100% - $toolbarHeight);
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: auto;
+  padding: 60rpx 30rpx;
+  .main-wrap {
+    background-color: white;
+    margin-bottom: 60rpx;
+    .shop-name {
+      text-align: center;
+      padding: 32rpx 0 38rpx 0;
+      border-bottom: 1px solid #e5e5e5;
+      font-size: 18px;
     }
-    .shop-action-scan {
+    .shop-action-price {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      padding: 40rpx;
+      color: #9b9b9b;
+      font-size: 18px;
+      .shop-action-price-wrap {
+        height: 160rpx;
         width: 100%;
-        height: 128rpx;
-        line-height: 130rpx;
-        background-color: #d30a0a;
-        border-radius: 8rpx;
-        text-align: center;
-        color: white;
-        font-size: 24px;
-        -webkit-transition: background-color 0.1s;
-        transition: background-color 0.1s;
-        &:active {
-            background-color: #a20909;
-        }
-    }
-    .shop-action-scan-code {
-        margin-top: 36rpx;
-        text-align: center;
-        font-size: 18px;
-        color: #9a9a9a;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        border-bottom: 1px solid #e5e5e5;
         text {
-            margin-left: 14rpx;
+          font-size: 44px;
+          color: black;
         }
-    }
-    .shop-details {
-        margin-top: 200rpx;
-        text-align: center;
-        color: #186ba0;
-        font-size: 16px;
-        text {
-            margin: 0 18rpx;
+        input {
+          height: 120rpx;
+          font-size: 44px;
+          font-weight: bold;
+          color: black;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
         }
+      }
     }
+  }
+  .shop-action-scan {
+    width: 100%;
+    height: 128rpx;
+    line-height: 130rpx;
+    background-color: #d30a0a;
+    border-radius: 8rpx;
+    text-align: center;
+    color: white;
+    font-size: 24px;
+    -webkit-transition: background-color 0.1s;
+    transition: background-color 0.1s;
+    &:active {
+      background-color: #a20909;
+    }
+  }
+  .shop-action-scan-code {
+    margin-top: 36rpx;
+    text-align: center;
+    font-size: 18px;
+    color: #9a9a9a;
+    text {
+      margin-left: 14rpx;
+    }
+  }
+  .shop-details {
+    margin-top: 200rpx;
+    text-align: center;
+    color: #186ba0;
+    font-size: 16px;
+    text {
+      margin: 0 18rpx;
+    }
+  }
 }
-
 </style>
 <template>
-    <view class="container">
-        <view class="toolbar">
+  <view class="container">
+    <view class="toolbar">
 
-            <view class="userinfo" @tap="handleUserInfoButtonClick">
-                <image src="{{peopleIconUrl}}"/>
-                {{userInfo.nickName}}
-            </view>
+      <view class="userinfo" @tap="handleUserInfoButtonClick">
+        <image src="{{peopleIconUrl}}" /> {{userInfo.nickName}}
+      </view>
 
-            <view class="action" @tap="handleBillButtonClick">对账</view>
+      <view class="action" @tap="handleBillButtonClick">对账</view>
 
-        </view>
-
-        <view class="main">
-            <view class="main-wrap">
-
-                <view class="shop-name">{{shop.name}}</view>
-
-                <view class="shop-action-price" wx:if="{{available}}">
-                    <view>请输入收款金额</view>
-                    <view class="shop-action-price-wrap">
-                        <text>￥</text>
-                        <input type="digit" @input="handleAmountChange" />
-                    </view>
-                </view>
-
-                <view wx:if="{{!available}}" style="padding: 36rpx; 72rpx; text-align: center; color: #D30A0A;">
-
-                    <text>{{reason}}</text>
-
-                </view>
-
-            </view>
-
-            <view class="shop-action-scan" @tap="handleScanButtonClick" wx:if="{{available}}">扫码收款</view>
-
-            <view class="shop-action-scan-code" @tap="handleScanCodeButtonClick" wx:if="{{available}}">
-                手动输入识别号 >
-                <text class="fa fa-angle-right"></text>
-            </view>
-
-            <view class="shop-details">
-                今日收费：{{shop.counts}}次<text>|</text>总额：{{shop.money}}元
-            </view>
-
-        </view>
     </view>
+
+    <view class="main">
+      <view class="main-wrap">
+
+        <view class="shop-name">{{shop.name}}</view>
+
+        <view class="shop-action-price" wx:if="{{available}}">
+          <view>请输入收款金额</view>
+          <view class="shop-action-price-wrap">
+            <text>￥</text>
+            <input type="digit" bindinput="handleAmountChange" />
+          </view>
+        </view>
+
+        <view wx:if="{{!available}}" style="padding: 36rpx; 72rpx; text-align: center; color: #D30A0A;">
+
+          <text>{{reason}}</text>
+
+        </view>
+
+      </view>
+
+      <view class="shop-action-scan" @tap="handleScanButtonClick" wx:if="{{available}}">扫码收款</view>
+
+      <view class="shop-action-scan-code" @tap="handleScanCodeButtonClick" wx:if="{{available}}">
+        手动输入识别号 >
+        <text class="fa fa-angle-right"></text>
+      </view>
+
+      <view class="shop-details">
+        今日收费：{{shop.counts}}次
+        <text>|</text>总额：{{shop.money}}元
+      </view>
+
+    </view>
+  </view>
 </template>
 
 <script>
-import wepy from "wepy";
+import wepy from 'wepy';
 
-import EventBus from "../../eventbus/eventbus";
-import TradeCrypto from "../../utils/trade/trade-crypto";
+import TradeCrypto from '../../utils/trade/trade-crypto';
 
-import StringUtils from "../../utils/string";
-import TimeUtils from "../../utils/time";
-import TradeUtils from "../../utils/trade/trade";
+import StringUtils from '../../utils/string';
+import TimeUtils from '../../utils/time';
+import TradeUtils from '../../utils/trade/trade';
 
-import * as statApi from "../../network/api/stat";
-import * as authApi from "../../network/api/auth";
-import * as tradeApi from "../../network/api/trade";
-import * as systemApi from "../../network/api/system";
+import * as statApi from '../../network/api/stat';
+import * as authApi from '../../network/api/auth';
+import * as userApi from '../../network/api/user';
+import * as tradeApi from '../../network/api/trade';
+import * as systemApi from '../../network/api/system';
+
+const QRCODE_VALIDATOR = new RegExp(/^99\d{16}$/);
 
 export default class Cashier extends wepy.page {
   config = {
-    navigationBarTitleText: "收银员",
+    navigationBarTitleText: '收银员',
     disableScroll: true
   };
 
   components = {};
 
   data = {
-    peopleIconUrl: "../../assets/imgs/icon_people_fill.png",
+    peopleIconUrl: '../../assets/imgs/icon_people_fill.png',
 
     userInfo: {
-      nickName: "-"
+      nickName: '-'
     },
 
-    amount: "",
+    amount: '',
 
     shop: {
-      name: "-",
-      counts: "-",
-      money: "-"
+      name: '-',
+      counts: '-',
+      money: '-'
     },
 
     renewTimer: null,
 
     available: true,
-    reason: ""
+    reason: ''
   };
 
   computed = {};
@@ -239,20 +240,11 @@ export default class Cashier extends wepy.page {
     handleScanButtonClick(e) {
       let ctx = this;
 
-      if (!ctx.amount || !TradeUtils.checkAmount(ctx.amount)) {
+      if (!ctx.amount || parseFloat(ctx.amount) <= 0 || !TradeUtils.checkAmount(ctx.amount)) {
         wepy.showModal({
-          title: "提示",
-          content: "请输入正确的金额",
-          showCancel: false
-        });
-
-        return;
-      }
-
-      if (parseFloat(ctx.amount) > 1000) {
-        wepy.showModal({
-          title: "提示",
-          content: "收款金额不能大于1000元",
+          title: '提示',
+          content: '请输入正确的金额',
+          confirmColor: '#d30a0a',
           showCancel: false
         });
 
@@ -262,19 +254,27 @@ export default class Cashier extends wepy.page {
       wepy.scanCode({
         onlyFromCamera: true,
         success: res => {
-          let globalData = ctx.$parent.globalData;
+          if (!res.result || !QRCODE_VALIDATOR.test(res.result)) {
+            wepy.showModal({
+              title: '提示',
+              content: '请扫描有效的二维码！',
+              confirmColor: '#d30a0a',
+              showCancel: false
+            });
+            return;
+          }
 
           // 调用收款接口
           ctx.checkout(
-            globalData.token,
+            wepy.getStorageSync('token'),
             TradeUtils.formatAmount(ctx.amount),
             res.result,
             ctx.generateVerifyCode(
-              globalData.secret,
-              globalData.time_step,
+              wepy.getStorageSync('secret'),
+              wepy.getStorageSync('time_step'),
               TradeUtils.formatAmount(ctx.amount)
             ),
-            ""
+            ''
           );
         }
       });
@@ -282,30 +282,20 @@ export default class Cashier extends wepy.page {
     handleScanCodeButtonClick(e) {
       let ctx = this;
 
-      if (!ctx.amount || !TradeUtils.checkAmount(ctx.amount)) {
+      if (!ctx.amount || parseFloat(ctx.amount) <= 0 || !TradeUtils.checkAmount(ctx.amount)) {
         wepy.showModal({
-          title: "提示",
-          content: "请输入正确的金额",
+          title: '提示',
+          content: '请输入正确的金额',
+          confirmColor: '#d30a0a',
           showCancel: false
         });
 
         return;
       }
 
-      if (parseFloat(ctx.amount) > 1000) {
-        wepy.showModal({
-          title: "提示",
-          content: "收款金额不能大于1000元",
-          showCancel: false
-        });
-
-        return;
-      }
-
-      let globalData = ctx.$parent.globalData;
       let verifyCode = ctx.generateVerifyCode(
-        globalData.secret,
-        globalData.time_step,
+        wepy.getStorageSync('secret'),
+        wepy.getStorageSync('time_step'),
         TradeUtils.formatAmount(ctx.amount)
       );
 
@@ -315,16 +305,41 @@ export default class Cashier extends wepy.page {
     },
     handleUserInfoButtonClick(e) {
       wepy.navigateTo({
-        url: "cashier_center"
+        url: 'cashier_center'
       });
     },
     handleBillButtonClick(e) {
       wepy.navigateTo({
-        url: "cashier_bill"
+        url: 'cashier_bill'
       });
     },
     handleAmountChange(e) {
-      this.amount = e.detail.value;
+      let value = e.detail.value.replace(/\.+/g, '.');
+
+      if (value.length == 2 && value[0] == '0' && value[1] != '.') {
+        value = '0.';
+      }
+
+      let dotIndex = value.indexOf('.');
+
+      if (dotIndex == 0) {
+        value = '0' + value;
+      }
+
+      if (dotIndex > -1 && value.length - dotIndex > 3) {
+        value = value.slice(0, dotIndex + 3);
+      }
+
+      if (parseFloat(value) > 1000) {
+        this.amount = '1000';
+      } else {
+        this.amount = value;
+      }
+
+      return {
+        value: this.amount,
+        cursor: this.amount.length
+      };
     }
   };
 
@@ -332,15 +347,13 @@ export default class Cashier extends wepy.page {
 
   async checkAvailable() {
     let ctx = this;
-    // ctx.available = true;
-    // ctx.available = !ctx.available;
 
     let res = null;
 
     try {
-      res = await systemApi.getSystemRunningState(ctx.$parent.globalData.token);
+      res = await systemApi.getSystemRunningState(wepy.getStorageSync('token'));
     } catch (err) {
-        return;
+      return;
     } finally {
     }
 
@@ -351,7 +364,7 @@ export default class Cashier extends wepy.page {
   }
 
   generateVerifyCode(secret, timeStep, amount) {
-    let t = new TradeCrypto(secret, timeStep);
+    let t = new TradeCrypto(secret, timeStep, parseInt(wepy.getStorageSync('time_offset')));
 
     return t.generateCashierCode(amount);
   }
@@ -360,18 +373,12 @@ export default class Cashier extends wepy.page {
     let res = null;
 
     wepy.showLoading({
-      title: "收款中",
+      title: '收款中',
       mask: true
     });
 
     try {
-      res = await tradeApi.checkout(
-        token,
-        amount,
-        customer_code,
-        verify_code,
-        remark
-      );
+      res = await tradeApi.checkout(token, amount, customer_code, verify_code, remark);
     } catch (e) {
       wepy.navigateTo({
         url: `../result?msg=收款失败&content=${e}&type=warn`
@@ -387,54 +394,11 @@ export default class Cashier extends wepy.page {
     });
   }
 
-  async renew() {
-    let ctx = this;
-
-    if (ctx.renewTimer) {
-      clearTimeout(ctx.renewTimer);
-      ctx.renewTimer = null;
-      ctx.$apply();
-    }
-
-    let res = null;
-
-    try {
-      res = await authApi.renew(ctx.$parent.globalData.token);
-    } catch (err) {
-      wepy.showModal({
-        title: "更新失败",
-        content: err,
-        showCancel: false
-      });
-      return;
-    } finally {
-    }
-
-    ctx.$parent.globalData.token = res.token;
-    ctx.$parent.globalData.expires_in = res.expires_in;
-    ctx.$parent.globalData.secret = res.secret;
-    ctx.$parent.globalData.time_step = res.time_step;
-
-    ctx.renewTimer = setTimeout(() => {
-      ctx.renew();
-    }, TimeUtils.timeSpace(res.expires_in));
-
-    ctx.$apply();
-  }
-
-  initRenewTimer() {
-    let ctx = this;
-
-    ctx.renewTimer = setTimeout(() => {
-      ctx.renew();
-    }, TimeUtils.timeSpace(ctx.$parent.globalData.expires_in));
-  }
-
   loadStat() {
     let ctx = this;
 
     statApi
-      .cashierSelfTodayStat(ctx.$parent.globalData.token)
+      .cashierSelfTodayStat(wepy.getStorageSync('token'))
       .then(res => {
         ctx.shop.money = StringUtils.formatPrice(parseFloat(res.stat.total), 2);
         ctx.shop.counts = res.stat.times;
@@ -444,17 +408,30 @@ export default class Cashier extends wepy.page {
       .catch(err => {});
   }
 
-  loadUserInfo() {
+  async loadUserInfo() {
     let ctx = this;
 
-    let globalData = ctx.$parent.globalData;
+    let res = null;
 
-    if (globalData.user) {
-      ctx.userInfo.nickName =
-        globalData.user.nickname || globalData.user.username;
+    try {
+      res = await userApi.getInfo(wepy.getStorageSync('token'));
+    } catch (err) {
+      wepy.showModal({
+        title: '获取失败',
+        content: err,
+        confirmColor: '#d30a0a',
+        showCancel: false
+      });
 
-      if (globalData.user.branch) {
-        ctx.shop.name = globalData.user.branch.name;
+      return;
+    } finally {
+    }
+
+    if (res.user) {
+      ctx.userInfo.nickName = res.user.nickname || res.user.username;
+
+      if (res.user.branch) {
+        ctx.shop.name = res.user.branch.name;
       }
     }
 
@@ -466,16 +443,9 @@ export default class Cashier extends wepy.page {
 
     ctx.checkAvailable();
     ctx.loadStat();
-  }
-
-  onLoad() {
-    let ctx = this;
-
     ctx.loadUserInfo();
-    ctx.initRenewTimer();
-    EventBus.subscribe("cashier-loaduserinfo", () => {
-      ctx.loadUserInfo();
-    });
   }
+
+  onLoad() {}
 }
 </script>
