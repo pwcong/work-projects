@@ -1,0 +1,214 @@
+<style lang="scss">
+.main {
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: auto;
+  padding-top: 40rpx;
+  .row {
+    width: 100%;
+    background-color: white;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0 35rpx;
+  }
+  .row-1 {
+    height: 100rpx;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 17px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-bottom: 1px solid #e5e5e5;
+    image {
+      width: 40rpx;
+      height: 40rpx;
+      margin-right: 22rpx;
+    }
+  }
+  .row-2 {
+    height: 128rpx;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10rpx 35rpx;
+    font-size: 16px;
+    .row-2-wrap {
+      height: 100%;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+      flex-flow: row nowrap;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      border-bottom: 1px solid #e5e5e5;
+      input {
+        text-align: right;
+      }
+    }
+  }
+  .btn-submit {
+    padding: 40rpx 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: white;
+    view {
+      margin: 0 auto;
+      width: 360rpx;
+      height: 70rpx;
+      border: 1px solid #d30a0a;
+      border-radius: 8rpx;
+      line-height: 70rpx;
+      text-align: center;
+      color: #d30a0a;
+      -webkit-transition: background-color 0.1s, color 0.1s;
+      transition: background-color 0.1s, color 0.1s;
+      &:active {
+        color: white;
+        background-color: #d30a0a;
+      }
+    }
+  }
+}
+</style>
+<template>
+  <view class="container">
+
+    <view class="main">
+
+      <view class="row row-1">
+        <image src="{{lockIconUrl}}" /> 修改密码
+      </view>
+
+      <view class="row row-2">
+        <view class="row-2-wrap">
+          新密码
+          <input placeholder="请输入新密码" password="true" @input="handleNewPasswordChange" />
+        </view>
+      </view>
+      <view class="row row-2">
+        <view class="row-2-wrap">
+          重复新密码
+          <input placeholder="请再次输入新密码" password="true" @input="handleNewCheckPasswordChange" />
+        </view>
+
+      </view>
+
+      <view class="btn-submit" @tap="handleSubmitButtonClick">
+        <view>
+          确认
+        </view>
+      </view>
+
+    </view>
+
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+import * as userApi from '../../network/api/user';
+
+export default class ManagerModify extends wepy.page {
+  config = {
+    navigationBarTitleText: '修改密码',
+    disableScroll: true
+  };
+  components = {};
+
+  data = {
+    peopleIconUrl: '../../assets/imgs/icon_people_fill.png',
+    lockIconUrl: '../../assets/imgs/icon_lock_fill.png',
+    quitIconUrl: '../../assets/imgs/icon_quit.png',
+
+    id: null,
+
+    newPassword: '',
+    newCheckPassword: ''
+  };
+
+  computed = {};
+
+  methods = {
+    handleNewPasswordChange(e) {
+      this.newPassword = e.detail.value;
+    },
+    handleNewCheckPasswordChange(e) {
+      this.newCheckPassword = e.detail.value;
+    },
+    async handleSubmitButtonClick() {
+      let ctx = this;
+
+      if (!ctx.newPassword || !ctx.newCheckPassword) {
+        wepy.showModal({
+          title: '请输入新密码和重复新密码',
+          confirmColor: '#d30a0a',
+          showCancel: false
+        });
+        return;
+      }
+
+      if (ctx.newPassword !== ctx.newCheckPassword) {
+        wepy.showModal({
+          title: '两次密码输入不一致',
+          confirmColor: '#d30a0a',
+          showCancel: false
+        });
+        return;
+      }
+
+      wepy.showLoading({
+        title: '提交中',
+        mask: true
+      });
+
+      try {
+        await userApi.modifyPassword(
+          wepy.getStorageSync('token'),
+          ctx.id,
+          ctx.oldPassword,
+          ctx.newPassword
+        );
+      } catch (err) {
+        wepy.navigateTo({
+          url: '../msg?type=warn&msg=修改失败&delta=1'
+        });
+        return;
+      } finally {
+        wepy.hideLoading();
+      }
+
+      wepy.navigateTo({
+        url: '../msg?type=success&msg=修改成功&delta=1'
+      });
+    }
+  };
+
+  events = {};
+
+  onLoad() {
+    let ctx = this;
+
+    for (let key in ctx.$wxpage.options) {
+      ctx[key] = ctx.$wxpage.options[key];
+    }
+  }
+}
+</script>

@@ -1,0 +1,58 @@
+
+  <view class="container">
+    <view class="main">
+
+      <view class="sec shopname">{{branch_name}}</view>
+      <view class="sec cashiers">
+
+        <block wx:for="{{cashiers}}" wx:for-index="index" wx:for-item="item" wx:key="key">
+
+          <view class="cashier">
+
+            <view class="left">
+              <view>
+                {{item.nickname}}
+              </view>
+
+              <view>
+                {{item.username}}
+              </view>
+            </view>
+            <view class="right">
+              <view bindtap="handleChange" data-wpyhandlechange-a="{{item}}">
+                <image src="{{lockIconUrl}}"/> 修改密码
+              </view>
+              <view bindtap="handleRemove" data-wpyhandleremove-a="{{item}}">
+                <image src="{{trashIconUrl}}"/> 删除
+              </view>
+            </view>
+
+          </view>
+
+        </block>
+
+      </view>
+
+    </view>
+
+    <image class="action" src="{{plusIconUrl}}" bindtap="handleAddButtonClick"/>
+
+    
+    <view class="modal {{$modal$active ? 'modal-active' : ''}}">
+        <view class="modal-wrap">
+            <view class="modal-main">
+        <view class="modal-row modal-tips">添加新员工</view>
+
+        <view class="modal-row modal-input">
+          <input placeholder="请输入员工名字" bindinput="handleNewCashierInput" value="{{newCashier.name}}"/>
+        </view>
+
+        <view class="modal-row modal-action">
+          <view bindtap="handleCancelAddCashier">取消</view>
+          <view bindtap="handleFinishAddCashier">完成</view>
+        </view>
+      </view>
+        </view>
+    </view>
+
+  </view>

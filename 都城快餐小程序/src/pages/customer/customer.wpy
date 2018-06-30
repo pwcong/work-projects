@@ -1,0 +1,437 @@
+<style lang="scss">
+.toolbar {
+  height: 150rpx;
+  width: 100%;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
+  background-color: white;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-left: 34rpx;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: column nowrap;
+  flex-flow: column nowrap;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  .user-name {
+    width: 450rpx;
+    font-size: 20px;
+    margin-bottom: 6rpx;
+    image {
+      width: 38rpx;
+      height: 38rpx;
+    }
+  }
+  .user-company {
+    width: 450rpx;
+    padding-left: 50rpx;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 13px;
+  }
+  .action {
+    position: absolute;
+    top: 50%;
+    right: 28rpx;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 122rpx;
+    height: 60rpx;
+    text-align: center;
+    line-height: 60rpx;
+    font-size: 16px;
+    color: #d30a0a;
+    border: 1px solid #d30a0a;
+    border-radius: 8rpx;
+    -webkit-transition: background-color 0.1s, color 0.1s;
+    transition: background-color 0.1s, color 0.1s;
+    &:active {
+      background-color: #d30a0a;
+      color: white;
+    }
+  }
+}
+
+.main {
+  z-index: 99999;
+  height: calc(100% - 150rpx);
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+  padding: 30rpx;
+  .section {
+    width: 100%;
+    background-color: white;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  .balance {
+    padding: 20rpx 0;
+    height: 200rpx;
+    border-bottom: 1px solid #e5e5e5;
+    view {
+      width: 100%;
+      text-align: center;
+    }
+    view:nth-child(1) {
+      font-size: 14px;
+      color: #4a4a4a;
+    }
+    view:nth-child(2) {
+      font-size: 36px;
+      color: #d30a0a;
+    }
+  }
+  .qrcode {
+    padding: 40rpx;
+  }
+  .qrcode-num {
+    width: 100%;
+    font-size: 18px;
+    margin-top: 24rpx;
+    text-align: center;
+    -webkit-columns: #353535;
+    columns: #353535;
+  }
+  .action {
+    margin-top: 40rpx;
+    background-color: transparent;
+    font-size: 18px;
+    color: #61749b;
+    letter-spacing: 0.69px;
+    text-align: center;
+  }
+}
+
+.logo {
+  width: 292rpx;
+  height: 88rpx;
+  position: absolute;
+  bottom: 58rpx;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+</style>
+<template>
+  <view class="container">
+    <view class="toolbar">
+      <view @tap="handleCenterButtonClick" class="user-name">
+        <image src="{{peopleIconUrl}}" /> {{user.nickName}}
+      </view>
+      <view @tap="handleCenterButtonClick" class="user-company">{{user.company}}</view>
+      <view class="action" @tap="handleBillButtonClick">账单</view>
+    </view>
+
+    <view class="main">
+      <view class="section balance">
+        <view>当前余额</view>
+        <view>￥{{user.balance}}</view>
+      </view>
+
+      <view class="section qrcode" style="display: {{available ? 'block' : 'none'}};">
+        <view>
+          <canvas canvas-id="qrcode" style="width: 172px; height: 172px; margin: 0 auto;" />
+        </view>
+        <view class="qrcode-num">{{user.payCode}}</view>
+      </view>
+
+      <view class="section" wx:if="{{!available}}" style="padding: 36rpx; 72rpx; text-align: center; color: #D30A0A;">
+
+        <text>{{reason}}</text>
+
+      </view>
+
+      <view class="section action" wx:if="{{available}}">
+        <text @tap="handleGiveButtonClick">转赠</text>
+      </view>
+
+    </view>
+
+    <image src="../../assets/imgs/home_logo.png" class="logo"></image>
+
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+import TradeCrypto from '../../utils/trade/trade-crypto';
+
+import QRCode from '../../utils/qrcode';
+import TimeUtils from '../../utils/time';
+
+import * as systemApi from '../../network/api/system';
+import * as authApi from '../../network/api/auth';
+import * as userApi from '../../network/api/user';
+import * as tradeApi from '../../network/api/trade';
+
+import * as request from '../../network/request';
+
+export default class Customer extends wepy.page {
+  config = {
+    navigationBarTitleText: '个人会员',
+    disableScroll: true
+  };
+
+  components = {};
+
+  data = {
+    peopleIconUrl: '../../assets/imgs/icon_people_fill.png',
+    moneyIconUrl: '../../assets/imgs/icon_home.png',
+
+    canvasContext: null,
+
+    user: {
+      nickName: '',
+      company: '',
+      balance: '-',
+      payCode: '',
+      verifyCodes: []
+    },
+    renewTimer: null,
+    verifyTimer: null,
+    qrcodeTimer: null,
+
+    sysAvailable: true,
+    sysReason: '',
+
+    userAvailable: true,
+    userReason: ''
+  };
+
+  computed = {
+    available() {
+      return this.sysAvailable && this.userAvailable;
+    },
+    reason() {
+      return this.sysAvailable ? (this.userAvailable ? '' : this.userReason) : this.sysReason;
+    }
+  };
+
+  methods = {
+    handleBillButtonClick(e) {
+      wepy.navigateTo({
+        url: 'customer_bill'
+      });
+    },
+    handleCenterButtonClick(e) {
+      wepy.navigateTo({
+        url: 'customer_center'
+      });
+    },
+    handleGiveButtonClick(e) {
+      wepy.navigateTo({
+        url: 'customer_give'
+      });
+    }
+  };
+
+  events = {};
+
+  async checkAvailable() {
+    let ctx = this;
+    // ctx.sysAvailable = true;
+    // ctx.sysAvailable = !ctx.sysAvailable;
+
+    let res = null;
+
+    try {
+      res = await systemApi.getSystemRunningState(wepy.getStorageSync('token'));
+    } catch (err) {
+      return;
+    } finally {
+    }
+
+    ctx.sysAvailable = res.running;
+    ctx.sysReason = res.message;
+
+    ctx.$apply();
+  }
+
+  async verify(verifyCode) {
+    let ctx = this;
+
+    let res = null;
+
+    try {
+      res = await tradeApi.notification(wepy.getStorageSync('token'), verifyCode);
+    } catch (err) {
+      if (err) {
+        ctx.clearTimer();
+      }
+
+      return;
+    } finally {
+    }
+
+    if (res.has_order) {
+      let verifyCodeIndex = ctx.user.verifyCodes.indexOf(verifyCode);
+
+      if (verifyCodeIndex > -1) {
+        ctx.user.verifyCodes.splice(verifyCodeIndex, 1);
+        ctx.$apply();
+      }
+
+      // 支付成功刷新支付码
+      ctx.initCode();
+      ctx.loadUserInfo();
+      wepy.navigateTo({
+        url: `../result?msg=成功付款&content=￥${res.order.amount}`
+      });
+    }
+  }
+
+  initVerifyTimer() {
+    let ctx = this;
+
+    if (ctx.verifyTimer) {
+      clearInterval(ctx.verifyTimer);
+      ctx.verifyTimer = null;
+    }
+
+    ctx.verifyTimer = setInterval(() => {
+      ctx.user.verifyCodes.forEach(verifyCode => {
+        if (ctx.available) {
+          ctx.verify(verifyCode);
+        }
+      });
+    }, 1400);
+
+    ctx.$apply();
+  }
+
+  initQRCodeTimer() {
+    let ctx = this;
+
+    ctx.qrcodeTimer = setInterval(() => {
+      ctx.initCode();
+    }, wepy.getStorageSync('time_step') * 1000);
+  }
+
+  initCode() {
+    let ctx = this;
+
+    let secret = wepy.getStorageSync('secret');
+    let timeStep = wepy.getStorageSync('time_step');
+
+    let t = new TradeCrypto(secret, timeStep, parseInt(wepy.getStorageSync('time_offset')));
+
+    // 用顾客 ID 生成支付码
+    let userId = JSON.parse(wepy.getStorageSync('user')).id;
+
+    let res = t.generatePayCode(userId);
+
+    let qrcode = new QRCode(ctx.canvasContext, {
+      width: 172,
+      height: 172
+    });
+
+    qrcode.makeCode(res.payCode);
+
+    ctx.user.payCode = res.payCode;
+
+    // ctx.user.verifyCodes.push(res.verifyCode);
+    ctx.user.verifyCodes.push(res.payCode);
+
+    if (ctx.user.verifyCodes.length > 2) {
+      ctx.user.verifyCodes.shift();
+    }
+
+    ctx.$apply();
+  }
+
+  async loadUserInfo() {
+    let ctx = this;
+
+    let res = null;
+
+    try {
+      res = await userApi.getInfo(wepy.getStorageSync('token'));
+    } catch (err) {
+      wepy.showModal({
+        title: '获取失败',
+        content: err,
+        confirmColor: '#d30a0a',
+        showCancel: false
+      });
+
+      return;
+    } finally {
+    }
+
+    if (res.user) {
+      ctx.user.nickName = res.user.nickname || res.user.username;
+      ctx.user.balance = res.user.balance;
+
+      if (res.user.company) {
+        ctx.user.company = res.user.company.name;
+      }
+
+      // 判断用户是否需要修改密码
+      if (res.user.password_expired) {
+        let msg = '尊敬的都城会员，为了您的账号安全，请修改登陆密码。';
+
+        wepy.navigateTo({
+          url: `customer_center?msg=${msg}`
+        });
+      }
+
+      if (res.user.last_topup_time && TimeUtils.checkTimeout(res.user.last_topup_time, 15552000000)) {
+        ctx.userAvailable = false;
+        ctx.userReason = '因距上一次充值时间已超过180天，账号已被冻结，请充值任意金额以激活账号。';
+      } else {
+        ctx.userAvailable = true;
+        ctx.userReason = '';
+      }
+    }
+
+    ctx.$apply();
+  }
+
+  clearTimer() {
+    let ctx = this;
+    if (ctx.verifyTimer) {
+      clearInterval(ctx.verifyTimer);
+      ctx.verifyTimer = null;
+    }
+
+    if (ctx.qrcodeTimer) {
+      clearInterval(ctx.qrcodeTimer);
+      ctx.qrcodeTimer = null;
+    }
+  }
+
+  onUnload() {
+    this.clearTimer();
+  }
+
+  onHide() {
+    this.clearTimer();
+  }
+
+  onShow() {
+    this.checkAvailable();
+    this.loadUserInfo();
+
+    this.initVerifyTimer();
+
+    this.initCode();
+    this.initQRCodeTimer();
+  }
+
+  onLoad() {
+    let ctx = this;
+
+    ctx.canvasContext = wepy.createCanvasContext('qrcode');
+  }
+}
+</script>

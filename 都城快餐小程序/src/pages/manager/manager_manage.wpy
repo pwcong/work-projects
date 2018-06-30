@@ -1,0 +1,425 @@
+<style lang="scss">
+.main {
+  height: 100%;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: auto;
+  padding: 40rpx 0 256rpx 0;
+  position: relative;
+  .sec {
+    background-color: white;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0 30rpx;
+    &:not(:last-child) {
+      border-bottom: 1px solid #e5e5e5;
+    }
+  }
+  .shopname {
+    font-size: 15px;
+    color: #4a4a4a;
+    height: 80rpx;
+  }
+  .cashiers {
+    .cashier {
+      width: 100%;
+      height: 150rpx;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+      flex-flow: row nowrap;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      &:not(:last-child) {
+        border-bottom: 1px solid #e5e5e5;
+      }
+      .left {
+        view:nth-child(1) {
+          font-size: 18px;
+          color: black;
+        }
+        view:nth-child(2) {
+          font-size: 14px;
+          color: #888888;
+        }
+      }
+      .right {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-flow: row nowrap;
+        flex-flow: row nowrap;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        font-size: 15px;
+        view {
+          padding-left: 50rpx;
+          background-size: 36rpx 36rpx;
+          background-repeat: no-repeat;
+          background-position: 0 50%;
+        }
+        view:nth-child(1) {
+          padding-right: 20rpx;
+          color: #4990e2;
+          border-right: 1px solid #e5e5e5;
+        }
+        view:nth-child(2) {
+          padding-left: 20rpx;
+          background-position-x: 20rpx;
+          color: #e64340;
+        }
+        image {
+          width: 30rpx;
+          height: 30rpx;
+        }
+      }
+    }
+  }
+}
+
+.action {
+  position: absolute;
+  width: 136rpx;
+  height: 136rpx;
+  border-radius: 68rpx;
+  bottom: 76rpx;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+.modal-main {
+  background-color: white;
+  border-radius: 8rpx;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 42rpx 92rpx;
+  .modal-row {
+    width: 100%;
+  }
+  .modal-tips {
+    text-align: center;
+    font-size: 18px;
+    color: black;
+    margin-bottom: 28rpx;
+  }
+  .modal-input {
+    font-size: 16px;
+    margin-bottom: 48rpx;
+    input {
+      height: 100rpx;
+      line-height: 100rpx;
+      border-bottom: 1px solid #e5e5e5;
+      -webkit-transition: border-color 0.1s;
+      transition: border-color 0.1s;
+      &:focus {
+        border-color: black;
+      }
+    }
+  }
+  .modal-action {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    view {
+      padding: 18rpx 36rpx;
+      font-size: 15px;
+    }
+    view:nth-child(1) {
+      color: #2782d7;
+      margin-right: 16rpx;
+    }
+    view:nth-child(2) {
+      background-color: #e64340;
+      color: white;
+      border-radius: 8rpx;
+    }
+  }
+}
+</style>
+<template>
+  <view class="container">
+    <view class="main">
+
+      <view class="sec shopname">{{branch_name}}</view>
+      <view class="sec cashiers">
+
+        <repeat for="{{cashiers}}">
+
+          <view class="cashier">
+
+            <view class="left">
+              <view>
+                {{item.nickname}}
+              </view>
+
+              <view>
+                {{item.username}}
+              </view>
+            </view>
+            <view class="right">
+              <view @tap="handleChange({{item}})">
+                <image src="{{lockIconUrl}}" /> 修改密码
+              </view>
+              <view @tap="handleRemove({{item}})">
+                <image src="{{trashIconUrl}}" /> 删除
+              </view>
+            </view>
+
+          </view>
+
+        </repeat>
+
+      </view>
+
+    </view>
+
+    <image class="action" src="{{plusIconUrl}}" @tap="handleAddButtonClick" />
+
+    <modal :active.sync="modalActive">
+
+      <view class="modal-main" slot="main">
+        <view class="modal-row modal-tips">添加新员工</view>
+
+        <view class="modal-row modal-input">
+          <input placeholder="请输入员工名字" @input="handleNewCashierInput" value="{{newCashier.name}}" />
+        </view>
+
+        <view class="modal-row modal-action">
+          <view @tap="handleCancelAddCashier">取消</view>
+          <view @tap="handleFinishAddCashier">完成</view>
+        </view>
+      </view>
+
+    </modal>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+import Modal from '../../components/modal';
+
+import * as branchApi from '../../network/api/branch';
+import * as userApi from '../../network/api/user';
+
+export default class ManagerManage extends wepy.page {
+  config = {
+    navigationBarTitleText: '收银员管理',
+    disableScroll: true
+  };
+  components = {
+    modal: Modal
+  };
+
+  data = {
+    plusIconUrl: '../../assets/imgs/icon_add.png',
+    trashIconUrl: '../../assets/imgs/icon_delete.png',
+    lockIconUrl: '../../assets/imgs/icon_lock.png',
+
+    modalActive: false,
+
+    newCashier: {
+      name: ''
+    },
+
+    cashiers: [],
+
+    branch_name: null,
+    branch_id: null
+  };
+
+  computed = {};
+
+  methods = {
+    handleRemove(item) {
+      let ctx = this;
+
+      wepy.showModal({
+        title: '提示',
+        confirmColor: '#d30a0a',
+        content: `是否确定删除收银员${item.nickname}？`,
+        success: function(s) {
+          if (s.confirm) {
+            ctx.removeCashier(item.id);
+          }
+        }
+      });
+    },
+
+    handleChange(item) {
+      wepy.navigateTo({
+        url: `manager_modify?id=${item.id}`
+      });
+    },
+
+    handleAddButtonClick() {
+      this.newCashier.name = '';
+      this.modalActive = true;
+    },
+
+    handleCancelAddCashier() {
+      this.modalActive = false;
+    },
+
+    handleFinishAddCashier() {
+      this.modalActive = false;
+
+      this.addCashier(this.branch_id, this.newCashier.name);
+    },
+
+    handleNewCashierInput(e) {
+      this.newCashier.name = e.detail.value;
+    }
+  };
+
+  events = {};
+
+  async removeCashier(id) {
+    let ctx = this;
+
+    wepy.showLoading({
+      title: '提交中',
+      mask: true
+    });
+
+    try {
+      await userApi.deleteUsers(wepy.getStorageSync('token'), [id]);
+    } catch (err) {
+      wepy.showModal({
+        title: '删除失败',
+        content: err,
+        confirmColor: '#d30a0a',
+        showCancel: false
+      });
+      return;
+    } finally {
+      wepy.hideLoading();
+    }
+
+    wepy.showToast({
+      title: '删除成功',
+      icon: 'success',
+      duration: 2000
+    });
+
+    ctx.loadCashiers();
+  }
+
+  async addCashier(id, nickName) {
+    let ctx = this;
+
+    wepy.showLoading({
+      title: '添加中',
+      mask: true
+    });
+
+    try {
+      await userApi.register(
+        wepy.getStorageSync('token'),
+        null,
+        null,
+        2,
+        nickName,
+        null,
+        null,
+        null,
+        null,
+        null,
+        [id]
+      );
+    } catch (err) {
+      wepy.showModal({
+        title: '添加失败',
+        content: err,
+        confirmColor: '#d30a0a',
+        showCancel: false
+      });
+      return;
+    } finally {
+      wepy.hideLoading();
+    }
+
+    wepy.showToast({
+      title: '添加成功',
+      icon: 'success',
+      duration: 2000
+    });
+
+    ctx.loadCashiers();
+  }
+
+  async loadCashiers() {
+    let ctx = this;
+
+    let res = null;
+
+    wepy.showLoading({
+      title: '获取中',
+      mask: true
+    });
+
+    try {
+      res = await branchApi.getInfo(wepy.getStorageSync('token'), ctx.branch_id);
+    } catch (err) {
+      wepy.showModal({
+        title: '获取失败',
+        content: err,
+        confirmColor: '#d30a0a',
+        showCancel: false
+      });
+      return;
+    } finally {
+      wepy.hideLoading();
+    }
+
+    ctx.cashiers = res.branch.staffs.filter(
+      cashier => cashier.user_type === 2 && cashier.account_status === 0
+    );
+
+    ctx.$apply();
+  }
+
+  onLoad() {
+    let ctx = this;
+
+    for (let key in ctx.$wxpage.options) {
+      ctx[key] = ctx.$wxpage.options[key];
+    }
+
+    ctx.loadCashiers();
+  }
+}
+</script>

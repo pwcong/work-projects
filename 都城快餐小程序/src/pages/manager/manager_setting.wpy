@@ -1,0 +1,306 @@
+<style lang="scss">
+.main {
+  height: 100%;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: auto;
+  padding-top: 40rpx;
+  .row {
+    width: 100%;
+    background-color: white;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0 35rpx;
+  }
+  .row-1 {
+    height: 100rpx;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 17px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-bottom: 1px solid #e5e5e5;
+    image {
+      width: 40rpx;
+      height: 40rpx;
+      margin-right: 22rpx;
+    }
+  }
+  .row-2 {
+    height: 128rpx;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10rpx 35rpx;
+    font-size: 16px;
+    .row-2-wrap {
+      height: 100%;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+      flex-flow: row nowrap;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      border-bottom: 1px solid #e5e5e5;
+      input {
+        text-align: right;
+      }
+    }
+  }
+  .btn-submit {
+    padding: 40rpx 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: white;
+    view {
+      margin: 0 auto;
+      width: 360rpx;
+      height: 70rpx;
+      border: 1px solid #d30a0a;
+      border-radius: 8rpx;
+      line-height: 70rpx;
+      text-align: center;
+      color: #d30a0a;
+      -webkit-transition: background-color 0.1s, color 0.1s;
+      transition: background-color 0.1s, color 0.1s;
+      &:active {
+        color: white;
+        background-color: #d30a0a;
+      }
+    }
+  }
+  .btn-logout {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-top: 86rpx;
+    padding: 0 30rpx;
+    view {
+      border-radius: 8rpx;
+      width: 100%;
+      height: 92rpx;
+      color: white;
+      background-color: #d30a0a;
+      font-size: 18px;
+      -webkit-transition: background-color 0.1s, color 0.1s;
+      transition: background-color 0.1s, color 0.1s;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+      flex-flow: row nowrap;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      &:active {
+        color: white;
+        background-color: #a20909;
+      }
+    }
+  }
+}
+</style>
+<template>
+  <view class="container">
+
+    <view class="main">
+      <view class="row row-1">
+        <image src="{{peopleIconUrl}}" /> 基本信息
+      </view>
+      <view class="row row-2" style="margin-bottom: 40rpx;">
+        <view class="row-2-wrap">
+          账号
+          <text style="color: #8b8b8b;">{{username}}</text>
+        </view>
+      </view>
+
+      <view class="row row-1">
+        <image src="{{lockIconUrl}}" /> 修改密码
+      </view>
+      <view class="row row-2">
+        <view class="row-2-wrap">
+          原始密码
+          <input @input="handleOldPasswordChange" placeholder="请输入原始密码" password="true" />
+        </view>
+      </view>
+      <view class="row row-2">
+        <view class="row-2-wrap">
+          新密码
+          <input @input="handleNewPasswordChange" placeholder="请输入新密码" password="true" />
+        </view>
+      </view>
+      <view class="row row-2">
+        <view class="row-2-wrap">
+          重复新密码
+          <input @input="handleNewCheckPasswordChange" placeholder="请再次输入新密码" password="true" />
+        </view>
+
+      </view>
+
+      <view class="btn-submit" @tap="handleSubmitButtonClick">
+        <view>
+          确认
+        </view>
+      </view>
+
+      <view class="btn-logout">
+        <view @tap="handleLogoutButtonClick">
+          <image src="{{quitIconUrl}}" style="width: 40rpx; height: 40rpx; margin-right: 30rpx;">
+          </image>
+          退出登录
+        </view>
+      </view>
+
+    </view>
+
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+import * as userApi from '../../network/api/user';
+
+export default class ManagerSetting extends wepy.page {
+  config = {
+    navigationBarTitleText: '设置',
+    disableScroll: true
+  };
+  components = {};
+
+  data = {
+    peopleIconUrl: '../../assets/imgs/icon_people_fill.png',
+    lockIconUrl: '../../assets/imgs/icon_lock_fill.png',
+    quitIconUrl: '../../assets/imgs/icon_quit.png',
+
+    username: '',
+    oldPassword: '',
+    newPassword: '',
+    newCheckPassword: ''
+  };
+
+  computed = {};
+
+  methods = {
+    async handleSubmitButtonClick() {
+      let ctx = this;
+
+      if (!ctx.oldPassword || !ctx.newPassword || !ctx.newCheckPassword) {
+        wepy.showModal({
+          title: '请输入原始密码和新密码',
+          confirmColor: '#d30a0a',
+          showCancel: false
+        });
+        return;
+      }
+
+      if (ctx.newPassword !== ctx.newCheckPassword) {
+        wepy.showModal({
+          title: '两次密码输入不一致',
+          confirmColor: '#d30a0a',
+          showCancel: false
+        });
+        return;
+      }
+
+      let res = null;
+
+      wepy.showLoading({
+        title: '提交中',
+        mask: true
+      });
+
+      try {
+        res = await userApi.modifyPassword(
+          wepy.getStorageSync('token'),
+          null,
+          ctx.oldPassword,
+          ctx.newPassword
+        );
+      } catch (err) {
+        wepy.navigateTo({
+          url: '../msg?type=warn&msg=修改失败&delta=1'
+        });
+        return;
+      } finally {
+        wepy.hideLoading();
+      }
+
+      wepy.navigateTo({
+        url: `../msg?type=success&msg=修改成功&delta=-1`
+      });
+    },
+    handleLogoutButtonClick() {
+      let ctx = this;
+      ctx.$parent.clearLoginStat();
+
+      wepy.reLaunch({
+        url: '../index'
+      });
+    },
+    handleOldPasswordChange(e) {
+      this.oldPassword = e.detail.value;
+    },
+    handleNewPasswordChange(e) {
+      this.newPassword = e.detail.value;
+    },
+    handleNewCheckPasswordChange(e) {
+      this.newCheckPassword = e.detail.value;
+    }
+  };
+
+  events = {};
+
+  async loadUserInfo() {
+    let ctx = this;
+
+    wepy.showLoading({
+      title: '获取中',
+      mask: true
+    });
+
+    let res = null;
+
+    try {
+      res = await userApi.getInfo(wepy.getStorageSync('token'));
+    } catch (err) {
+      wepy.showModal({
+        title: '获取失败',
+        content: err,
+        confirmColor: '#d30a0a',
+        showCancel: false
+      });
+      return;
+    } finally {
+      wepy.hideLoading();
+    }
+
+    ctx.username = res.user && res.user.username;
+    ctx.$apply();
+  }
+
+  onLoad() {
+    this.loadUserInfo();
+  }
+}
+</script>

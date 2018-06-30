@@ -1,0 +1,88 @@
+
+    <view class="container">
+
+        <view class="row nav">
+            <view class="col" bindtap="handleNavItemClick" data-wepy-params-a="0">
+                班级排行
+            </view>
+            <view class="divider"/>
+            <view class="col" bindtap="handleNavItemClick" data-wepy-params-a="1">
+                全校Top10
+            </view>
+
+            <view class="nav-index">
+                <view class="nav-index-flag" style="width: 50%; left: {{navPosition}}%;">
+                    <view/>
+                </view>
+            </view>
+
+        </view>
+
+        <view class="main">
+
+            <swiper class="section rank" bindchange="handleSwiperChange" current="{{navIndex}}" duration="200">
+                <swiper-item class="rank-section rank-class">
+
+                    <view class="row rank-item rank-self">
+                        <view class="rank-item-col left">
+                            <!-- <image wx:if="{{medal}}" src="{{medal}}" class="icon-medal" />
+                            <text wx:else class="score">{{rank}}</text> -->
+                            <image src="{{userInfo.avatarUrl}}" class="avatar"/>
+                            <text class="name">{{userInfo.nickName}}</text>
+                        </view>
+                        <view class="rank-item-col right">
+                            <text class="step">{{step}}</text>
+                            <image src="../assets/imgs/icon_step.png" class="icon-step"/>
+                        </view>
+                    </view>
+
+                    <block wx:for="{{rankList}}" wx:for-index="index" wx:for-item="item" wx:key="key">
+                        <view class="row rank-item">
+                            <view class="rank-item-col left">
+                                <image  wx:if="{{item.medal}}" src="{{item.medal}}" class="icon-medal"/>
+                                <text  wx:else class="score">{{item.rank}}</text>
+                                <image src="{{item.avatarUrl}}" class="avatar"/>
+                                <text class="name">{{item.name}}</text>
+                            </view>
+                            <view class="rank-item-col right">
+                                <text class="step">{{item.step}}</text>
+                                <image src="../assets/imgs/icon_step.png" class="icon-step"/>
+                            </view>
+                        </view>
+                    </block>
+                </swiper-item>
+                <swiper-item class="rank-section rank-school">
+
+                    <view class="row rank-item rank-self">
+                        <view class="rank-item-col left">
+                            <!-- <image wx:if="{{medal}}" src="{{medal}}" class="icon-medal" />
+                            <text wx:else class="score">{{rank}}</text> -->
+                            <image src="{{userInfo.avatarUrl}}" class="avatar"/>
+                            <text class="name">{{userInfo.nickName}}</text>
+                        </view>
+                        <view class="rank-item-col right">
+                            <text class="step">{{step}}</text>
+                            <image src="../assets/imgs/icon_step.png" class="icon-step"/>
+                        </view>
+                    </view>
+
+                    <block wx:for="{{rankList}}" wx:for-index="index" wx:for-item="item" wx:key="key">
+                        <view class="row rank-item">
+                            <view class="rank-item-col left">
+                                <image wx:if="{{item.medal}}" src="{{item.medal}}" class="icon-medal"/>
+                                <text wx:else class="score">{{item.rank}}</text>
+                                <image src="{{item.avatarUrl}}" class="avatar"/>
+                                <text class="name">{{item.name}}</text>
+                            </view>
+                            <view class="rank-item-col right">
+                                <text class="step">{{item.step}}</text>
+                                <image src="../assets/imgs/icon_step.png" class="icon-step"/>
+                            </view>
+                        </view>
+                    </block>
+                </swiper-item>
+            </swiper>
+
+        </view>
+
+    </view>

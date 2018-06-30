@@ -1,0 +1,163 @@
+.container {
+  padding-top: 10vh;
+  padding-bottom: 8vh;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background-color: #f5f5f5;
+  font-family: 'Microsoft YaHei', sans-serif;
+}
+
+.icon {
+  display: inline-block;
+  width: 8vw;
+  height: 8vw;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.icon-home {
+  background-image: url(../imgs/home.png);
+}
+.icon-notice {
+  background-image: url(../imgs/notice.png);
+}
+
+.header {
+  height: 10vh;
+  background-color: #1e90ff;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 999;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4vw;
+}
+
+.header .logo {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  font-size: 22px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.header .logo img {
+  margin-right: 2vw;
+  max-height: 7vh;
+}
+
+.header .btn {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  font-size: 18px;
+  color: white;
+  padding-left: 2vw;
+  border-left: 1px solid white;
+}
+
+.header .btn .icon {
+  position: relative;
+  top: -0.5vw;
+  margin-right: 2vw;
+}
+
+.notice {
+  position: relative;
+  padding: 3vw;
+}
+
+.notice .icon-wrapper {
+  z-index: 100;
+  background-color: #f5f5f5;
+  position: absolute;
+  left: 0;
+  top: 1.5vw;
+}
+
+.banner .swiper-slide {
+  height: 24vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.msg {
+  padding: 0 4vw;
+}
+
+.msg-item {
+  margin-top: 2vh;
+}
+
+.msg-time {
+  text-align: center;
+  font-size: 11px;
+  color: #999;
+  padding: 1vh 0;
+}
+
+.msg-main {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+}
+
+.msg-avatar {
+  width: 15vw;
+  height: 15vw;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-right: 2vw;
+}
+
+.msg-content {
+  flex: 1;
+  line-height: 24px;
+  font-size: 20px;
+  border: 1px solid #ccc;
+  padding: 1vw;
+  background: none repeat scroll 0% 0% #bae0f9;
+  box-shadow: 0.04rem 0.04rem 0.05rem #3ea0dd;
+  border-radius: 1vw;
+  overflow: hidden;
+}
+
+.toolbar {
+  z-index: 999;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 8vh;
+  background-color: #87cefa;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 4vw;
+}
+
+.toolbar input {
+  border: none;
+  outline: none;
+  padding: 1vw;
+  width: 40vw;
+}
+
+.toolbar .btn {
+  display: inline-block;
+  padding: 2vw;
+  text-decoration: none;
+  background-color: orangered;
+  color: white;
+  border-radius: 2vw;
+}

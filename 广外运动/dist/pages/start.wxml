@@ -1,0 +1,92 @@
+
+    <view class="container">
+
+        <view class="main">
+            <map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="16" circles="{{circles}}" markers="{{markers}}" bindmarkertap="markertap" show-location="show-location" style="width: 100%; height: 100%;"/>
+        </view>
+
+        <view class="row tools"  wx:if="{{startFlag}}">
+
+            <view class="col left">
+                {{duration}}
+            </view>
+            <view class="col right">
+                <button bindtap="handleStopButtonClick">结束运动</button>
+            </view>
+
+        </view>
+
+        <view class="row tools"  wx:else>
+
+            <view class="col">
+                <button bindtap="start">开始运动</button>
+            </view>
+
+        </view>
+
+        <!-- 
+                                                        <stop-err-modal v-bind:active.sync="stopErrModalActive">
+
+                                                        <view slot="main" class="start-modal">
+                                                        <view class="row start-modal-head">
+
+                                                        <view class="col left">
+                                                        <image src="../assets/imgs/icon_warn.png" />
+                                                        </view>
+                                                        <view class="col right">
+                                                        请抵达指定场地签到处，并开启 手机蓝牙功能后，点击结束运动 按钮，进行签退。
+                                                        </view>
+
+                                                        </view>
+
+                                                        <view class="row start-modal-action">
+
+                                                        <button bindtap="handleModalButtonClick(stopErrModalActive)">我知道了</button>
+
+                                                        </view>
+
+                                                        </view>
+
+                                                        </stop-err-modal>
+
+                                                        <start-err-modal v-bind:active.sync="startErrModalActive">
+
+                                                        <view slot="main" class="start-modal">
+                                                        <view class="row start-modal-head">
+
+                                                        <view class="col left">
+
+                                                        <image src="../assets/imgs/icon_warn.png" />
+                                                        </view>
+                                                        <view class="col right">
+                                                        请抵达指定场地签到处，开启手机 蓝牙功能，再开始运动。
+                                                        </view>
+
+                                                        </view>
+
+                                                        <view class="start-modal-action">
+
+                                                        <view class="start-modal-tips">目前已支持的运动场地</view>
+                                                        <view class="start-modal-list">
+
+                                                        <repeat for="{{supportedLocation}}">
+
+                                                        <view class="start-modal-list-item">
+                                                        <view class="dot"></view>
+                                                        <text>{{item}}</text>
+                                                        </view>
+
+                                                        </repeat>
+
+                                                        </view>
+
+                                                        <button bindtap="handleModalButtonClick(startErrModalActive)">我知道了</button>
+
+                                                        </view>
+
+                                                        </view>
+
+                                                        </start-err-modal> 
+                                                                    -->
+
+    </view>

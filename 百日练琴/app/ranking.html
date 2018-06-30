@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>排行榜·晓雯音乐广州市桥分校百日练琴第三季活动</title>
+
+    <meta js-sdk="true">
+
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    
+    <script src="libs/jquery.min.js"></script>
+    
+    <link rel="stylesheet" href="libs/lib-flexible/flexible.css">
+    <script src="libs/lib-flexible/flexible.js"></script>
+    <link rel="stylesheet" href="libs/weui/weui.min.css">
+    <script src="libs/weui/weui.min.js"></script>
+    
+
+    <script src="js/api.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/global.js"></script>
+    
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ranking.css">
+
+    
+    <script src="js/ranking.js"></script>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="main">
+
+            <div class="section details" id="details">
+
+                <div class="row info">
+
+                    <img class="hide" id="avatar" src="" alt="avatar">
+                    <span id="name">-</span>
+                    <span id="sex" class="icon"></span>
+
+                </div>
+                <div class="row practice">
+
+                    <div class="col">
+                        <span id="practiceTime">-</span>
+                        <p>练习时长（分钟）</p>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="col">
+                        <span id="duration">-</span>
+                        <p>坚持天数</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="section ranking">
+
+                <div class="row navbars">
+                    <div class="col navbar active" id="showTimeRanking">
+                        时长排行
+                        <div class="line">
+                            <div class="line-wrap"></div>
+                        </div>
+                    </div>
+                    <div class="col navbar" id="showDayRanking">
+                        天数排行
+                        <div class="line">
+                            <div class="line-wrap"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row ranking-wrap ranking-time" id="timeRanking">
+
+                    <!-- <div class="item">
+                        <div class="left">
+                            <span class="medal icon icon-gold"></span>
+                            <img class="avatar" src="imgs/avatar.png" alt="avatar">
+                            <span class="name">Pwcong</span>
+                            <span class="sex icon icon-male"></span>
+                        </div>
+                        <div class="right">312</div>
+                    </div> -->
+
+                    <div class="tips">没有了~</div>
+                </div>
+                
+                <div class="row ranking-wrap ranking-day hide" id="dayRanking">
+                    <div class="tips">没有了~</div>
+                </div>
+                
+
+            </div>
+
+            <!-- <div class="section">
+                <button id="btnCheck">Check</button>
+            </div> -->
+
+        </div>
+
+        <div class="tabbar">
+            <a href="home.html">我要练琴</a>
+            <a href="record.html">我的记录</a>
+            <a href="#" class="active">排行榜</a>
+        </div>
+
+    </div>
+</body>
+
+</html>

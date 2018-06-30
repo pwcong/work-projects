@@ -1,0 +1,66 @@
+<style lang="scss">
+.modal {
+  z-index: 999;
+
+  position: absolute;
+
+  box-sizing: border-box;
+  padding: 40rpx;
+
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.51);
+
+  display: none;
+  opacity: 0;
+
+  .modal-wrap {
+    width: 100%;
+  }
+}
+
+.modal-active {
+  display: -webkit-flex;
+  display: flex;
+
+  opacity: 1;
+
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+}
+</style>
+
+<template>
+    <view class="modal {{active ? 'modal-active' : ''}}">
+        <view class="modal-wrap">
+            <slot name="main"></slot>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+export default class Modal extends wepy.component {
+  props = {
+    active: {
+      type: String,
+      default: false
+    }
+  };
+
+  components = {};
+
+  data = {};
+
+  methods = {};
+
+  events = {};
+}
+</script>
+
