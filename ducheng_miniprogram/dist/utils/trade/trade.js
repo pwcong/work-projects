@@ -1,1 +1,0 @@
-"use strict";function checkAmount(t){var e=t.indexOf(".");return!(e>-1)||0!=e&&(!(t.split(".").length>2)&&e>=t.length-3)}function formatAmount(t){return parseInt(100*parseFloat(t))}Object.defineProperty(exports,"__esModule",{value:!0}),exports.default={checkAmount:checkAmount,formatAmount:formatAmount};
