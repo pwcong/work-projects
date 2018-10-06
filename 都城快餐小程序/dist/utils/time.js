@@ -1,1 +1,0 @@
-"use strict";function timeSpace(e){return e-Date.parse(new Date)}function checkTimeout(e,t){if(!e||!t)return!1;var r=Date.parse(e);return new Date-r>=t}Object.defineProperty(exports,"__esModule",{value:!0}),exports.default={timeSpace:timeSpace,checkTimeout:checkTimeout};

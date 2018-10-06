@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>用户注册</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/register.css" rel="stylesheet">
+</head>
+
+<body class="text-center">
+    <form id="registerForm" action="#" method="post" class="form-register">
+        <h1 class="h3 mb-3 font-weight-normal">用户注册</h1>
+
+        <label for="inputUsername" class="sr-only">用户名</label>
+        <input type="text" id="inputUsername" class="form-control" placeholder="用户名" autofocus>
+
+        <label for="inputPassword" class="sr-only">密码</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="密码">
+
+        <label for="inputCheckPassword" class="sr-only">确认密码</label>
+        <input type="password" id="inputCheckPassword" class="form-control" placeholder="确认密码">
+
+        <label for="inputPhone" class="sr-only">电话</label>
+        <input type="text" id="inputPhone" class="form-control" placeholder="电话">
+
+        <label for="inputEmail" class="sr-only">邮箱</label>
+        <input type="text" id="inputEmail" class="form-control" placeholder="邮箱">
+
+        <div class="alert alert-danger" style="display: none;" role="alert" id="tip"></div>
+
+        <button class="btn btn-lg btn-block" style="margin-top: 8px;" type="reset" id="btnSubmit">重置</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" id="btnSubmit">提交</button>
+
+    </form>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+        var tip = $('#tip');
+
+        $('input').change(function () {
+            tip.hide();
+        })
+
+        $('#registerForm').submit(function (e) {
+
+            var username = $('#inputUsername').val();
+            var password = $('#inputPassword').val();
+            var checkPassword = $('#inputCheckPassword').val();
+            var phone = $('#inputPhone').val();
+            var email = $('#inputEmail').val();
+
+            if(!username || !password || !checkPassword || !phone || !email) {
+                tip.text('请填写所有表单信息');
+                tip.show();
+                return false;
+            }
+
+            if(password !== checkPassword) {
+                tip.text('确认密码输入不一致');
+                tip.show();
+                return false;
+            }
+
+            if(!(/^(13[0-9]|14[5-9]|15[012356789]|166|17[0-8]|18[0-9]|19[8-9])[0-9]{8}$/.test(phone))) {
+                tip.text('请输入正确的电话');
+                tip.show();
+                return false;
+            }
+
+            if(!(/^([A-Za-z0-9_\-\.\u4e00-\u9fa5])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,8})$/.test(email))) {
+                tip.text('请输入正确的邮箱');
+                tip.show();
+                return false;
+            }
+
+            return true;
+
+        });
+
+    </script>
+
+</body>
+
+</html>
