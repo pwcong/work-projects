@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/swiper.min.css" />
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+    .work-head {
+      position: absolute;
+      left: 0;
+      top: -90px;
+      right: 0;
+      transition: all 0.3s;
+    }
+
+    .swiper-container {
+      position: relative;
+      height: calc(100vh - 55px);
+      top: 0;
+      transition: all 0.3s;
+    }
+
+    .work-head.active {
+      top: 0;
+    }
+
+    .work-head.active + .swiper-container {
+      top: 90px;
+    }
+
+    .list-group {
+      height: auto;
+    }
+
+    .refresh{
+      position:absolute;
+      line-height:100px;
+      bottom:100%;
+      text-align:center;
+      width:100%;
+    }
+    .loadmore{
+      position:absolute;
+      line-height:20px;
+      top:100%;
+      text-align:center;
+      width:100%;
+	}
+  
+    </style>
+
+
+</head>
+
+<body>
+    <!--搜索开始-->
+    <div class="work-head active">
+        <div class="search-bg">
+            <div class="container search-frame ">
+                <div class="input-group search-hg"> <img class="search-img" src="images/search.png">
+                    <input type="text" class="input-lg">
+                </div>
+            </div>
+        </div>
+
+        <!--搜索结束-->
+        <div class="index-menu">
+            <div><a class="index-menu-one" href="">答疑帮会</a></div>
+            <div><a class="index-menu-one" href="">软件工具</a></div>
+            <div><a class="index-menu-one on" href="">财务用品</a></div>
+        </div>
+    </div>
+    <div class="swiper-container swiper-container-h swiper-root">
+
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="swiper-container swiper-container-v swiper-child">
+
+                    <div class="swiper-wrapper">
+                        <div class="refresh">释放刷新</div>
+                        <script>
+                            for (var i = 0; i < 10; i++) {
+                                document.write('<div class="swiper-slide list-group"><div class="list-group-itemt2"><div class="software-one"><a href=""><div class="financial-left"><img src="images/yp.jpg"></div><div class="financial-right"><p class="financial-tit">浩立信会计记账凭证封面封底牛皮纸封皮540*143mm</p><p class="money">¥12.6</p><p class="purchase">126人已购买</p></div></a></div></div><div class="software-line16"></div></div>');
+                            }
+                        </script>
+                        <div class="loadmore">加载更多</div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="swiper-container swiper-container-v swiper-child">
+
+                    <div class="swiper-wrapper">
+                        <div class="refresh">释放刷新</div>
+                        <script>
+                            for (var i = 0; i < 10; i++) {
+                                document.write('<div class="swiper-slide list-group"><div class="list-group-itemt2"><div class="software-one"><a href=""><div class="financial-left"><img src="images/yp.jpg"></div><div class="financial-right"><p class="financial-tit">浩立信会计记账凭证封面封底牛皮纸封皮540*143mm</p><p class="money">¥12.6</p><p class="purchase">126人已购买</p></div></a></div></div><div class="software-line16"></div></div>');
+                            }
+                        </script>
+                        <div class="loadmore">加载更多</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!--底部四个导航开始-->
+    <div class="nav-menu">
+        <ul class="foot">
+            <li class="Imgbox" img="images/learning.png" data-img="images/learning.png"><a href="##"> <img src="images/learning.png" />
+                    <p>学习</p>
+                </a></li>
+            <li class="Imgbox" img="images/work.png" data-img="images/work.png"> <a href="##"> <img src="images/work.png" />
+                    <p class="actives">工作</p>
+                </a> </li>
+            <li class="Imgbox" img="images/life.png" data-img="images/life.png"> <a href="##"> <img src="images/life.png" />
+                    <p>生活</p>
+                </a> </li>
+            <li class="Imgbox" img="images/mine.png" data-img="images/mine.png"> <a href="##"> <img src="images/mine.png" />
+                    <p>我的</p>
+                </a> </li>
+        </ul>
+    </div>
+    </div>
+    <!--底部四个导航结束-->
+    <!--下拉加载JS-->
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="js/swiper.min.js" type="text/javascript"></script>
+
+    <script>
+
+        // JavaScript Document
+
+        new Swiper(".swiper-root", {
+            onTouchMove: function (swiper) { },
+            onTouchEnd: function (swiper) { }
+        });
+
+        $(".swiper-child").each(function () {
+            var refreshEnd = false;
+            var times = 0; //加载次数
+            var oriSpeed = 300;
+            var swiper = new Swiper($(this).get(0), {
+                speed: oriSpeed,
+                slidesPerView: "auto",
+                freeMode: true,
+                mousewheelControl: true,
+                setWrapperSize: true,
+                direction: "vertical",
+                on: {
+                    //下拉释放刷新
+                    touchEnd: function () {
+                        swiper = this;
+                        refreshText = swiper.$el.find(".refresh");
+                        if (this.translate > 100) {
+                            swiper.setTransition(this.params.speed);
+                            swiper.setTranslate(100);
+                            swiper.touchEventsData.isTouched = false; //跳过touchEnd事件后面的跳转(4.0.5)
+                            refreshText.html("刷新中");
+
+                            swiper.allowTouchMove = false;
+                            setTimeout(function () {
+                                //模仿AJAX
+
+                                // 重写此处添加自定义数据
+
+                                swiper.removeAllSlides();
+                                for (var i = 0; i < 10; i++) {
+                                    swiper.appendSlide(
+                                        '<div class="swiper-slide list-group"><div class="list-group-itemt2"><div class="software-one"><a href=""><div class="financial-left"><img src="images/yp.jpg"></div><div class="financial-right"><p class="financial-tit">浩立信会计记账凭证封面封底牛皮纸封皮540*143mm</p><p class="money">¥12.6</p><p class="purchase">126人已购买</p></div></a></div></div><div class="software-line16"></div></div>'
+                                    );
+                                }
+                                refreshText.html("刷新完成");
+                                refreshEnd = true;
+                                swiper.allowTouchMove = true;
+                            }, 1000);
+                        }
+                    },
+
+                    touchMove: function () {
+                        swiper = this;
+                        if (swiper.translate - swiper.previousTranslate < 0) {
+                            $('.work-head').removeClass('active');
+                        } else {
+                            $('.work-head').addClass('active');
+                        }
+                    },
+                    touchStart: function () {
+                        if (refreshEnd == true) {
+                            this.$el.find(".refresh").html("释放刷新");
+                            refreshEnd = false;
+                        }
+                    },
+
+                    //加载更多
+                    momentumBounce: function () {
+                        //非正式反弹回调函数，上拉释放加载更多可参考上例
+                        swiper = this;
+
+                        if (swiper.translate < -100) {
+                            swiper.allowTouchMove = false; //禁止触摸
+                            swiper.params.virtualTranslate = true; //定住不给回弹
+                            setTimeout(function () {
+                                //模仿AJAX
+
+                                // 重写此处添加自定义数据
+                                for (var m = 0; m < 10; m++) {
+                                    swiper.appendSlide(
+                                        '<div class="swiper-slide list-group"><div class="list-group-itemt2"><div class="software-one"><a href=""><div class="financial-left"><img src="images/yp.jpg"></div><div class="financial-right"><p class="financial-tit">浩立信会计记账凭证封面封底牛皮纸封皮540*143mm</p><p class="money">¥12.6</p><p class="purchase">126人已购买</p></div></a></div></div><div class="software-line16"></div></div>'
+                                    );
+                                }
+                                swiper.params.virtualTranslate = false;
+                                swiper.allowTouchMove = true;
+                                times++;
+                            }, 1000);
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
